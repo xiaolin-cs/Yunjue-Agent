@@ -29,6 +29,7 @@ conf.yaml
 # coverage report
 coverage.xml
 coverage/
+dataset/
 
 checkpoints/
 dynamic_tools/
