@@ -48,3 +48,4 @@ legacy/
 
 *.log
 *.db*
+*.csv
