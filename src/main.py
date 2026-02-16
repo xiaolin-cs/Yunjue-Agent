@@ -85,6 +85,8 @@ async def run_task(
                 "dynamic_tools_public_dir": f"{run_dir}/dynamic_tools_public",
             },
             "recursion_limit": 1000,
+            "run_name": f"YunjueAgent-task-{task_id}",
+            "tags": ["yunjue", "task", task_id],
             **get_billing_config(billing_tracker),
         }
 

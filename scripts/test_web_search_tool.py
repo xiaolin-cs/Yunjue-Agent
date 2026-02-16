@@ -94,13 +94,35 @@ print(result.model_dump_json())
 
 
 if __name__ == "__main__":
-    default_path = Path(__file__).parent.parent / "output" / "test" / "private_dynamic_tools" / "dynamic_tools_0" / "web_search.py"
-    tool_path = Path(sys.argv[1]) if len(sys.argv) > 1 else default_path
+    import os
+    from langsmith import traceable
+    from langchain_anthropic import ChatAnthropic
+    from langchain_core.tracers.langchain import wait_for_all_tracers
 
-    print(f"Testing web_search tool: {tool_path}")
-    print(f"TAVILY_API_KEY: {'*' * 8 if os.environ.get('TAVILY_API_KEY') else 'NOT SET'}")
-    print(f"PROXY_URL: {os.environ.get('PROXY_URL', '(not set)')}")
-    print("-" * 50)
+    # 确保这些环境变量在当前进程里可见
+    os.environ["LANGSMITH_TRACING"] = "true"
+    os.environ["LANGSMITH_API_KEY"] = "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"
+    os.environ["LANGSMITH_PROJECT"] = "YunjueAgent"
+    os.environ["ANTHROPIC_API_KEY"] = "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"
 
-    ok = test_web_search_tool(tool_path)
-    sys.exit(0 if ok else 1)
+    llm = ChatAnthropic(model="claude-sonnet-4-5-20250929", temperature=0)
+
+    @traceable(name="anthropic_debug", project_name="YunjueAgent")
+    def run_once():
+        return llm.invoke("Say hello in one sentence.").content
+
+    print(run_once())
+    wait_for_all_tracers()
+
+
+
+    # default_path = Path(__file__).parent.parent / "output" / "test" / "private_dynamic_tools" / "dynamic_tools_0" / "web_search.py"
+    # tool_path = Path(sys.argv[1]) if len(sys.argv) > 1 else default_path
+
+    # print(f"Testing web_search tool: {tool_path}")
+    # print(f"TAVILY_API_KEY: {'*' * 8 if os.environ.get('TAVILY_API_KEY') else 'NOT SET'}")
+    # print(f"PROXY_URL: {os.environ.get('PROXY_URL', '(not set)')}")
+    # print("-" * 50)
+
+    # ok = test_web_search_tool(tool_path)
+    # sys.exit(0 if ok else 1)

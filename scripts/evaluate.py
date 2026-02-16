@@ -3,6 +3,13 @@
 
 from __future__ import annotations
 
+# Load .env early for LANGCHAIN_*/LANGSMITH_* and API keys
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
 import argparse
 import asyncio
 import atexit
@@ -27,9 +34,9 @@ import numpy as np
 import pandas as pd
 import httpx
 import yaml
-from openai import OpenAI
+from anthropic import Anthropic
+from anthropic import AsyncAnthropic
 from datasets import load_dataset
-from openai import AsyncOpenAI
 from pydantic import BaseModel
 from tqdm import tqdm
 from tqdm.asyncio import tqdm_asyncio
@@ -78,10 +85,10 @@ class GroundTruth:
     metadata: Optional[Dict[str, Any]] = None
 
 
-class OpenAIChatModel:
-    """Thin wrapper around the official OpenAI client with a LangChain-like interface."""
+class AnthropicChatModel:
+    """Thin wrapper around the Anthropic client with a LangChain-like interface."""
 
-    def __init__(self, client: OpenAI, model: str, **invoke_params: Any) -> None:
+    def __init__(self, client: Anthropic, model: str, **invoke_params: Any) -> None:
         self._client = client
         self._model = model
         self._invoke_params = invoke_params
@@ -89,34 +96,44 @@ class OpenAIChatModel:
     def invoke(
         self, messages: Iterable[Any], response_format: Optional[Dict[str, str]] = None
     ) -> SimpleNamespace:
+        system_prompt: Optional[str] = None
         formatted_messages: List[Dict[str, str]] = []
         for message in messages:
             if isinstance(message, Message):
-                formatted_messages.append({"role": message.role, "content": message.content})
+                role, content = message.role, message.content
             elif isinstance(message, dict):
-                formatted_messages.append(message)
+                role = message.get("role", "user")
+                content = message.get("content", "")
             else:
                 content = str(message.content if hasattr(message, "content") else message)
-                role = "user"
-                if hasattr(message, "role"):
-                    role = message.role
+                role = getattr(message, "role", "user")
+            if role == "system":
+                system_prompt = content
+            else:
                 formatted_messages.append({"role": role, "content": content})
 
-        call_params = dict(self._invoke_params)
-        if response_format:
-            call_params["response_format"] = response_format
+        if not formatted_messages:
+            formatted_messages = [{"role": "user", "content": ""}]
 
-        response = self._client.chat.completions.create(
+        call_params = dict(self._invoke_params)
+        max_tokens = call_params.pop("max_tokens", call_params.pop("max_completion_tokens", 4096))
+        if system_prompt is not None:
+            call_params["system"] = system_prompt
+
+        response = self._client.messages.create(
             model=self._model,
+            max_tokens=max_tokens,
             messages=formatted_messages,
             **call_params,
         )
 
-        if not response.choices:
-            raise RuntimeError("OpenAI response contained no choices")
-
-        choice = response.choices[0]
-        message_content = getattr(choice.message, "content", "") or ""
+        text_parts: List[str] = []
+        for block in (response.content or []):
+            if hasattr(block, "text"):
+                text_parts.append(block.text)
+            elif isinstance(block, dict) and block.get("type") == "text":
+                text_parts.append(block.get("text", ""))
+        message_content = "".join(text_parts)
         return SimpleNamespace(content=message_content)
 
 
@@ -232,7 +249,7 @@ def normalise_set_answer(value: Optional[str]) -> set:
 
 def build_eval_model(
     config_path: Path, model_override: Optional[str] = None
-) -> Tuple[OpenAIChatModel, Dict[str, Any]]:
+) -> Tuple[AnthropicChatModel, Dict[str, Any]]:
     with open(config_path, "r", encoding="utf-8") as f:
         conf = yaml.safe_load(f)
 
@@ -241,7 +258,7 @@ def build_eval_model(
         raise ValueError("EVAL_MODEL configuration is missing or invalid in conf.yaml")
 
     llm_conf = dict(eval_conf)
-    llm_conf.pop("token_limit", None)
+    token_limit = llm_conf.pop("token_limit", 4096)
     verify_ssl = llm_conf.pop("verify_ssl", True)
 
     api_key = llm_conf.pop("api_key", None)
@@ -250,24 +267,32 @@ def build_eval_model(
         model_name = model_override
     base_url = llm_conf.pop("base_url", None)
     max_retries = llm_conf.pop("max_retries", 3)
+    timeout = llm_conf.pop("timeout", 1200)  # 20 min; disables 10-min streaming requirement
 
     if not api_key:
-        raise ValueError("EVAL_MODEL.api_key is required for OpenAI client configuration")
+        raise ValueError("EVAL_MODEL.api_key is required for Anthropic client configuration")
     if not model_name:
-        raise ValueError("EVAL_MODEL.model is required for OpenAI client configuration")
+        raise ValueError("EVAL_MODEL.model is required for Anthropic client configuration")
 
     http_client = None
     if not verify_ssl:
         http_client = httpx.Client(verify=False)
 
-    client_kwargs: Dict[str, Any] = {"api_key": api_key, "max_retries": max_retries}
+    client_kwargs: Dict[str, Any] = {
+        "api_key": api_key,
+        "max_retries": max_retries,
+        "timeout": timeout,
+    }
     if base_url:
         client_kwargs["base_url"] = base_url
     if http_client:
         client_kwargs["http_client"] = http_client
 
-    client = OpenAI(**client_kwargs)
-    model = OpenAIChatModel(client, model_name, **llm_conf)
+    client = Anthropic(**client_kwargs)
+    # Anthropic max_tokens is output limit (typically ≤8192); token_limit in conf is input context
+    max_tokens = min(token_limit or 4096, 8192)
+    llm_conf["max_tokens"] = max_tokens
+    model = AnthropicChatModel(client, model_name, **llm_conf)
 
     if http_client:
         atexit.register(http_client.close)
@@ -279,7 +304,7 @@ def build_eval_model(
 
 
 def judge_answer_finsearchcomp(
-    llm: OpenAIChatModel,
+    llm: AnthropicChatModel,
     question: str,
     ground_truth: str,
     prediction: str,
@@ -312,7 +337,7 @@ def judge_answer_finsearchcomp(
 
 
 def judge_answer(
-    llm: OpenAIChatModel,
+    llm: AnthropicChatModel,
     question: str,
     ground_truth: str,
     prediction: str,
@@ -380,7 +405,7 @@ def judge_answer(
 
 
 def evaluate_predictions(
-    llm: OpenAIChatModel,
+    llm: AnthropicChatModel,
     predictions: Iterable[Prediction],
     ground_truth_map: Dict[str, GroundTruth],
     benchmark_type: Optional[BenchmarkType] = None,
@@ -540,14 +565,15 @@ def _load_eval_conf(config_path: Path) -> Dict[str, Any]:
 
 
 def _resolve_eval_model(benchmark: str, override: Optional[str]) -> Optional[str]:
+    """Return Anthropic model name for evaluation. Use --eval-model to override."""
     if override:
         return override
     if benchmark in {"deepsearchqa", "dsqa"}:
-        return "gemini-2.5-flash"
+        return "claude-haiku-4-5"
     if benchmark == "xbench":
-        return "gemini-2.0-flash"
+        return "claude-haiku-4-5"
     if benchmark == "hle":
-        return "o3-mini-2025-01-31"
+        return "claude-sonnet-4-5-20250929"
     return None
 
 
@@ -1444,7 +1470,9 @@ reasoning: Explain why the extracted_final_answer is correct or incorrect based 
 correct: Answer 'yes' if extracted_final_answer matches the [correct_answer] given above, or is within a small margin of error for numerical problems. Answer 'no' otherwise, i.e. if there is any inconsistency, ambiguity, non-equivalency, or if the extracted answer is incorrect.
 
 
-confidence: The extracted confidence score between 0|%| and 100|%| from [response]. Put 100 if there is no confidence score available."""
+confidence: The extracted confidence score between 0|%| and 100|%| from [response]. Put 100 if there is no confidence score available.
+
+strict: Answer true if the extracted_final_answer exactly matches the [correct_answer] format and content, false otherwise."""
 
 
 class ExtractedAnswer(BaseModel):
@@ -1456,7 +1484,7 @@ class ExtractedAnswer(BaseModel):
 
 
 async def _extract_answer(
-    client: AsyncOpenAI,
+    client: AsyncAnthropic,
     model: str,
     question: str,
     correct_answer: str,
@@ -1464,13 +1492,15 @@ async def _extract_answer(
 ) -> Optional[Dict[str, Any]]:
     prompt = JUDGE_PROMPT.format(question=question, correct_answer=correct_answer, response=response)
     try:
-        response = await client.beta.chat.completions.parse(
+        parsed = await client.messages.parse(
             model=model,
-            max_completion_tokens=4096,
+            max_tokens=4096,
             messages=[{"role": "user", "content": prompt}],
-            response_format=ExtractedAnswer,
+            output_format=ExtractedAnswer,
         )
-        content = response.choices[0].message.parsed
+        content = parsed.parsed_output
+        if content is None:
+            return None
         return {
             "correct_answer": correct_answer,
             "model_answer": content.extracted_final_answer,
@@ -1484,7 +1514,7 @@ async def _extract_answer(
 
 
 async def _add_judge_response(
-    client: AsyncOpenAI,
+    client: AsyncAnthropic,
     model: str,
     question: Dict[str, Any],
     predictions: Dict[str, Any],
@@ -1506,7 +1536,7 @@ async def _add_judge_response(
 
 
 async def _judge_all_responses(
-    client: AsyncOpenAI,
+    client: AsyncAnthropic,
     model: str,
     questions: List[Dict[str, Any]],
     predictions: Dict[str, Any],
@@ -1645,7 +1675,7 @@ def _run_hle(
     max_retries = eval_conf.get("max_retries", 3)
     timeout = eval_conf.get("timeout", 180)
 
-    client = AsyncOpenAI(api_key=api_key, base_url=base_url, max_retries=max_retries, timeout=timeout)
+    client = AsyncAnthropic(api_key=api_key, base_url=base_url, max_retries=max_retries, timeout=timeout)
 
     output_dir = output_dir or predictions_path.parent
     output_dir.mkdir(parents=True, exist_ok=True)
