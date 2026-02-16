@@ -6,10 +6,13 @@ import logging
 import os
 import re
 import subprocess
+from pathlib import Path
 from typing import Any, List, Optional
 
+from anthropic import AsyncAnthropic
 from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, ToolMessage
 
+from src.config.config import load_yaml_config
 from src.schema.types import ToolExecutionRecord, ToolRequest, StepToolAnalysis, ResponseAnalysis, LLMType
 from src.services.llms.llm import create_llm, get_max_tokens
 from src.prompts.loader import prompt_loader
@@ -22,77 +25,88 @@ from src.utils.venv import ISOLATED_PYTHON_PATH
 
 logger = logging.getLogger(__name__)
 
-# 20-minute safety cutoff for Codex exec calls
-CODEX_EXEC_TIMEOUT_SECONDS = 20 * 60
+# Timeout for Anthropic code generation calls
+ANTHROPIC_CODEGEN_TIMEOUT_SECONDS = 20 * 60
 # Max retries when parsing LLM analysis outputs
 ANALYSIS_MAX_RETRIES = 3
 
+
+def _get_codegen_config() -> dict:
+    """Load CODEX_MODEL or fall back to BASIC_MODEL from conf.yaml."""
+    config_path = Path(__file__).parent.parent.parent / "conf.yaml"
+    conf = load_yaml_config(str(config_path))
+    return conf.get("CODEX_MODEL") or conf.get("BASIC_MODEL") or {}
+
+
 async def call_codex_exec(prompt: str, output_file: str = None) -> tuple[str, bool]:
     """
-    Call Codex exec to generate code based on the prompt.
-    Uses async subprocess to enable true concurrent execution.
+    Generate code using Anthropic API based on the prompt.
+    Replaces the OpenAI Codex CLI with native Anthropic code generation.
 
     Args:
-        prompt: The prompt to send to Codex exec
+        prompt: The prompt to send for code generation
         output_file: Optional file path to save the generated code
 
     Returns:
         Tuple of (generated_code, success)
     """
     try:
-        # Build codex exec command
-        # Use --full-auto to allow file editing and network access
-        codex_profile = os.environ.get("CODEX_PROFILE", None)
-        command = ["codex", "exec", "--dangerously-bypass-approvals-and-sandbox"]
-        if codex_profile:
-            command += ["--profile", codex_profile]
+        codegen_conf = _get_codegen_config()
+        if not codegen_conf:
+            logger.error("CODEX_MODEL or BASIC_MODEL not found in conf.yaml")
+            return "", False
 
-        logger.info(f"Calling codex exec with prompt length: {len(prompt)}")
+        api_key = os.environ.get("ANTHROPIC_API_KEY")
+        if not api_key:
+            logger.error("api_key required in CODEX_MODEL/BASIC_MODEL or ANTHROPIC_API_KEY env")
+            return "", False
+
+        model = codegen_conf.get("model", "claude-sonnet-4-5-20250929")
+        max_tokens = codegen_conf.get("token_limit", codegen_conf.get("max_tokens", 16000))
+        temperature = codegen_conf.get("temperature", 0.2)
+        base_url = codegen_conf.get("base_url")
+
+        client_kwargs: dict = {"api_key": api_key}
+        if base_url:
+            client_kwargs["base_url"] = base_url
+
+        client = AsyncAnthropic(**client_kwargs)
+
+        logger.info(f"Calling Anthropic code generation with prompt length: {len(prompt)}")
         input_tokens = count_text_tokens(prompt)
-        # Create async subprocess for true concurrent execution
-        process = await asyncio.create_subprocess_exec(
-            *command,
-            stdin=asyncio.subprocess.PIPE,
-            stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.PIPE,
+
+        response = await asyncio.wait_for(
+            client.messages.create(
+                model=model,
+                max_tokens=max_tokens,
+                temperature=temperature,
+                messages=[{"role": "user", "content": prompt}],
+            ),
+            timeout=ANTHROPIC_CODEGEN_TIMEOUT_SECONDS,
         )
 
-        # Send prompt to stdin and wait for completion
-        try:
-            stdout, stderr = await asyncio.wait_for(
-                process.communicate(input=prompt.encode("utf-8")),
-                timeout=CODEX_EXEC_TIMEOUT_SECONDS,
-            )
-        except asyncio.TimeoutError:
-            logger.error("Codex exec timed out after %s seconds", CODEX_EXEC_TIMEOUT_SECONDS)
-            process.kill()
-            await process.communicate()
-            return "", False
-        output_tokens = count_text_tokens(stdout.decode("utf-8") + stderr.decode("utf-8"))
-        logger.info(f"Codex exec input tokens: {input_tokens}, output tokens: {output_tokens}")
-        # Decode output
-        generated_code = stdout.decode("utf-8").strip() if stdout else ""
-        error_output = stderr.decode("utf-8").strip() if stderr else ""
+        generated_code = ""
+        if response.content:
+            for block in response.content:
+                if hasattr(block, "text"):
+                    generated_code += block.text
+                elif isinstance(block, dict) and block.get("type") == "text":
+                    generated_code += block.get("text", "")
 
-        logger.info(f"Codex exec stdout: {generated_code}")
-        if error_output:
-            logger.debug(f"Codex exec stderr: {error_output}")
-
-        if process.returncode != 0:
-            error_msg = f"Codex exec failed with return code {process.returncode}"
-            logger.error(error_msg)
-            return "", False
+        generated_code = generated_code.strip()
+        output_tokens = count_text_tokens(generated_code)
+        logger.info(f"Anthropic codegen input tokens: {input_tokens}, output tokens: {output_tokens}")
 
         if not generated_code:
-            logger.warning("Codex exec returned empty output")
+            logger.warning("Anthropic codegen returned empty output")
+            return "", False
 
         # If output_file is specified, save the code to file
         if output_file:
             try:
-                # extract the last ```python ... ``` code block
                 code_blocks = re.findall(r"```python\s*(.*?)\s*```", generated_code, re.DOTALL)
                 if not code_blocks:
-                    logger.warning("No python code block found in Codex exec output")
+                    logger.warning("No python code block found in Anthropic output")
                     return "", False
 
                 generated_code = code_blocks[-1].strip()
@@ -110,7 +124,6 @@ async def call_codex_exec(prompt: str, output_file: str = None) -> tuple[str, bo
                     logger.warning(f"Could not extract __TOOL_META__ from {output_file}")
                     os.remove(output_file)
                     return "", False
-                # Install dependencies for the tool if specified
                 deps = tool_meta.get("dependencies", [])
                 if deps:
                     try:
@@ -119,24 +132,23 @@ async def call_codex_exec(prompt: str, output_file: str = None) -> tuple[str, bo
                             ["uv", "pip", "install", "--python", str(ISOLATED_PYTHON_PATH)] + deps, check=True
                         )
                     except subprocess.CalledProcessError as e:
-                        error_message = f"Failed to install dependencies for tool {output_file}: {e}"
                         logger.error(f"Failed to install dependencies for tool {output_file}: {e}")
                         os.remove(output_file)
-                        return error_message, False
+                        return str(e), False
             except Exception as e:
                 logger.error(f"Failed to save code to {output_file}: {e}")
                 return "", False
 
         return generated_code, True
 
-    except FileNotFoundError:
-        logger.error("Codex exec command not found. Please ensure 'codex' is installed and in PATH")
+    except asyncio.TimeoutError:
+        logger.error("Anthropic codegen timed out after %s seconds", ANTHROPIC_CODEGEN_TIMEOUT_SECONDS)
         return "", False
     except Exception as e:
-        logger.error(f"Error calling codex exec: {type(e).__name__}: {str(e)}")
+        logger.error(f"Error calling Anthropic codegen: {type(e).__name__}: {str(e)}")
         import traceback
 
-        logger.error(f"Traceback: {traceback.format_exc()}")
+        logger.error(traceback.format_exc())
         return "", False
 
 

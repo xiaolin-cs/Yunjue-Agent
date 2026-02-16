@@ -43,6 +43,16 @@ Optional profile name passed to the external `codex` CLI (used when running `cod
 
 If you are not using Codex-based workflows, you can leave this unset.
 
+### Billing / Token Usage Tracking
+
+The project includes a billing module (`src/services.billing`) that tracks LLM token usage and estimated cost via LangChain callbacks.
+
+- **Enabled by default** in `run_task()`. Set `enable_billing=False` to disable.
+- **Coverage**: Manager, Worker, Integrator, tool analysis, context summarization (all LangChain LLM calls).
+- **Not covered**: Direct Anthropic API calls (e.g., `call_codex_exec` for tool generation) are not tracked by the callback.
+- **Pricing**: Uses Anthropic's per-model rates (configurable in `BillingTracker(pricing=...)`).
+- **Output**: Logged after each task: `Billing: X in + Y out tokens, cost=$Z`.
+
 ### `PROXY_URL`
 
 Optional proxy URL. When this is set, **all network-related tools created by the tool developer** will route their requests through this proxy.

@@ -3,10 +3,11 @@
 import logging
 from contextvars import ContextVar
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Tuple
 import os
 from src.core import build_graph
 from src.agents.react import success_tool_names
+from src.services.billing import BillingTracker, append_run_cost_to_file, get_billing_config
 
 # Context variable to store task_id for each coroutine
 task_id_context: ContextVar[Optional[str]] = ContextVar("task_id", default=None)
@@ -44,6 +45,7 @@ async def run_task(
     run_dir: Path,
     debug: bool = False,
     task_id: str = "default",
+    enable_billing: bool = True,
 ):
     if not user_input:
         raise ValueError("Input could not be empty")
@@ -67,6 +69,8 @@ async def run_task(
     root_logger = logging.getLogger()
     root_logger.addHandler(file_handler)
 
+    billing_tracker = BillingTracker() if enable_billing else None
+
     try:
         if debug:
             enable_debug_logging()
@@ -80,7 +84,8 @@ async def run_task(
                 "dynamic_tools_dir": f"{run_dir}/private_dynamic_tools/dynamic_tools_{task_id}",
                 "dynamic_tools_public_dir": f"{run_dir}/dynamic_tools_public",
             },
-            "recursion_limit": 1000
+            "recursion_limit": 1000,
+            **get_billing_config(billing_tracker),
         }
 
         # Ensure dynamic tools directories exist
@@ -88,6 +93,13 @@ async def run_task(
         Path(config["configurable"]["dynamic_tools_public_dir"]).mkdir(parents=True, exist_ok=True)
 
         final_state = await graph.ainvoke(input=initial_state, config=config)
+
+        if billing_tracker:
+            summary = billing_tracker.get_summary()
+            logger.info(
+                f"Billing: {summary.total_input_tokens} in + {summary.total_output_tokens} out tokens, "
+                f"cost=${summary.total_cost_usd:.4f}"
+            )
 
         logger.info("The task has completed successfully")
         private_dynamic_tools_dir = Path(config["configurable"]["dynamic_tools_dir"])
@@ -100,6 +112,9 @@ async def run_task(
         logger.error(f"Error in the task: {e}", exc_info=True)
         return "['Error in the task']", 0
     finally:
+        if billing_tracker:
+            summary = billing_tracker.get_summary()
+            append_run_cost_to_file(run_dir, task_id, summary)
         root_logger.removeHandler(file_handler)
         file_handler.close()
         task_id_context.reset(token)
