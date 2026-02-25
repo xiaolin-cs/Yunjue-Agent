@@ -1,0 +1,173 @@
+agents:
+  - agent_id: task_orchestrator
+    role: Task Orchestrator
+    description: Analyze the task, choose required tools, and maintain an executable task graph for workers.
+    tools:
+      - task_requirement_analysis
+      - required_tool_selection
+      - tool_request_planning
+      - dependency_decomposition
+    can_read:
+      - AGENTS.yaml
+      - TASKS.json
+      - CLAIMS.json
+      - FAILURES.json
+      - PROGRESS.json
+    can_write:
+      - TASKS.json
+      - PROGRESS.json
+    can_update:
+      tasks:
+        - todo->todo
+        - todo->dropped
+    priority_weight: 1.0
+
+  - agent_id: worker
+    role: Worker
+    description: Execute assigned tasks with bound tools and produce evidence-grounded findings and conclusions.
+    tools:
+      - bound_tool_execution
+      - web_search
+      - url_fetch
+      - file_download
+      - local_file_read
+      - math_compute
+      - image_extraction
+      - citation_grounding
+    can_read:
+      - AGENTS.yaml
+      - TASKS.json
+      - CLAIMS.json
+      - FAILURES.json
+      - PROGRESS.json
+    can_write:
+      - CLAIMS.json
+      - FAILURES.json
+      - PROGRESS.json
+    can_update:
+      tasks:
+        - todo->done
+      claims:
+        - proposed->validated
+        - proposed->refuted
+    priority_weight: 1.0
+
+  - agent_id: context_summarizer
+    role: Context Summarizer
+    description: Summarize tool execution history into concise, task-relevant findings for reuse.
+    tools:
+      - tool_history_read
+      - evidence_summarization
+      - conflict_resolution
+      - non_lossy_reference_retention
+    can_read:
+      - TASKS.json
+      - CLAIMS.json
+      - FAILURES.json
+      - PROGRESS.json
+    can_write: []
+    priority_weight: 0.8
+
+  - agent_id: tool_coder
+    role: Tool Coder
+    description: Generate complete Python tools from tool requests under strict schema, API, and output constraints.
+    tools:
+      - python_code_generation
+      - schema_inference
+      - api_integration
+      - pydantic_modeling
+      - resilient_networking
+    can_read:
+      - TASKS.json
+      - FAILURES.json
+      - PROGRESS.json
+    can_write: []
+    priority_weight: 0.7
+
+  - agent_id: tool_enhancer
+    role: Tool Enhancer
+    description: Improve and debug existing tool code from historical failures while preserving input compatibility.
+    tools:
+      - python_debugging
+      - compatibility_refactor
+      - robustness_hardening
+      - failure_root_cause_analysis
+    can_read:
+      - TASKS.json
+      - FAILURES.json
+      - PROGRESS.json
+    can_write: []
+    priority_weight: 0.7
+
+  - agent_id: tool_merger
+    role: Tool Merger
+    description: Consolidate overlapping tool implementations into one correct, maintainable, schema-consistent tool.
+    tools:
+      - code_refactor
+      - interface_consolidation
+      - dependency_cleanup
+      - schema_unification
+    can_read:
+      - TASKS.json
+      - FAILURES.json
+      - PROGRESS.json
+    can_write: []
+    priority_weight: 0.6
+
+  - agent_id: tool_clusterer
+    role: Tool Cluster Analyst
+    description: Cluster semantically duplicate tools and propose canonical master tool abstractions.
+    tools:
+      - semantic_similarity_analysis
+      - tool_deduplication
+      - cluster_planning
+      - canonical_naming
+    can_read:
+      - TASKS.json
+      - PROGRESS.json
+    can_write: []
+    priority_weight: 0.6
+
+  - agent_id: answer_checker
+    role: Answer Checker
+    description: Extract and validate final answer format and correctness against question constraints.
+    tools:
+      - answer_extraction
+      - format_validation
+      - evidence_consistency_check
+      - unit_and_scale_check
+    can_read:
+      - TASKS.json
+      - CLAIMS.json
+      - PROGRESS.json
+    can_write:
+      - TASKS.json
+      - PROGRESS.json
+    can_update:
+      tasks:
+        - todo->done
+    priority_weight: 0.8
+
+  - agent_id: response_analyzer
+    role: Response Analyzer
+    description: Decide whether worker output should finish or retry based on completeness and usefulness checks.
+    tools:
+      - response_quality_check
+      - completion_detection
+      - retry_decision
+    can_read:
+      - TASKS.json
+      - CLAIMS.json
+      - PROGRESS.json
+    can_write:
+      - TASKS.json
+      - FAILURES.json
+      - PROGRESS.json
+    can_update:
+      tasks:
+        - todo->done
+      claims:
+        - proposed->validated
+        - proposed->refuted
+      failures: []
+    priority_weight: 0.9

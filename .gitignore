@@ -9,6 +9,7 @@ wheels/
 .coverage.*
 agent_history.gif
 static/browser_history/*.gif
+ResearchIDEA/
 
 .vscode/
 .history/
