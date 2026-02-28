@@ -43,10 +43,11 @@ fail_tool/
 workspace/
 dataset/GAIA/files_*
 
-*.ipynb
+# *.ipynb
 
 output/
 legacy/
+*json
 
 *.log
 *.db*
