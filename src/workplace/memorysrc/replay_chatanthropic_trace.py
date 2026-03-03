@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Replay all ChatAnthropic runs from a LangSmith trace JSON file."""
+"""Extract last reasoning message from trace and analyze it with a system prompt."""
 
 from __future__ import annotations
 
@@ -15,7 +15,13 @@ from dotenv import load_dotenv
 from langchain_anthropic import ChatAnthropic
 from langchain_core._api import LangChainBetaWarning
 from langchain_core.load import load as lc_load
-from langchain_core.messages import BaseMessage, message_to_dict
+from langchain_core.messages import BaseMessage, HumanMessage, SystemMessage, message_to_dict
+from ..shared.memprompts.task_analysis import 
+
+# load working directory
+working_dir = Path("/u/xlin4/Projects/multi-agent/Yunjue-Agent/")
+# set working directory
+os.chdir(working_dir)
 
 
 @dataclass
@@ -92,8 +98,30 @@ def _build_llm(model: str, max_tokens: int) -> ChatAnthropic:
     return ChatAnthropic(**kwargs)
 
 
-def replay_trace(
+def _message_text(message: BaseMessage) -> str:
+    content = message.content
+    if isinstance(content, str):
+        return content
+    if isinstance(content, list):
+        text_parts: list[str] = []
+        for item in content:
+            if isinstance(item, str):
+                text_parts.append(item)
+            elif isinstance(item, dict):
+                if item.get("type") == "text":
+                    text_parts.append(str(item.get("text", "")))
+                else:
+                    text_parts.append(json.dumps(item, ensure_ascii=False))
+            else:
+                text_parts.append(str(item))
+        return "\n".join(text_parts)
+    return str(content)
+
+
+def analyze_trace(
     trace_path: Path,
+    system_prompt_path: Path,
+    output_path: Path,
     override_model: str | None,
     max_tokens: int,
     max_runs: int | None,
@@ -108,8 +136,10 @@ def replay_trace(
         print("No ChatAnthropic runs found.")
         return
 
+    system_prompt = system_prompt_path.read_text(encoding="utf-8")
     print(f"Found {len(runs)} ChatAnthropic runs in {trace_path}")
     llm_cache: dict[str, ChatAnthropic] = {}
+    records: list[dict[str, Any]] = []
 
     for run in runs:
         model = override_model or run.model
@@ -123,26 +153,72 @@ def replay_trace(
         print(f"model: {model}")
         print(f"message_count: {len(messages)}")
         print(f"message_types: {restored_types}")
-        print(f"messages: {messages}")
+        if not messages:
+            continue
+
+        last_message = messages[-1]
+        last_message_text = _message_text(last_message).strip()
+        print(f"last_message_text: {last_message_text}")
+        if not "## Reasoning & Plan" in last_message_text:
+            continue
+
+        record: dict[str, Any] = {
+            "run_index": run.index,
+            "run_id": run.run_id,
+            "input_last_message": last_message_text,
+        }
 
         if dry_run:
+            record["output"] = None
+            record["dry_run"] = True
+            records.append(record)
             continue
 
         if model not in llm_cache:
             llm_cache[model] = _build_llm(model=model, max_tokens=max_tokens)
-        response = llm_cache[model].invoke(messages)
+        response = llm_cache[model].invoke(
+            [
+                SystemMessage(content=system_prompt),
+                HumanMessage(content=last_message_text),
+            ]
+        )
         response_dict = message_to_dict(response)
-        print("response:")
-        print(json.dumps(response_dict, ensure_ascii=False, indent=2))
+        record["output"] = response_dict
+        records.append(record)
+        print("analyzed and saved.")
+
+    output = {
+        "trace_file": str(trace_path),
+        "system_prompt_file": str(system_prompt_path),
+        "total_chat_runs": len(runs),
+        "matched_runs": len(records),
+        "records": records,
+    }
+    output_path.write_text(json.dumps(output, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"\nSaved output JSON to: {output_path}")
 
 
 def _parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Replay ChatAnthropic calls from a LangSmith trace JSON.")
+    parser = argparse.ArgumentParser(
+        description="Analyze the last message from ChatAnthropic runs if it starts with '## Reasoning & Plan'."
+    )
     parser.add_argument(
         "--trace-file",
         type=Path,
         default=Path("src/workplace/memorysrc/project_traces_0e8eb6b4-d1b3-45b1-a009-b5de22cb7761.json"),
         help="Path to LangSmith trace JSON file.",
+    )
+    parser.add_argument(
+        "--system-prompt-file",
+        type=Path,
+        default=Path("src/workplace/shared/memprompts/task_analysis.md"),
+        help="Path to system prompt markdown file.",
+    )
+    parser.add_argument(
+        "--output-file",
+        type=Path,
+        default=Path("src/workplace/memorysrc/task_analysis_outputs.json"),
+        help="Path to output JSON file.",
     )
     parser.add_argument(
         "--model",
@@ -159,8 +235,10 @@ def _parse_args() -> argparse.Namespace:
 def main() -> None:
     load_dotenv()
     args = _parse_args()
-    replay_trace(
+    analyze_trace(
         trace_path=args.trace_file,
+        system_prompt_path=args.system_prompt_file,
+        output_path=args.output_file,
         override_model=args.model,
         max_tokens=args.max_tokens,
         max_runs=args.max_runs,
