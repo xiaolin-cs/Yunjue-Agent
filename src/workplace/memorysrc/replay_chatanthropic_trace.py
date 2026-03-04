@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Extract last reasoning message from trace and analyze it with a system prompt."""
+"""Classify and optionally analyze the last message from each ChatAnthropic run."""
 
 from __future__ import annotations
 
@@ -16,12 +16,6 @@ from langchain_anthropic import ChatAnthropic
 from langchain_core._api import LangChainBetaWarning
 from langchain_core.load import load as lc_load
 from langchain_core.messages import BaseMessage, HumanMessage, SystemMessage, message_to_dict
-from ..shared.memprompts.task_analysis import 
-
-# load working directory
-working_dir = Path("/u/xlin4/Projects/multi-agent/Yunjue-Agent/")
-# set working directory
-os.chdir(working_dir)
 
 
 @dataclass
@@ -118,9 +112,45 @@ def _message_text(message: BaseMessage) -> str:
     return str(content)
 
 
+def _extract_task_flag(classifier_output_text: str) -> bool:
+    text = classifier_output_text.strip()
+    try:
+        parsed = json.loads(text)
+        return isinstance(parsed, list) and any(isinstance(item, str) and item.lower() == "task" for item in parsed)
+    except json.JSONDecodeError:
+        return "task" in text.lower()
+
+
+def _extract_claim_flag(classifier_output_text: str) -> bool:
+    text = classifier_output_text.strip()
+    try:
+        parsed = json.loads(text)
+        return isinstance(parsed, list) and any(isinstance(item, str) and item.lower() == "content" for item in parsed)
+    except json.JSONDecodeError:
+        return "content" in text.lower()
+
+
+def _convert_string_to_dict(content: str) -> dict:
+    """Convert a string to a dictionary. content: ```json {json_content}```
+    """
+    try:
+        content = content.replace("```json", "").replace("```", "")
+        content = content.strip()
+        return json.loads(content)
+    except json.JSONDecodeError:
+        return content
+
+def _convert_message_to_dict(message: dict) -> dict:
+    """Convert a message to a dictionary.
+    """
+    message['data']['content'] = _convert_string_to_dict(message['data']['content'])
+    return message
+
 def analyze_trace(
     trace_path: Path,
-    system_prompt_path: Path,
+    classifier_prompt_path: Path,
+    task_analysis_prompt_path: Path,
+    claim_analysis_prompt_path: Path,
     output_path: Path,
     override_model: str | None,
     max_tokens: int,
@@ -136,7 +166,9 @@ def analyze_trace(
         print("No ChatAnthropic runs found.")
         return
 
-    system_prompt = system_prompt_path.read_text(encoding="utf-8")
+    classifier_prompt = classifier_prompt_path.read_text(encoding="utf-8")
+    task_analysis_prompt = task_analysis_prompt_path.read_text(encoding="utf-8")
+    claim_analysis_prompt = claim_analysis_prompt_path.read_text(encoding="utf-8")
     print(f"Found {len(runs)} ChatAnthropic runs in {trace_path}")
     llm_cache: dict[str, ChatAnthropic] = {}
     records: list[dict[str, Any]] = []
@@ -147,51 +179,72 @@ def analyze_trace(
             raise RuntimeError(f"Run {run.index} has no model in trace output, and --model was not provided.")
 
         messages = _restore_messages(run.serialized_messages)
-        restored_types = [type(msg).__name__ for msg in messages]
         print(f"\n=== Run {run.index} ===")
         print(f"run_id: {run.run_id}")
         print(f"model: {model}")
         print(f"message_count: {len(messages)}")
-        print(f"message_types: {restored_types}")
-        if not messages:
-            continue
-
-        last_message = messages[-1]
-        last_message_text = _message_text(last_message).strip()
-        print(f"last_message_text: {last_message_text}")
-        if not "## Reasoning & Plan" in last_message_text:
-            continue
 
         record: dict[str, Any] = {
             "run_index": run.index,
             "run_id": run.run_id,
-            "input_last_message": last_message_text,
+            "model": model,
+            "input_last_message": None,
+            "classifier_output": None,
+            "task_analysis_output": None,
         }
 
+        if not messages:
+            records.append(record)
+            continue
+
+        last_message_text = _message_text(messages[-1]).strip()
+        record["input_last_message"] = last_message_text
+
         if dry_run:
-            record["output"] = None
             record["dry_run"] = True
             records.append(record)
             continue
 
         if model not in llm_cache:
             llm_cache[model] = _build_llm(model=model, max_tokens=max_tokens)
-        response = llm_cache[model].invoke(
+        llm = llm_cache[model]
+
+        classifier_response = llm.invoke(
             [
-                SystemMessage(content=system_prompt),
+                SystemMessage(content=classifier_prompt),
                 HumanMessage(content=last_message_text),
             ]
         )
-        response_dict = message_to_dict(response)
-        record["output"] = response_dict
+        record["classifier_output"] = message_to_dict(classifier_response)
+        record["classifier_output"] = _convert_message_to_dict(record["classifier_output"])
+        classifier_output_text = _message_text(classifier_response)
+
+        if _extract_task_flag(classifier_output_text):
+            task_response = llm.invoke(
+                [
+                    SystemMessage(content=task_analysis_prompt),
+                    HumanMessage(content=last_message_text),
+                ]
+            )
+            record["task_analysis_output"] = message_to_dict(task_response)
+            record["task_analysis_output"] = _convert_message_to_dict(record["task_analysis_output"])
+        if _extract_claim_flag(classifier_output_text):
+            claim_response = llm.invoke(
+                [
+                    SystemMessage(content=claim_analysis_prompt),
+                    HumanMessage(content=last_message_text),
+                ]
+            )
+            record["claim_analysis_output"] = message_to_dict(claim_response)
+            record["claim_analysis_output"] = _convert_message_to_dict(record["claim_analysis_output"])
         records.append(record)
-        print("analyzed and saved.")
+        print("classified and recorded.")
 
     output = {
         "trace_file": str(trace_path),
-        "system_prompt_file": str(system_prompt_path),
+        "classifier_prompt_file": str(classifier_prompt_path),
+        "task_analysis_prompt_file": str(task_analysis_prompt_path),
         "total_chat_runs": len(runs),
-        "matched_runs": len(records),
         "records": records,
     }
     output_path.write_text(json.dumps(output, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -200,7 +253,7 @@ def analyze_trace(
 
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Analyze the last message from ChatAnthropic runs if it starts with '## Reasoning & Plan'."
+        description="Classify the last message of each ChatAnthropic run and run task analysis when classifier output contains 'task'."
     )
     parser.add_argument(
         "--trace-file",
@@ -209,15 +262,27 @@ def _parse_args() -> argparse.Namespace:
         help="Path to LangSmith trace JSON file.",
     )
     parser.add_argument(
-        "--system-prompt-file",
+        "--classifier-prompt-file",
+        type=Path,
+        default=Path("src/workplace/shared/memprompts/classifer.md"),
+        help="Path to classifier system prompt.",
+    )
+    parser.add_argument(
+        "--task-analysis-prompt-file",
         type=Path,
         default=Path("src/workplace/shared/memprompts/task_analysis.md"),
-        help="Path to system prompt markdown file.",
+        help="Path to task analysis system prompt.",
+    )
+    parser.add_argument(
+        "--claim-analysis-prompt-file",
+        type=Path,
+        default=Path("src/workplace/shared/memprompts/claim_analysis.md"),
+        help="Path to claim analysis system prompt.",
     )
     parser.add_argument(
         "--output-file",
         type=Path,
-        default=Path("src/workplace/memorysrc/task_analysis_outputs.json"),
+        default=Path("src/workplace/memorysrc/classifier_task_analysis_outputs.json"),
         help="Path to output JSON file.",
     )
     parser.add_argument(
@@ -227,8 +292,8 @@ def _parse_args() -> argparse.Namespace:
         help="Override model name. If omitted, use model from each ChatAnthropic run in trace.",
     )
     parser.add_argument("--max-tokens", type=int, default=4096, help="max_tokens used for ChatAnthropic calls.")
-    parser.add_argument("--max-runs", type=int, default=None, help="Replay first N ChatAnthropic runs only.")
-    parser.add_argument("--dry-run", action="store_true", help="Only restore and print messages, do not call LLM.")
+    parser.add_argument("--max-runs", type=int, default=None, help="Process first N ChatAnthropic runs only.")
+    parser.add_argument("--dry-run", action="store_true", help="Only restore messages and save placeholders.")
     return parser.parse_args()
 
 
@@ -237,7 +302,9 @@ def main() -> None:
     args = _parse_args()
     analyze_trace(
         trace_path=args.trace_file,
-        system_prompt_path=args.system_prompt_file,
+        classifier_prompt_path=args.classifier_prompt_file,
+        task_analysis_prompt_path=args.task_analysis_prompt_file,
+        claim_analysis_prompt_path=args.claim_analysis_prompt_file,
         output_path=args.output_file,
         override_model=args.model,
         max_tokens=args.max_tokens,
