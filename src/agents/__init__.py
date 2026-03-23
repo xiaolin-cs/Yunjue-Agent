@@ -2,5 +2,6 @@
 # SPDX-License-Identifier: Apache-2.0
 
 from .react import ReActAgent
+from .memory import MemoryAnalyzer
 
-__all__ = ["ReActAgent"]
+__all__ = ["ReActAgent", "MemoryAnalyzer"]

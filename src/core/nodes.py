@@ -413,13 +413,15 @@ async def executor_node(
         user_query=user_query,
         failure_report=failure_report,
         context_summary=context_summary,
+        query_id=(config.get("configurable", {}) or {}).get("thread_id"),
     )
 
+    tool_guidance_block = f"## Tool Usage Guidance\n{tool_usage_guidance}\n" if tool_usage_guidance else ""
     task_info = f"""# Task
 {user_query}
 {"## Previous Failure Report" if failure_report else ""}
 {failure_report if failure_report else ""}
-{"## Tool Usage Guidance\n" + tool_usage_guidance + "\n" if tool_usage_guidance else ""}
+{tool_guidance_block}
 """
     agent_input["messages"].append(HumanMessage(content=task_info))
     agent_input["messages"].extend(worker_exist_messages)

@@ -20,6 +20,7 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.graph.message import add_messages
 from langgraph.prebuilt import ToolNode
 
+from src.agents.memory import MemoryAnalyzer
 from src.schema.types import ToolExecutionRecord, LLMType
 from src.utils.context_trimmer import ContextTrimmer
 from src.utils.utils import (
@@ -60,6 +61,7 @@ class ReActAgent:
         user_query: str = None,
         failure_report: str = None,
         context_summary: str = None,
+        query_id: str = None,
     ):
         """
         ReAct-style agent built with LangGraph.
@@ -88,6 +90,8 @@ class ReActAgent:
         self.context_trimmer = ContextTrimmer(llm_token_limit, user_query=user_query)
         self.failure_report = failure_report
         self.context_summary = context_summary
+        self.query_id = query_id
+        self.memory_analyzer = MemoryAnalyzer(self._llm_base, query_id)
         workflow = StateGraph(AgentState)
 
         workflow.add_node("agent", self.call_model)
@@ -135,6 +139,7 @@ class ReActAgent:
         retry_count = state.get("retry_count", 0)
         # Create a copy of messages to avoid mutating the state
         messages = list(state["messages"])
+        self.memory_analyzer.analyze_and_persist_call_input(messages, tool_steps, retry_count)
         if self.max_steps is not None and tool_steps >= self.max_steps:
             return {"messages": ["Recur limit exceeded"], "tool_steps": tool_steps, "retry_count": retry_count}
         else:
