@@ -1,6 +1,7 @@
 import re
 import unicodedata
 import os
+import tqdm
 from math import sqrt
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -15,22 +16,22 @@ def normalize_text(text: str) -> str:
     
     text = text.strip()
     
-    # 1. Unicode标准化（全角/半角统一）
+    # 1. Unicode normalization (full-width/half-width统一)
     text = unicodedata.normalize("NFKC", text)
     
-    # 2. 转小写（仅对英文有效）
+    # 2. Convert to lowercase (only for English)
     text = text.lower()
     
-    # 3. 标点统一
+    # 3. Unify punctuation
     text = normalize_punctuation(text)
     
-    # 4. 空白规范化
+    # 4. Normalize whitespace
     text = normalize_whitespace(text)
     
-    # 5. 数字/时间规范化（轻量，不破坏语义）
+    # 5. Normalize numbers/time (lightweight, without semantic damage)
     text = normalize_numbers(text)
     
-    # 6. 可选：英文缩写处理
+    # 6. Optional: English contractions processing
     text = normalize_english_contractions(text)
     
     return text
@@ -69,7 +70,7 @@ def normalize_punctuation(text: str) -> str:
 
 def normalize_whitespace(text: str) -> str:
     """Compress extra spaces"""
-    # 多空格 → 单空格
+    # Multiple spaces → single space
     text = re.sub(r"\s+", " ", text)
     
     # Remove spaces before punctuation
@@ -143,7 +144,7 @@ def get_qwen3_embeddings(
     embeddings: List[List[float]] = []
 
     with torch.no_grad():
-        for i in range(0, len(normalized_texts), batch_size):
+        for i in tqdm.tqdm(range(0, len(normalized_texts), batch_size)):
             batch_texts = normalized_texts[i : i + batch_size]
             encoded = tokenizer(
                 batch_texts,
@@ -176,60 +177,148 @@ def cosine_similarity(vec1: List[float], vec2: List[float]) -> float:
 
 def deduplicate_texts_by_embedding_similarity(
     texts: List[str],
-    similarity_threshold: float = 0.92,
+    high_similarity_threshold: float = 0.92,
+    low_similarity_threshold: float = 0.82,
     model: str = "Qwen3-Embedding-8B",
 ) -> Dict[str, Any]:
     """
-    Deduplicate semantically similar short texts using embeddings.
+    Classify short texts by embedding similarity using two safety thresholds.
+
+    - ``high_similarity_threshold``: very high similarity → treat as definite duplicate
+      of an earlier text (same semantic cluster, canonical = earlier index).
+    - ``low_similarity_threshold``: similarity in [low, high) → suspicious / needs a
+      downstream agent; **all original texts are still returned**.
+
+    ``duplicate_characteristic`` per item:
+    - ``unique``: no earlier text within ``low_similarity_threshold``.
+    - ``definite_duplicate``: best match among earlier indices ≥ high threshold.
+    - ``suspicious_duplicate``: best earlier match ≥ low but < high (not upgraded to definite).
 
     Returns:
     {
-      "unique_texts": [...],
-      "unique_indices": [...],
-      "duplicate_groups": [{"kept_index": int, "duplicate_indices": [...], "similarities": [...]}],
-      "embeddings": [...]
+      "texts": [...],  # all inputs, order preserved
+      "embeddings": [...],
+      "per_text": [
+        {
+          "index": int,
+          "text": str,
+          "duplicate_characteristic": "unique" | "definite_duplicate" | "suspicious_duplicate",
+          "related_earlier_index": int | null,
+          "max_similarity_to_earlier": float | null,
+          "referenced_by_later_indices": [int, ...],
+        },
+        ...
+      ],
+      "definite_duplicate_pairs": [{"earlier_index": int, "later_index": int, "similarity": float}, ...],
+      "suspicious_pairs_for_agent": [{"earlier_index": int, "later_index": int, "similarity": float}, ...],
+      "definite_unique_indices": [...],  # indices that are not definite_duplicate (auto-dedup view)
+      "high_similarity_threshold": float,
+      "low_similarity_threshold": float,
     }
     """
+    if low_similarity_threshold > high_similarity_threshold:
+        raise ValueError(
+            "low_similarity_threshold must be <= high_similarity_threshold "
+            f"(got low={low_similarity_threshold}, high={high_similarity_threshold})."
+        )
+
     if not texts:
         return {
-            "unique_texts": [],
-            "unique_indices": [],
-            "duplicate_groups": [],
+            "texts": [],
             "embeddings": [],
+            "per_text": [],
+            "definite_duplicate_pairs": [],
+            "suspicious_pairs_for_agent": [],
+            "definite_unique_indices": [],
+            "high_similarity_threshold": high_similarity_threshold,
+            "low_similarity_threshold": low_similarity_threshold,
         }
 
     embeddings = get_qwen3_embeddings(texts, model=model)
-    kept_indices: List[int] = []
-    duplicate_groups: List[Dict[str, Any]] = []
+    n = len(texts)
 
-    # Greedy dedup: keep earliest sentence in each semantic cluster.
-    for idx, emb in enumerate(embeddings):
-        matched_group = None
-        for group in duplicate_groups:
-            kept_idx = group["kept_index"]
-            sim = cosine_similarity(embeddings[kept_idx], emb)
-            if sim >= similarity_threshold:
-                matched_group = (group, sim)
-                break
+    per_text: List[Dict[str, Any]] = []
+    definite_pairs: List[Dict[str, Any]] = []
+    suspicious_pairs: List[Dict[str, Any]] = []
 
-        if matched_group is None:
-            kept_indices.append(idx)
-            duplicate_groups.append(
+    for j in range(n):
+        best_i: Optional[int] = None
+        best_sim: float = -1.0
+        for i in range(j):
+            sim = cosine_similarity(embeddings[i], embeddings[j])
+            if sim > best_sim:
+                best_sim = sim
+                best_i = i
+
+        if best_i is None or best_sim < low_similarity_threshold:
+            characteristic = "unique"
+            related: Optional[int] = None
+            max_sim_out: Optional[float] = None
+        elif best_sim >= high_similarity_threshold:
+            characteristic = "definite_duplicate"
+            related = best_i
+            max_sim_out = best_sim
+            definite_pairs.append(
                 {
-                    "kept_index": idx,
-                    "duplicate_indices": [],
-                    "similarities": [],
+                    "earlier_index": best_i,
+                    "later_index": j,
+                    "similarity": best_sim,
                 }
             )
         else:
-            group, sim = matched_group
-            group["duplicate_indices"].append(idx)
-            group["similarities"].append(sim)
+            characteristic = "suspicious_duplicate"
+            related = best_i
+            max_sim_out = best_sim
+            suspicious_pairs.append(
+                {
+                    "earlier_index": best_i,
+                    "later_index": j,
+                    "similarity": best_sim,
+                }
+            )
 
-    unique_texts = [texts[i] for i in kept_indices]
+        per_text.append(
+            {
+                "index": j,
+                "text": texts[j],
+                "duplicate_characteristic": characteristic,
+                "related_earlier_index": related,
+                "max_similarity_to_earlier": max_sim_out,
+                "referenced_by_later_indices": [],
+            }
+        )
+
+    # Back-references: who points to this index as the best earlier match?
+    for j, entry in enumerate(per_text):
+        rel = entry["related_earlier_index"]
+        if rel is not None:
+            per_text[rel]["referenced_by_later_indices"].append(j)
+
+    definite_unique_indices = [
+        entry["index"]
+        for entry in per_text
+        if entry["duplicate_characteristic"] not in ["definite_duplicate"]
+    ]
+    suspicious_duplicate_indices = [
+        entry["index"]
+        for entry in per_text
+        if entry["duplicate_characteristic"] in ["suspicious_duplicate"]
+    ]
+    definite_duplicate_indices = [
+        entry["index"]
+        for entry in per_text
+        if entry["duplicate_characteristic"] in ["definite_duplicate"]
+    ]
+
     return {
-        "unique_texts": unique_texts,
-        "unique_indices": kept_indices,
-        "duplicate_groups": duplicate_groups,
+        "texts": list(texts),
         "embeddings": embeddings,
+        "per_text": per_text,
+        "definite_duplicate_pairs": definite_pairs,
+        "suspicious_pairs_for_agent": suspicious_pairs,
+        "definite_unique_indices": definite_unique_indices,
+        "suspicious_duplicate_indices": suspicious_duplicate_indices,
+        "definite_duplicate_indices": definite_duplicate_indices,
+        "high_similarity_threshold": high_similarity_threshold,
+        "low_similarity_threshold": low_similarity_threshold,
     }
