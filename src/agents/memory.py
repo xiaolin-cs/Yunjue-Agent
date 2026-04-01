@@ -1,5 +1,6 @@
 import json
 import logging
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Optional
@@ -8,6 +9,8 @@ from langchain_core.messages import BaseMessage, HumanMessage, SystemMessage, me
 from src.utils.memory_utils import deduplicate_texts_by_embedding_similarity
 
 logger = logging.getLogger(__name__)
+
+_CLAIMS_TEMPLATE_BLOCK = re.compile(r"\{\{#CLAIMS\}\}[\s\S]*?\{\{/CLAIMS\}\}")
 
 
 class MemoryAnalyzer:
@@ -117,6 +120,204 @@ class MemoryAnalyzer:
             self._output_file = None
             self._tasks_file = None
             self._claims_file = None
+
+    @staticmethod
+    def _shared_dir() -> Path:
+        return Path(__file__).resolve().parents[1] / "workplace" / "shared"
+
+    @staticmethod
+    def _task_id_sort_key(task_id: str) -> tuple[int, int | str]:
+        if isinstance(task_id, str) and task_id.upper().startswith("T"):
+            suffix = task_id[1:].strip()
+            try:
+                return (0, int(suffix))
+            except ValueError:
+                return (1, task_id)
+        return (1, str(task_id))
+
+    @staticmethod
+    def _format_claim_lines(claims: list[dict[str, Any]]) -> str:
+        lines: list[str] = []
+        for claim in claims:
+            if not isinstance(claim, dict):
+                continue
+            cid = claim.get("claim_id", "")
+            stmt = claim.get("statement", "")
+            if not isinstance(stmt, str):
+                stmt = str(stmt)
+            lines.append(f"- {cid} | {stmt}")
+        return "\n".join(lines)
+
+    @staticmethod
+    def _fill_prompt_template(template: str, task_objective: str, claims_block_body: str) -> str:
+        text = template.replace("{{TASK_OBJECTIVE}}", task_objective)
+        text = _CLAIMS_TEMPLATE_BLOCK.sub(claims_block_body.rstrip(), text)
+        return text
+
+    def _resolve_query_paths(
+        self, query_id: Optional[str]
+    ) -> tuple[Optional[str], Optional[Path], Optional[Path]]:
+        qid = query_id if query_id is not None else self._query_id
+        if not qid:
+            return None, None, None
+        base = self._shared_dir() / qid
+        return qid, base / "TASKS.json", base / "CLAIMS.json"
+
+    @staticmethod
+    def _pick_smallest_todo_task(tasks: list[dict[str, Any]]) -> Optional[dict[str, Any]]:
+        todos = [
+            t
+            for t in tasks
+            if isinstance(t, dict) and str(t.get("status", "")).strip().lower() == "todo"
+        ]
+        if not todos:
+            return None
+        return min(
+            todos,
+            key=lambda t: MemoryAnalyzer._task_id_sort_key(str(t.get("task_id", ""))),
+        )
+
+    def snapshot(
+        self,
+        task_objective: str = "",
+        query_id: Optional[str] = None,
+    ) -> Optional[str]:
+        """
+        Dispatch snapshot: if any task is ``todo``, run ``snapshot_execute`` with the
+        smallest-``task_id`` todo task; otherwise if no task is ``todo``, run ``snapshot_plan``.
+        """
+        _, tasks_path, claims_path = self._resolve_query_paths(query_id)
+        if tasks_path is None or claims_path is None:
+            return None
+        if not claims_path.exists():
+            return None
+
+        claims = self._read_items_file(claims_path, "claims")
+        tasks = self._read_items_file(tasks_path, "tasks") if tasks_path.exists() else []
+
+        current = self._pick_smallest_todo_task(tasks)
+        if current is not None:
+            exec_template_path = self._shared_dir() / "memprompts" / "progress_execution.md"
+            if not exec_template_path.exists():
+                logger.warning("progress_execution.md not found at %s", exec_template_path)
+                return None
+            template = exec_template_path.read_text(encoding="utf-8")
+            return self.snapshot_execute(task_objective, current, claims, template)
+
+        else:
+            plan_template_path = self._shared_dir() / "memprompts" / "progress_planning.md"
+            if not plan_template_path.exists():
+                logger.warning("progress_planning.md not found at %s", plan_template_path)
+                return None
+            template = plan_template_path.read_text(encoding="utf-8")
+            return self.snapshot_plan(task_objective, claims, template)
+
+    def write_snapshot_md(
+        self,
+        task_objective: str = "",
+        query_id: Optional[str] = None,
+    ) -> Optional[Path]:
+        """
+        Run ``snapshot()`` and overwrite ``shared/<query_id>/snapshot.md`` with the result.
+        If snapshot generation fails (e.g. missing CLAIMS.json), the file is not written.
+        """
+        qid = query_id if query_id is not None else self._query_id
+        logger.info(f"(Test) write_snapshot_md: qid: {qid}")
+        if not qid:
+            return None
+        try:
+            content = self.snapshot(task_objective=task_objective, query_id=query_id)
+            logger.info(f"(Test) write_snapshot_md: content: {content}")
+            if content is None:
+                return None
+            out_dir = self._shared_dir() / qid
+            out_dir.mkdir(parents=True, exist_ok=True)
+            path = out_dir / "snapshot.md"
+            path.write_text(content, encoding="utf-8")
+            return path
+        except Exception as e:
+            logger.warning("write_snapshot_md failed for query_id=%s: %s", qid, e)
+            return None
+
+    def read_snapshot_md(self, query_id: Optional[str] = None) -> str:
+        """
+        Read ``shared/<query_id>/snapshot.md`` (UTF-8). Returns empty string if missing or unreadable.
+        """
+        qid = query_id if query_id is not None else self._query_id
+        if not qid:
+            return ""
+        path = self._shared_dir() / qid / "snapshot.md"
+        if not path.exists():
+            return ""
+        try:
+            return path.read_text(encoding="utf-8")
+        except Exception as e:
+            logger.warning("read_snapshot_md failed for query_id=%s: %s", qid, e)
+            return ""
+
+    def parse_instruction_task_id_from_snapshot_text(self, text: str) -> Optional[str]:
+        """Parse ``**T1**`` from the ``# Current Instruction`` section of snapshot text."""
+        if "# Current Instruction" not in text:
+            return None
+        idx = text.find("# Current Instruction")
+        rest = text[idx + len("# Current Instruction") :]
+        m = re.search(r"\*\*(T\d+)\*\*", rest)
+        if m:
+            return m.group(1)
+        return None
+
+    def mark_task_done_in_tasks_json(self, task_id: str) -> None:
+        """Set ``status`` to ``done`` for ``task_id`` in ``shared/<query_id>/TASKS.json``."""
+        _, tasks_path, _ = self._resolve_query_paths(self._query_id)
+        if tasks_path is None or not tasks_path.exists():
+            return
+        try:
+            data = json.loads(tasks_path.read_text(encoding="utf-8"))
+            tasks = data.get("tasks")
+            logger.info(f"mark_task_done_in_tasks_json: tasks: {tasks}")
+            if not isinstance(tasks, list):
+                return
+            for t in tasks:
+                if not isinstance(t, dict):
+                    continue
+                if str(t.get("task_id", "")).strip() == task_id:
+                    logger.info(f"mark_task_done_in_tasks_json: t: {t}")
+                    t["status"] = "done"
+                    break
+            tasks_path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+        except Exception as e:
+            logger.warning("Failed to mark task %s done in %s: %s", task_id, tasks_path, e)
+
+    def snapshot_execute(
+        self,
+        task_objective: str,
+        current_task: dict[str, Any],
+        claims: list[dict[str, Any]],
+        template: str,
+    ) -> str:
+        """Fill ``progress_execution`` template: instruction from ``current_task``, claims list."""
+        instruction = current_task.get("description", "")
+        if not isinstance(instruction, str):
+            instruction = str(instruction)
+        tid = current_task.get("task_id", "")
+        instruction_block = (
+            f"**{tid}** — {instruction.strip()}" if tid else instruction.strip()
+        )
+        claims_body = self._format_claim_lines(claims)
+        text = template.replace("{{TASK_OBJECTIVE}}", task_objective)
+        text = text.replace("{{INSTRUCTION_OR_EMPTY}}", instruction_block)
+        text = _CLAIMS_TEMPLATE_BLOCK.sub(claims_body.rstrip(), text)
+        return text
+
+    def snapshot_plan(
+        self,
+        task_objective: str,
+        claims: list[dict[str, Any]],
+        template: str,
+    ) -> str:
+        """Fill ``progress_planning`` template with ``TASK_OBJECTIVE`` and all claims."""
+        claims_body = self._format_claim_lines(claims)
+        return self._fill_prompt_template(template, task_objective, claims_body)
 
     def _persist_memory_record(self, record: dict[str, Any]) -> None:
         if self._output_file is None:

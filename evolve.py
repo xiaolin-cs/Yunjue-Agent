@@ -323,7 +323,7 @@ async def optimize_tools(task_ids: List[str], step: int, run_dir: Path, merge_po
 def compute_loss(new_tool_call_cnt, total_tool_call_cnt, new_needed_tool_cnt, total_needed_tool_cnt):
     total_tool_call_cnt += new_tool_call_cnt
     total_needed_tool_cnt += new_needed_tool_cnt
-    return total_needed_tool_cnt / total_tool_call_cnt
+    return total_needed_tool_cnt / (total_tool_call_cnt + 1e-6)
 
 
 def run_task_process(

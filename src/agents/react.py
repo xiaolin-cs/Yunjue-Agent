@@ -8,6 +8,8 @@ from copy import deepcopy
 from pathlib import Path
 from typing import Annotated, Any, AsyncIterator, List, Literal, Optional, TypedDict
 
+from typing_extensions import NotRequired
+
 from langchain_core.messages import (
     AIMessage,
     BaseMessage,
@@ -33,7 +35,8 @@ from src.services.llms.llm import create_llm, get_max_tokens
 from src.prompts.loader import prompt_loader
 logger = logging.getLogger(__name__)
 
-
+# LangGraph predecessor of the `agent` node (which node transitioned into `call_model`).
+AgentPrevNode = Literal["__start__", "context_summary", "rollback"]
 class AgentState(TypedDict):
     messages: Annotated[List[BaseMessage], add_messages]
     # Counts how many times we've transitioned into the "tools" node.
@@ -43,6 +46,8 @@ class AgentState(TypedDict):
     retry_count: int
 
     tool_call_cnt: int
+    # Set by the node that hands off to `agent`: START initial input, `context_summary`, or `rollback`.
+    agent_prev_node: NotRequired[AgentPrevNode]
 
 
 success_tool_names = set()
@@ -131,19 +136,67 @@ class ReActAgent:
         return not content_text.strip()
 
     def context_summary_internal(self, state: AgentState):
-        state = context_summary(state, self.context_trimmer)
-        return state
+        new_state = context_summary(state, self.context_trimmer)
+        if isinstance(new_state, dict):
+            return {**new_state, "agent_prev_node": "context_summary"}
+        return new_state
+
+    @staticmethod
+    def _human_message_text(msg: HumanMessage) -> str:
+        content = msg.content
+        if isinstance(content, str):
+            return content
+        if isinstance(content, list):
+            return "".join(part if isinstance(part, str) else str(part) for part in content)
+        return str(content) if content is not None else ""
+
+    @staticmethod
+    def _is_snapshot_message(msg: BaseMessage) -> bool:
+        return getattr(msg, "name", None) == "Progress"
+
+    def _update_task_status(self, msg: HumanMessage) -> None:
+        text = ReActAgent._human_message_text(msg)
+        logger.info(f"update_task_status: text: {text}")
+        if "# Current Instruction" in text:
+            tid = self.memory_analyzer.parse_instruction_task_id_from_snapshot_text(text)
+            logger.info(f"update_task_status: tid: {tid}")
+            if tid:
+                self.memory_analyzer.mark_task_done_in_tasks_json(tid)
+                logger.info(f"update_task_status: mark_task_done_in_tasks_json: {tid}")
+
+    # def _strip_previsous_snapshot_and_following_ai(self, messages: List[BaseMessage]) -> List[BaseMessage]:
+    #     """Drop prior messages with name 'Progress' and the AIMessage immediately after each; mark task done when applicable."""
+    #     out: List[BaseMessage] = []
+    #     i = 0
+    #     while i < len(messages):
+    #         msg = messages[i]
+    #         logger.info(f"current message: {msg}")
+    #         if ReActAgent._is_snapshot_message(msg):
+    #             self._update_task_status(msg)
+    #             i += 1
+    #             if i < len(messages) and isinstance(messages[i], AIMessage):
+    #                 i += 1
+    #             continue
+    #         out.append(msg)
+    #         i += 1
+    #     return out
 
     def call_model(self, state: AgentState):
         tool_steps = state.get("tool_steps", 0)
         retry_count = state.get("retry_count", 0)
+        agent_prev_node = state.get("agent_prev_node", "__start__")
+        logger.debug("call_model: agent_prev_node=%s", agent_prev_node)
         # Create a copy of messages to avoid mutating the state
         messages = list(state["messages"])
+
         self.memory_analyzer.analyze_and_persist_call_input(messages, tool_steps, retry_count)
+        self.memory_analyzer.write_snapshot_md(task_objective=self.user_query or "")
         if self.max_steps is not None and tool_steps >= self.max_steps:
             return {"messages": ["Recur limit exceeded"], "tool_steps": tool_steps, "retry_count": retry_count}
         else:
             llm_to_use = self._llm_with_tools
+        
+        # messages = self._strip_previsous_snapshot_and_following_ai(messages)
         system_prompt = prompt_loader.get_prompt(
             "worker.md",
             **{
@@ -154,6 +207,11 @@ class ReActAgent:
         )
         # Insert SystemMessage at the beginning of the copy, not the original state
         messages.insert(0, SystemMessage(content=system_prompt))
+        snapshot_text = self.memory_analyzer.read_snapshot_md()
+        if snapshot_text.strip():
+            snapshot_message = HumanMessage(content=snapshot_text, name="Progress")
+            self._update_task_status(snapshot_message)
+            messages.append(snapshot_message)
         # Call LLM with retry logic (handled by ChatModel)
         # ChatModel now handles:
         # - Exception handling and retry
@@ -221,8 +279,13 @@ class ReActAgent:
             # If there's less than 2 AIMessages, just remove the last message
             logger.warning(f"Less than 2 AIMessages found ({len(ai_message_indices)}), removing last message only")
             if messages:
-                return {"messages": [RemoveMessage(id=messages[-1].id)], "tool_steps": tool_steps, "retry_count": retry_count}
-            return {"retry_count": retry_count}
+                return {
+                    "messages": [RemoveMessage(id=messages[-1].id)],
+                    "tool_steps": tool_steps,
+                    "retry_count": retry_count,
+                    "agent_prev_node": "rollback",
+                }
+            return {"retry_count": retry_count, "agent_prev_node": "rollback"}
         
         # Get the index of the second-to-last AIMessage
         second_to_last_ai_idx = ai_message_indices[-2]
@@ -240,7 +303,12 @@ class ReActAgent:
         
         logger.info(f"Rollback: removing {len(remove_messages)} messages starting from second-to-last AIMessage, tool_steps: {tool_steps}, retry_count: {retry_count}")
         
-        return {"messages": remove_messages, "tool_steps": tool_steps, "retry_count": retry_count}
+        return {
+            "messages": remove_messages,
+            "tool_steps": tool_steps,
+            "retry_count": retry_count,
+            "agent_prev_node": "rollback",
+        }
 
     def should_continue(self, state: AgentState) -> Literal["tools", "rollback", END]:
         last_message = state["messages"][-1]

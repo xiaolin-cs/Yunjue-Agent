@@ -431,9 +431,15 @@ async def executor_node(
     final_state = None
     try:
         async for stream_state in agent.astream(
-            {"messages": agent_input["messages"]},
+            {
+                "messages": agent_input["messages"],
+                "tool_steps": 0,
+                "retry_count": 0,
+                "tool_call_cnt": 0,
+                "agent_prev_node": "__start__",
+            },
             stream_mode="values",
-            config={"recursion_limit": 1000}
+            config={"recursion_limit": 1000},
         ):
             final_state = stream_state
             if isinstance(stream_state, dict):

@@ -718,7 +718,7 @@ def extract_tool_calls_from_messages(all_messages: List[BaseMessage]) -> List[To
                         "caller_message_id": message.id,
                     }
 
-    logger.info(f"all_messages: {format_conversation(all_messages)}")
+    # logger.info(f"all_messages: {format_conversation(all_messages)}")
     new_tool_executions = []
     # Extract tool execution results from ToolMessages
     for message in all_messages:
