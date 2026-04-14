@@ -1,0 +1,198 @@
+You are given a task context consisting of an overall objective and previously validated claims.
+
+Use the validated claims below as already-established evidence. You must treat them as available facts for reasoning and planning. Do not ignore them. Build on them.
+
+# Task Objective
+According to the NHS England Statistical Release Breastfeeding Initiation & Breastfeeding Prevalence 6-8 weeks (Quarter 1 2015/16), which 5 trusts with under 500 maternities achieved the lowest breastfeeding initiation rate? Order them from lowest rate to highest.
+
+# Constraints
+- Use the validated claims as prior evidence.
+- First determine whether the current claims are sufficient to directly complete the Task Objective.
+- If the Task Objective is already solvable from the claims, provide the answer in `## Final Conclusion`.
+- If the Task Objective is not yet solvable, do not force a conclusion. Instead, use `## Reasoning & Plan` to explain what missing information is needed, and provide the next best instruction(s) to execute.
+- Do not ask for user clarification.
+- Keep the reasoning concise but operational.
+- In `## Final Conclusion`, every factual statement must be supported by evidence already listed in `## Key Findings & Evidence`.
+
+## Key Findings & Evidence
+Use the following prior CLAIMS as established evidence. Preserve their identifiers and statuses.
+
+## Reasoning & Plan
+* **Analysis:** 
+  - Task Objective: [Restate the task objective briefly.]
+  - Sufficiency Check: Determine whether the validated claims already contain enough information to fully answer the Task Objective.
+  - Gap Check: If not sufficient, identify exactly what is missing.
+
+* **Plan:** 
+  - If sufficient: explain how you will synthesize the existing claims into the final answer.
+  - If insufficient: propose the next concrete instruction(s) that should be executed to obtain the missing evidence.
+  - Prefer instructions that are atomic, directly verifiable, and dependency-aware.
+  - If insufficient: propose the tool call(s) required to execute the instruction(s) when necessary.
+
+### Prior Claims
+- C1 | NHS England published a Statistical Release titled 'Breastfeeding Initiation & Breastfeeding Prevalence 6-8 weeks' for Quarter 1 2015/16.
+- C2 | The NHS England Statistical Release document is likely available in Excel or CSV format.
+- C3 | The five trusts with the lowest breastfeeding initiation rates among those with under 500 maternities can be ranked from the NHS England Statistical Release data.
+- C4 | The NHS England website uses small files called cookies to make the site work.
+- C5 | The page being accessed does not exist or has been moved, resulting in a 404 error.
+- C6 | NHS England has social media presence on Twitter.
+- C7 | NHS England has video content on YouTube.
+- C8 | NHS England has photo content on Flickr.
+- C9 | NHS England provides RSS feeds via Feedburner.
+- C10 | The NHS England website has sections for News, Publications, Statistics, Blogs, Events, and Contact us.
+- C11 | NHS England content is available under the Open Government Licence v3.0.
+- C12 | The URL fetch was blocked by Cloudflare JavaScript challenge anti-bot protection.
+- C13 | The requested URL could not be fetched due to anti-bot protection.
+- C14 | The Maternity and Breastfeeding data collection by NHS England has been discontinued.
+- C15 | The collection reported on the number and proportion of women seen and assessed by a healthcare professional within 12 weeks and 6 days of their maternity.
+- C16 | The 6-8 week breastfeeding data is published by NHS Digital through the Children and Young People's Health Services (CYPHS) Dataset.
+- C17 | Issues with coverage and data quality of the CYPHS data set currently exist.
+- C18 | NHS Digital is working to address coverage and data quality issues with the CYPHS dataset.
+- C19 | The central infrastructure for the CYPHS dataset was fully implemented and data began to flow from local services to NHS Digital in October 2015.
+- C20 | NHS Digital has published monthly reports on the CYPHS data since September 2016.
+- C21 | The decision to switch reporting sources was made on the basis of cessation of alternative collections.
+- C22 | Providers can submit maternity risk assessment and breastfeeding initiation data to the MSDS via http://content.digital.nhs.uk/maternityandchildren/maternity.
+- C23 | Providers can submit breastfeeding status data at 6-8 weeks to the CYPHS dataset via http://content.digital.nhs.uk/maternityandchildren/CYPHS.
+- C24 | NHS Digital provides support for CYPHS dataset submissions via email at enquiries@nhsdigital.nhs.uk using the subject title 'Submitting Breastfeeding at 6-8 weeks Data to CYPHS'.
+- C25 | NHS England published statistical commentary and data files for quarters Q1-Q4 of 2016/17.
+- C26 | The file path for the Q2 2015-16 commentary PDF is '/u/xlin4/Projects/multi-agent/Yunjue-Agent/q2_2015_16_commentary.pdf'.
+- C27 | The Q2 2015-16 commentary PDF file was successfully accessed.
+- C28 | The file path './breastfeeding_q1_2015_16.xlsx' experienced a download failure.
+- C29 | The URL 'https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2014/03/Breastfeeding-201516-Q1.xlsx' returned an HTTP 404 error.
+- C30 | The error message indicates '404 Client Error: Not Found' for the breastfeeding statistics file URL.
+- C31 | The file relates to breastfeeding data for Q1 of the 2015-16 period.
+- C32 | The file_size value is null for the breastfeeding Q1 2015-16 file.
+- C33 | A file exists at the path '/u/xlin4/Projects/multi-agent/Yunjue-Agent/breastfeeding_2015_16_annual.xlsx'.
+- C34 | The file 'breastfeeding_2015_16_annual.xlsx' has a content type of 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'.
+- C35 | A worksheet named 'Q1' was not found in the queried data source.
+- C36 | The data query returned zero rows.
+- C37 | The NHS England Maternity and Breastfeeding page has the title '(Discontinued) Maternity and Breastfeeding'.
+- C38 | Data files for 2015/16 including Q1-Q4 quarters are listed on the NHS England Maternity and Breastfeeding page.
+- C39 | The direct quarterly file link for Q1 2015/16 breastfeeding data at https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2014/03/Breastfeeding-201516-Q1.xlsx returned a 404 error.
+- C40 | The download of the Q1 2015/16 breastfeeding data file failed after 3 attempts with HTTP error 404.
+- C41 | The annual GP-level breastfeeding data file for 2015/16 was successfully downloaded from NHS England.
+- C42 | The annual GP-level breastfeeding data file for 2015/16 is located at https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2014/03/Breastfeeding-12-Week-Risk-Assessment-201516-GP-v2.xlsx.
+- C43 | Multiple attempts to parse the downloaded Excel file breastfeeding_2015_16_annual.xlsx failed because the requested sheet names do not exist in the workbook.
+- C44 | The sheet name 'Q1' was not found in the breastfeeding_2015_16_annual.xlsx workbook.
+- C45 | The Q2 2015/16 statistical commentary PDF is located at https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2014/03/STATISTICAL-COMMENTARY-Q2-201516-v1.0.pdf.
+- C46 | The downloaded Q2 2015/16 statistical commentary PDF has a file size of 237825 bytes.
+- C47 | The spreadsheet contains a sheet named 'Frontsheet'.
+- C48 | NHS England became responsible for undertaking Public Health Section 7A functions including screening, immunisations and wider child and maternal health from the 1st April 2013.
+- C49 | Key performance indicators around breastfeeding and maternal assessments had been collected via Primary Care Trusts (PCTs) in the Integrated Performance Management Return historically.
+- C50 | The Q1 2013/14 onward collection of 12 week risk assessment and breastfeeding initiation data were collected directly from maternity service providers and child health information system providers.
+- C51 | Data were collected from providers at general practice level to enable uptake to be monitored locally and data to be aggregated and reported at Clinical Commissioning Group (CCG).
+- C52 | These data are released as experimental official statistics because they remain under development.
+- C53 | 135 maternity providers were identified for 12 week and breastfeeding initiation submissions.
+- C54 | Data returns covering 126 of the 135 identified maternity providers were received in Q2, an uptake rate of 93%.
+- C55 | In Q2 2015/16 breastfeeding initiation status recorded was 72.7% of mothers initiating breastfeeding.
+- C56 | In Q4 2014/15 the percentage of mothers seen for full maternal assessment before 12 weeks and 6 days was 106.3%.
+- C57 | In England, amongst the 120 Trusts that passed validation in Q4 2014/15, the percentage seen before 12 weeks and 6 days ranged from 4.1% at George Eliot Hospital NHS Trust to 697.1% at The Royal Bournemouth and Christchurch Hospitals NHS Foundation Trust.
+- C58 | The percentage of maternities that were seen after 12 weeks and 6 days ranged from 0% in Norfolk and Norwich University Hospitals NHS Foundation Trust to 118.4% at St George's University NHS Foundation Trust in Q4 2014/15.
+- C59 | In England, the Q4 2014/15 percentage seen before 12 weeks and 6 days was 106.3%.
+- C60 | 6 providers have been excluded from validation.
+- C61 | For 12 week risk assessment some recorded figures are greater than 100% of maternities.
+- C62 | The indicator definition compares bookings for mothers having assessments at a trust to the number of maternities at the point of delivery at that trust 2 quarters later.
+- C63 | The maternity at the point of delivery figure may be lower than the number of mothers having assessments due to mothers suffering miscarriage, women choosing to undergo a termination or women transferring to another hospital.
+- C64 | Women who live in urban areas where there are multiple hospitals could choose to undergo assessments at more than one hospital to enable them to compare maternity service provision.
+- C65 | Women may be double counted, leading to a higher ratio of assessments to deliveries.
+- C66 | The coverage target for 2013/14 onwards has been reduced to 85% for England level figures only.
+- C67 | The change in quality standard for the validation check does not apply at the lower levels of geography.
+- C68 | Trust data was validated against maternity figures pulled from Hospital Episode Statistics known deliveries.
+- C69 | 123 trusts passed data validation checks for breastfeeding initiation.
+- C70 | The annual percentage of breastfeeding initiation was 74.3% in 2014/15.
+- C71 | NHS England has not prescribed a specific method of collection and decisions on how to collect data have been taken locally.
+- C72 | Each provider has been able to choose a data collection method that works best for its staff and people who use services.
+- C73 | University Hospitals of North Midlands (provider RJE) allocated maternities to GP Practice code V81999 and were not allocated to any CCG for Q2 2015/16.
+- C74 | The download failed after 3 attempts for the breastfeeding_2015_16_provider.xlsx file.
+- C75 | The target file is named 'Breastfeeding-12-Week-Risk-Assessment-201516-Provider-v2.xlsx' on the NHS England statistics server.
+- C76 | The data source for the 12 week Maternal Assessment table is NHS England.
+- C77 | The 12 week Maternal Assessment data is Crown Copyright © 2017.
+- C78 | The 12 week Maternal Assessment table covers the annual period 2015/16.
+- C79 | GP Practice A81001 is associated with CCG code 00K and Area Team code Q74.
+- C80 | GP Practice A81001 is associated with NHS HARTLEPOOL AND STOCKTON-ON-TEES CCG.
+- C81 | GP Practice A81001 had 41 maternities in 2015/16.
+- C82 | CCG code 00K corresponds to NHS HARTLEPOOL AND STOCKTON-ON-TEES CCG.
+- C83 | Area Team code Q74 is associated with multiple CCGs including NHS HARTLEPOOL AND STOCKTON-ON-TEES CCG and NHS SOUTH TEES CCG.
+- C84 | LAD Code E06000004 is associated with multiple GP practices including A81001, A81002, and A81006.
+- C85 | The download failed after 3 attempts.
+- C86 | The last error encountered was HTTP error 404 with message '404 Client Error: NOT FOUND'.
+- C87 | The original file was hosted on the NHS England statistics website at path '/statistics/wp-content/uploads/sites/2/2014/03/'.
+- C88 | The file is not available via the Wayback Machine archive at the attempted URL.
+- C89 | The data source for Table 2 (Breastfeeding initiation by GP Practice, CCG, Area Team 2015/16 - Annual) is NHS England.
+- C90 | The breastfeeding initiation data is published under Crown Copyright © 2017.
+- C91 | The dataset contains breastfeeding initiation statistics for the 2015/16 annual period.
+- C92 | The dataset is organized by GP Practice, Clinical Commissioning Group (CCG), and Area Team.
+- C93 | GP Practice A81001 had a breastfeeding initiation percentage of approximately 63.41%.
+- C94 | NHS Hartlepool and Stockton-on-Tees CCG serves Local Authority District E06000001 (Hartlepool).
+- C95 | NHS South Tees CCG serves Local Authority District E06000002 (Middlesbrough).
+- C96 | NHS Cumbria CCG serves Local Authority District E07000027 (Barrow-in-Furness).
+- C97 | The dataset includes fields for percentage of mothers initiating breastfeeding, percentage not initiating, and percentage with no known status.
+- C98 | Some GP practices recorded zero maternities in 2015/16 (e.g., A81068, A81071, A81620, A81627).
+- C99 | Data for GP practices with fewer than 6 maternities are suppressed or marked with asterisks in certain fields.
+- C100 | NHS Hartlepool and Stockton-on-Tees CCG is in Area Team Q74.
+- C101 | At GP Practice A81001, 63.41% of mothers initiated breastfeeding in 2015/16.
+- C102 | The dataset includes indicator columns for maternities less than 6, known initiated less than 6, known not initiated less than 6, equal 0 no mothers with no status recorded, and not known less than 6.
+- C103 | The file path './q1_2015_16_commentary.pdf' failed to download.
+- C104 | The file path './breastfeeding_trust_annual.xlsx' failed to download.
+- C105 | The download attempt for the breastfeeding trust annual file failed after 3 attempts.
+- C106 | The breastfeeding file pertains to 12-week risk assessment data for the 2015-16 period at the trust level.
+- C107 | The NHS England statistics website hosts breastfeeding data files under the path '/statistics/wp-content/uploads/sites/2/2014/03/'.
+- C108 | The annual GP-level breastfeeding Excel file for 2015/16 contains three sheets named 'Frontsheet', 'T1_PracticesMA', and 'T2_PracticesBFI'.
+- C109 | 126 maternity providers returned data in Q2 2015/16.
+- C110 | Among the 123 trusts that passed validation in Q2 2015/16, breastfeeding initiation ranged from 24.8% to 93.5%.
+- C111 | Yeovil District Hospital NHS Foundation Trust had the lowest breastfeeding initiation rate of 24.8% among the 123 trusts that passed validation in Q2 2015/16.
+- C112 | St George's Healthcare NHS Trust had the highest breastfeeding initiation rate of 93.5% among the 123 trusts that passed validation in Q2 2015/16.
+- C113 | The sheet 'T2_PracticesBFI' in the annual 2015/16 file contains GP practice-level breastfeeding initiation data.
+- C114 | The 'T2_PracticesBFI' sheet contains columns for GP Practice Code, Number of maternities, and Percentage mothers Initiating Breastfeeding.
+- C115 | Attempted downloads of trust-level breastfeeding files for 2015/16 returned HTTP 404 errors.
+- C116 | The URL 'Breastfeeding-201516-Q1.xlsx' returned HTTP 404 error.
+- C117 | The URL 'Statistical-Release-Q1-201516.xlsx' returned HTTP 404 error.
+- C118 | Area Team code Q74 is associated with multiple CCGs including 00K and 00M.
+- C119 | LAD Code E06000001 is associated with NHS HARTLEPOOL AND STOCKTON-ON-TEES CCG.
+- C120 | Publishers have restricted access to 500,000+ books on Internet Archive.
+- C121 | There is a Change.org petition asking publishers to restore access to 500,000+ books.
+- C122 | Internet Archive is a 501(c)(3) non-profit organization.
+- C123 | Internet Archive is building a digital library of Internet sites and other cultural artifacts in digital form.
+- C124 | The Wayback Machine is an initiative of the Internet Archive.
+- C125 | The Wayback Machine has archived more than 1 trillion web pages over time.
+- C126 | Open Library is a project of the Internet Archive.
+- C127 | Archive-It.org is a project of the Internet Archive.
+- C128 | Internet Archive's Terms of Service were last updated on December 31, 2014.
+- C129 | Use of the Wayback Machine is subject to the Internet Archive's Terms of Use.
+- C130 | Internet Archive offers mobile apps for Wayback Machine on iOS and Android platforms.
+- C131 | Internet Archive offers browser extensions for Wayback Machine on Chrome, Firefox, Safari, and Edge.
+- C132 | Archive-It offers subscription-based web archiving services.
+- C133 | The Wayback Machine archived a snapshot of the NHS England Maternity and Breastfeeding statistics page on September 10, 2015 at 03:05:22 UTC.
+- C134 | Breastfeeding and 12 Week Risk Assessment Collection Guidance was amended on August 20, 2014.
+- C135 | During Q1 2014/15, maternity providers who had not submitted during 2013/14 were given a final opportunity to do so.
+- C136 | NHS England received additional maternity data for 2013/14 after Q1 2014/15.
+- C137 | The year-end publication for breastfeeding 2013/14 was revised due to additional maternity data received after Q1 2014/15.
+- C138 | The Breastfeeding 2013/14 Revised Data V4 file was amended on January 8, 2015, January 12, 2015, and March 23, 2015.
+- C139 | On January 8, 2015, amendments were made to T1_Init_National, T2_Prev_National and T3_DropOff_National due to inclusion of 2013 ONS birth data.
+- C140 | On January 12, 2015, amendments were made to T14_Prev68CCG_OT columns H, J, L and N which had incorrect cell references.
+- C141 | On March 23, 2015, amendment was made to T3_DropOff_National percentages excluded according to whether data passed validation.
+- C142 | Duplicate GP Practices were merged in the Breastfeeding 2013/14 Revised Data GP V2 file amendment on October 9, 2014.
+- C143 | On July 10, 2015, percentages were removed on worksheet T14_Prev68LAD_OT for 00CG Sheffield MD in the Breastfeeding 2014/15 Q4_v2 file.
+- C144 | NHS England's contact email for further information about the published statistics is england.dataflows@nhs.net.
+- C145 | NHS England's Analytical Service is located at Quarry House, Leeds LS2 7UE, Great Britain.
+- C146 | VTE Risk Assessment data collection for Quarter 1 2015-16 was published on September 4, 2015.
+- C147 | Friends and Family Test data for July 2015 was published on September 3, 2015.
+- C148 | Dementia Assessment and Referral data collection for June 2015, Q1 2015/16 was published on September 2, 2015.
+- C149 | The dataset 'Indicators on Breastfeeding' was published by the Department of Health and Social Care.
+- C150 | The dataset '% of mothers who give their babies breast milk in the first 48 hours after delivery (breastfeeding initiation)' was published by City of York Council.
+- C151 | The dataset 'Woodland Creation Headline Performance Indicator England Q1 2015/2016' was published by Forestry Commission.
+- C152 | The Forestry Commission's Headline Performance Indicator 'Hectares of woodland created (gross)' forms part of the Forestry Commission's Corporate Plan.
+- C153 | The dataset 'NI 053 Prevalence of breast-feeding at 6-8 weeks from birth' was published by Department for Children, Schools and Families.
+- C154 | The search on data.gov.uk for 'breastfeeding initiation Q1 2015' returned 19,482 results.
+- C155 | The dataset 'Breastfeeding prevalence and Early Access to NHS maternity services in London' was published by NHS London (SHA).
+- C156 | A data link for 2014/15 Quarter 1 of the dataset 'Indicators on Breastfeeding' was added on 25 September 2014.
+- C157 | NHS England can be contacted for enquiries regarding the dataset 'Indicators on Breastfeeding'.
+- C158 | The data.gov.uk website uses cookies to collect information about how users use the website.
+- C159 | The data.gov.uk website is built by the Government Digital Service.
+- C160 | All content on data.gov.uk is available under the Open Government Licence v3.0, except where otherwise stated.
+- C161 | In 2012/13 Q4 the percentage seen before 12 weeks and 6 days was 100.9%, compared with 2011/12 (94.7%) and 2010/11 (92.6%).
+- C162 | There is a discrepancy of the number of maternities (5) at CCG level, number of women who have seen a midwife or a maternity healthcare professional for health and social care assessment of needs, risks and choices at any time during pregnancy (6) and number of women seen by 12 weeks and 6 days of pregnancy (6).
+- C163 | Table 2 contains columns for AT Code, CCG Code, CCG Name, LAD Code, and GP Practice Code.
+- C164 | The file statistical_release_q1_1516.xlsx failed to download after 3 attempts.
+- C165 | The statistical release file for Q1 1516 is not found at the expected NHS England statistics URL.
+- C166 | The download operation returned no file size information.

@@ -1,0 +1,321 @@
+You are given a task context consisting of an overall objective and previously validated claims.
+
+Use the validated claims below as already-established evidence. You must treat them as available facts for reasoning and planning. Do not ignore them. Build on them.
+
+# Task Objective
+How many research chairs did each of these schools gain or lose between the 2008 Re-allocation results and the 2012 Re-allocation results? University of British Columbia, University of Alberta, University of Saskatchewan, University of Manitoba, University of Toronto.
+
+# Constraints
+- Use the validated claims as prior evidence.
+- First determine whether the current claims are sufficient to directly complete the Task Objective.
+- If the Task Objective is already solvable from the claims, provide the answer in `## Final Conclusion`.
+- If the Task Objective is not yet solvable, do not force a conclusion. Instead, use `## Reasoning & Plan` to explain what missing information is needed, and provide the next best instruction(s) to execute.
+- Do not ask for user clarification.
+- Keep the reasoning concise but operational.
+- In `## Final Conclusion`, every factual statement must be supported by evidence already listed in `## Key Findings & Evidence`.
+
+## Key Findings & Evidence
+Use the following prior CLAIMS as established evidence. Preserve their identifiers and statuses.
+
+## Reasoning & Plan
+* **Analysis:** 
+  - Task Objective: [Restate the task objective briefly.]
+  - Sufficiency Check: Determine whether the validated claims already contain enough information to fully answer the Task Objective.
+  - Gap Check: If not sufficient, identify exactly what is missing.
+
+* **Plan:** 
+  - If sufficient: explain how you will synthesize the existing claims into the final answer.
+  - If insufficient: propose the next concrete instruction(s) that should be executed to obtain the missing evidence.
+  - Prefer instructions that are atomic, directly verifiable, and dependency-aware.
+  - If insufficient: propose the tool call(s) required to execute the instruction(s) when necessary.
+
+### Prior Claims
+- C1 | The task requires comparing Canada Research Chairs re-allocation results between 2008 and 2012 for five specific universities.
+- C2 | University of British Columbia is one of the five universities to be analyzed for Canada Research Chairs re-allocation.
+- C3 | Web search can be used to discover web pages containing Canada Research Chairs re-allocation results for 2008 and 2012.
+- C4 | Fetch web content can be used to extract text content from identified pages to obtain chair allocation data for the specified universities.
+- C5 | The analysis requires calculating gains or losses in research chairs for each university between two time periods.
+- C6 | The 2008 Re-allocation results represent one of the two time points needed for comparison.
+- C7 | The 2008 re-allocation of Canada Research Chairs allocated chairs to universities across Canada.
+- C8 | University of Alberta received 54 Tier 1 chairs and 56 Tier 2 chairs in the 2008 re-allocation, totaling 110 chairs.
+- C9 | Bishop's University received 1 Tier 1 chair and 1 Tier 2 chair in the 2008 re-allocation, totaling 2 chairs.
+- C10 | Cape Breton University received 1 Tier 1 chair and 2 Tier 2 chairs in the 2008 re-allocation, totaling 3 chairs.
+- C11 | Collège universitaire de Saint-Boniface received 0 Tier 1 chairs and 1 Tier 2 chair in the 2008 re-allocation, totaling 1 chair.
+- C12 | École de technologie supérieure received 3 Tier 1 chairs and 5 Tier 2 chairs in the 2008 re-allocation, totaling 8 chairs.
+- C13 | École nationale d'administration publique received 1 Tier 1 chair and 2 Tier 2 chairs in the 2008 re-allocation, totaling 3 chairs.
+- C14 | The Canada Research Chairs program reallocates chairs every two years.
+- C15 | The three federal research granting bodies are the Natural Sciences and Engineering Research Council, the Social Sciences and Humanities Research Council, and the Canadian Institutes of Health Research.
+- C16 | University of Toronto leads the nation in number of Canada Research Chairs.
+- C17 | Thirty-four new Canada Excellence Research Chairs were funded in the fourth competition.
+- C18 | Nominations for Canada Excellence Research Chairs were carefully reviewed by external experts.
+- C19 | The Government of Canada is allocating $300 million a year for the establishment of research professorships known as Canada Research Chairs.
+- C20 | The fifteenth-year evaluation of the Canada Research Chairs Program is required as per the evaluation coverage requirements stipulated in the Treasury Board Policy on Evaluation and with respect to section 42.1 of the Financial Administration Act.
+- C21 | Dalhousie University received 10 Tier 1 chairs in the 2012 re-allocation.
+- C22 | Concordia University received 6 Tier 1 chairs in the 2012 re-allocation.
+- C23 | Carleton University received 7 Tier 1 chairs in the 2012 re-allocation.
+- C24 | École Polytechnique de Montréal received 11 Tier 1 chairs in the 2012 re-allocation.
+- C25 | Brock University received 1 Tier 1 chair in the 2012 re-allocation.
+- C26 | Acadia University received 0 Tier 1 chairs in the 2012 re-allocation.
+- C27 | Eligible postsecondary institutions receive an allocation of Canada Research Chairs through a national re-allocation process conducted every five years.
+- C28 | Tier 1 Canada Research Chairs are typically senior researchers.
+- C29 | Canada Research Chairs were granted between 2001 and 2016.
+- C30 | The Canada Research Chairs Program has equity, diversity, and inclusiveness requirements.
+- C31 | A fifteenth-year evaluation of the Canada Research Chairs Program was conducted.
+- C32 | University of Toronto has an Equity, Diversity, and Inclusion Action Plan for the Canada Research Chairs Program.
+- C33 | Concordia University has an Equity, Diversity, and Inclusion Action Plan for the Canada Research Chairs Program.
+- C34 | Canada Excellence Research Chairs is a program related to research funding in Canada.
+- C35 | The Canada Foundation for Innovation is a Canadian research funding organization.
+- C36 | NSERC stands for Natural Sciences and Engineering Research Council.
+- C37 | SSHRC stands for Social Sciences and Humanities Research Council.
+- C38 | CIHR stands for Canadian Institutes of Health Research.
+- C39 | Tier 1 Canada Research Chair renewal criteria include dissemination of results through peer-reviewed journals, monographs, books, conferences, patents, copyrights, products, services, technology transfer, and creative or artistic works.
+- C40 | Algoma University College received 0 Tier 1 chairs in the 2012 re-allocation.
+- C41 | Athabasca University received 0 Tier 1 chairs in the 2012 re-allocation.
+- C42 | Brandon University received 0 Tier 1 chairs in the 2012 re-allocation.
+- C43 | University College of the North received 0 Tier 1 chairs in the 2012 re-allocation.
+- C44 | Emily Carr University of Art and Design received 0 Tier 1 chairs in the 2012 re-allocation.
+- C45 | University of the Fraser Valley received 0 Tier 1 chairs in the 2012 re-allocation.
+- C46 | The University of Manitoba's allocation for the 2026 Canada Excellence Research Chairs Competition (CERC) is $2 million per year.
+- C47 | The University of Saskatchewan has 31 active Canada Research Chairs as of November 2024.
+- C48 | The University of Saskatchewan lost 2 chairs in 2020, including 1 NSERC Tier 2 and 1 SSHRC Tier 2.
+- C49 | The University of Saskatchewan is home to over 100 research chairs and distinguished researchers.
+- C50 | The Canada Impact+ Research Chairs program will spend $1 billion over 12 years to assist universities and research institutions recruit top researchers.
+- C51 | Doreen Canillas is a contact person for the Canada Research Chairs program at the University of Saskatchewan and can be reached at 306-966-2452.
+- C52 | Miroslaw Cygler holds a CIHR Tier 1 Canada Research Chair at the University of Saskatchewan with a term ending December 31, 2025, and no further renewal is possible.
+- C53 | Ingrid Pickering holds an NSERC Tier 1 Canada Research Chair at the University of Saskatchewan with a term ending June 30, 2027, and no further renewal is possible.
+- C54 | Markus Hecker holds an NSERC Tier 1 Canada Research Chair at the University of Saskatchewan with a term from November 1, 2023 to October 31, 2030.
+- C55 | Dwight Newman holds an SSHRC Tier 1 Canada Research Chair in Rights, Communities, and Constitutional Law at the University of Saskatchewan with a term from April 1, 2024 to March 31, 2031.
+- C56 | Natalia Stakhanova holds an NSERC Tier 2 Canada Research Chair at the University of Saskatchewan with a term ending March 31, 2024, and no further renewal is possible.
+- C57 | Kristina R Bidwell holds an SSHRC Tier 2 Canada Research Chair at the University of Saskatchewan with a term from September 1, 2021 to August 31, 2026.
+- C58 | Alexander Moewes's Canada Research Chair is in the second term with no further renewal possible.
+- C59 | Eric Price held an NSERC Tier 2 new Canada Research Chair at University of Saskatchewan with a confirmed start date of July 1, 2021 and end date of June 30, 2026.
+- C60 | Eric Price's Canada Research Chair is in the second term with no further renewal possible.
+- C61 | Tara Kahan held an NSERC Tier 2 new Canada Research Chair at University of Saskatchewan with a confirmed start date of April 1, 2019 and end date of March 31, 2024.
+- C62 | University of Saskatchewan was allowed 2 flex moves in the 2020 calculation.
+- C63 | Publishers have restricted access to 500,000+ books on Internet Archive.
+- C64 | There is a Change.org campaign called 'LetReadersRead' asking publishers to restore access to books.
+- C65 | Internet Archive provides a Wayback Machine service for archiving web pages.
+- C66 | Internet Archive is a 501(c)(3) non-profit organization.
+- C67 | Internet Archive's mission includes building a digital library of Internet sites and other cultural artifacts in digital form.
+- C68 | Open Library is a project of Internet Archive.
+- C69 | Archive-It.org is a project of Internet Archive.
+- C70 | Internet Archive's Terms of Service were last updated on December 31, 2014.
+- C71 | Internet Archive offers Wayback Machine browser extensions for Chrome, Firefox, Safari, and Edge.
+- C72 | Internet Archive provides audio collections including Live Music Archive and Librivox Free Audio.
+- C73 | Internet Archive hosts collections from Metropolitan Museum and Cleveland Museum of Art.
+- C74 | Internet Archive offers software collections including Internet Arcade and Console Living Room.
+- C75 | Internet Archive's text collections include content from Smithsonian Libraries and FEDLINK.
+- C76 | Internet Archive hosts TV News and Understanding 9/11 video collections.
+- C77 | For each Tier 1 Chair, the university receives $200,000 annually for seven years.
+- C78 | University of Toronto receives $100,000 annually for each Tier 2 Chair.
+- C79 | Tier 1 Chairs are tenable for seven years and renewable once.
+- C80 | Total filled Canada Research Chair positions are 2,004.
+- C81 | There are 740 Tier 1 chairholders, representing 36.9% of total chairholders.
+- C82 | University of Toronto nominated 16 outstanding researchers in a competition, consisting of 3 Tier 1 nominees and 13 Tier 2 nominees.
+- C83 | Miroslaw (Mirek) Cygler's CRC is in the second term with no further renewal possible.
+- C84 | Ingrid Pickering's CRC is in the second term with no further renewal possible.
+- C85 | Markus Hecker's CRC has a final renewal submission date of April 2030.
+- C86 | Alexander Moewes holds an NSERC Tier 1 CRC with a confirmed start date of January 1, 2019 and end date of December 31, 2025.
+- C87 | Natalia Stakhanova's CRC is in the second term with no further renewal possible.
+- C88 | Erika Dyck holds an SSHRC Tier 1 CRC with a confirmed start date of March 1, 2020 and end date of February 28, 2027.
+- C89 | Erika Dyck's CRC has a final renewal submission date of April 2026.
+- C90 | Dwight Newman holds an SSHRC Tier 1 CRC with a confirmed start date of April 1, 2024 and end date of March 31, 2031.
+- C91 | Dwight Newman's CRC has a final renewal submission date of October 2030.
+- C92 | Kristina R Bidwell's CRC has a final renewal submission date of October 2025.
+- C93 | Eligible institutions may apply for any combination of $500,000 and $1 million per year award values for the Canada Impact+ Research Chairs competition.
+- C94 | Canada Research Chair holders are research leaders or rising stars in natural sciences and engineering.
+- C95 | In 2008, Acadia University had an allocation of 1 Tier 1 chair and 1 Tier 2 chair.
+- C96 | The number of Canada Research Chairs a university can nominate is proportional to the funding that researchers affiliated with that university have recently received.
+- C97 | Tier 1 Canada Research Chair holders at the University of Manitoba receive $200,000 in CRC funds annually.
+- C98 | The 2008 Re-allocation PDF is located at https://www.chairs-chaires.gc.ca/program-programme/2008_allocations_attributions.pdf.
+- C99 | Direct PDF content extraction from the 2008 Re-allocation PDF failed and returned empty content.
+- C100 | University of Saskatchewan allocation data is not visible in the search snippets from the 2008 Re-allocation PDF.
+- C101 | University of Toronto allocation data is not visible in the search snippets from the 2008 Re-allocation PDF.
+- C102 | The PDF snippet showing University of the Fraser Valley data cuts off before reaching University of Saskatchewan, University of Manitoba, and University of Toronto alphabetically.
+- C103 | Search results show current allocation documents and other years but not the specific 2008 data tables for University of Saskatchewan, University of Manitoba, and University of Toronto.
+- C104 | A subprocess execution error occurred when attempting to fetch content from a PDF file.
+- C105 | The PDF file path '/u/xlin4/Projects/multi-agent/Yunjue-Agent/https:/www.chairs-chaires.gc.ca/program-programme/2012_allocations_attributions.pdf' was not found.
+- C106 | The error originated from the file 'fetch_content.py' at line 39 in the run function.
+- C107 | The file path contains a malformed structure mixing local filesystem path with URL protocol.
+- C108 | University of Ottawa received a Canada Research Chair in Radiochemistry and Environmental Health funded by NSERC starting 8/1/2012 for $1,400,000 over 7 years.
+- C109 | Irena Creed at The University of Western Ontario received a Tier 2 Canada Research Chair in Watershed Sciences funded by NSERC starting 7/1/2012 for $500,000 over 5 years.
+- C110 | Christopher M Cully at University of Calgary received a Tier 2 Canada Research Chair in Space Physics funded by NSERC starting 8/1/2012 for $500,000 over 5 years.
+- C111 | Michel Cyr at Université du Québec à Trois-Rivières received a Tier 2 Canada Research Chair in Molecular Neuropharmacology funded by NSERC starting 7/1/2012 for $500,000 over 5 years.
+- C112 | Nedjib Djilali at University of Victoria received a Tier 1 Canada Research Chair in Energy Systems Design and Computational Modelling funded by NSERC starting 7/1/2012 for $1,400,000 over 7 years.
+- C113 | Nadir Erbilgin at University of Alberta received a Tier 2 Canada Research Chair in Forest Entomology funded by NSERC starting 9/1/2012 for $500,000 over 5 years.
+- C114 | Andrew PA Evans at Queen's University received a Tier 1 Canada Research Chair in Organic and Organometallic Chemistry funded by NSERC starting 7/1/2012 for $1,400,000 over 7 years.
+- C115 | Jason I Gerhard at The University of Western Ontario received a Tier 2 Canada Research Chair in Geoenvironmental Restoration Engineering funded by NSERC starting 7/1/2012 for $500,000 over 5 years.
+- C116 | Denis D M Groleau at Université de Sherbrooke received a Tier 1 Chaire de recherche du Canada en Microorganismes et procédés industriels en biotechnologie funded by NSERC starting 8/1/2012 for $1,400,000 over 7 years.
+- C117 | Christian Haas at York University received a Tier 1 Canada Research Chair in Arctic Sea Ice Geophysics funded by NSERC starting 7/1/2012 for $1,400,000 over 7 years.
+- C118 | Kimberley C Hall at Dalhousie University received a Tier 2 Canada Research Chair in Ultrafast Science funded by NSERC starting 7/1/2012 for $500,000 over 5 years.
+- C119 | Josephine Hill at University of Calgary received a Tier 2 Canada Research Chair in Hydrogen and Catalysis funded by NSERC starting 9/1/2012 for $500,000 over 5 years.
+- C120 | Karin Hinzer at University of Ottawa received a Tier 2 Canada Research Chair in Photonic Nanostructures and Integrated Devices funded by NSERC starting 8/1/2012 for $500,000 over 5 years.
+- C121 | Olivera Kesler at University of Toronto received a Tier 2 Canada Research Chair in Fuel Cell Materials and Manufacturing funded by NSERC starting 7/1/2012 for $500,000 over 5 years.
+- C122 | There are 2,004 total filled Canada Research Chair positions.
+- C123 | Of the total 2000 Chairs, 1880 are regular allocations distributed among universities.
+- C124 | The U15 universities are home to 70.1% (1189) of all Canada Research Chairs.
+- C125 | The gender gap in Canada Research Chairs at U15 universities is most evident among Tier 1 CRCs.
+- C126 | Among U15 SSHRC Canada Research Chairs, 59.8% (113) are held by males.
+- C127 | The Department of English and Film Studies in the Faculty of Arts at the University of Alberta invited applications for a Tier 1 Canada Research Chair (CRC) in Black Studies.
+- C128 | The University of Alberta was established in 1908.
+- C129 | The Canada Research Chairs Program is a tri-agency initiative involving SSHRC, NSERC, and CIHR.
+- C130 | New research security requirements apply to Canada Research Chairs opportunities.
+- C131 | New research security training requirements will be introduced in September 2025 for the University of Alberta research community.
+- C132 | Concordia University had a total of 25 chairs in the 2012 re-allocation.
+- C133 | Concordia University College of Alberta received 1 chair in the 2012 re-allocation.
+- C134 | University of Toronto's allocation increase was due to improved performance in research granting competitions.
+- C135 | University of Toronto nominated 55 new Canada Research Chairholders between October 2016 and April 2018.
+- C136 | The President of the University of Toronto, on the recommendation of the Vice-President and Provost, may approve the establishment of endowed chairs.
+- C137 | University of British Columbia had 168 total Canada Research Chairs in the 2008 re-allocation.
+- C138 | University of Alberta had 110 total Canada Research Chairs in the 2008 re-allocation.
+- C139 | University of Manitoba allocation data is not visible in the PDF snippets from 2008_allocations_attributions.pdf.
+- C140 | Christophe Altier holds a Tier 2 Canada Research Chair in Inflammatory pain at the University of Calgary, starting April 1, 2012, with total funding of $500,000 over 5 years.
+- C141 | Dr. Olivera Kesler is Canada Research Chair in fuel cell materials and manufacturing from the University of Toronto.
+- C142 | Chairholders are eligible for infrastructure support from CFI.
+- C143 | The CRC program reallocates chairs every two years based on university performance in designated research programs of Canada's three federal research granting bodies.
+- C144 | In January 2001, the Planning and Budget Committee recommended approval of an allocation of $3.4 million from the CRCF to cover salaries, benefits, research allowance and cluster support for 17 Chairholders approved in September 2000.
+- C145 | The government grant for 121 Chairs at University of Toronto was $18.2 million.
+- C146 | Roger Grosse is named Canada Research Chair in Probabilistic Inference and Deep Learning (Tier 2) and is an Assistant Professor.
+- C147 | Between October 2016 and April 2018, 55 new Chairholders were nominated at University of Toronto.
+- C148 | 837 Canada Research Chairs (39%) are allocated to natural sciences.
+- C149 | UBC is currently restricted in the recruitment, selection, and nomination of Canada Research Chairs until it can achieve certain equity targets.
+- C150 | Direct PDF content extraction via fetch_content tool failed for the 2008 allocation PDF from chairs-chaires.gc.ca.
+- C151 | The fetch_content tool attempted to treat the 2008 allocation PDF URL as a local file path.
+- C152 | The fetch_content tool returned FileNotFoundError for the 2008 allocation PDF.
+- C153 | University of Toronto's 2008 Canada Research Chairs allocation data could not be definitively extracted from available search results.
+- C154 | Dr. Olivera Kesler is working to create a new fuel cell technology.
+- C155 | The CRC program reallocates chairs every two years.
+- C156 | The University receives an allocation of Chairs it can use.
+- C157 | Holland Bloorview has developed a complimentary Action Plan to ensure Equity, Diversity and Inclusion Practices.
+- C158 | Holland Bloorview has CRC guidelines for ensuring a fair and transparent recruitment and nomination process.
+- C159 | Holland Bloorview Kids Rehabilitation Hospital is a fully affiliated teaching hospital of the University of Toronto.
+- C160 | Holland Bloorview currently holds two Canada Research Chairs.
+- C161 | The oversight of the CRC Program at Holland Bloorview, including recruitment and allocation of Chairs, resides in the portfolio of the VP Research.
+- C162 | Megan Stewart is the Director of Research Operations & Business Development at Bloorview Research Institute, Holland Bloorview Kids Rehabilitation Hospital.
+- C163 | British Columbia Institute of Technology was allocated 1 Tier 1 Canada Research Chair and 1 Tier 2 Canada Research Chair in the 2008 re-allocation, for a total of 2 chairs.
+- C164 | In the 2007-08 fiscal year, the University of Toronto Faculty of Arts & Science had net expenses of $220,500 thousand.
+- C165 | As of April 30, 2008, the University of Toronto held endowment funds totaling $2,165.2 million.
+- C166 | In 2006-07, 193 support requests were submitted to the Canada Foundation for Innovation, including 176 new nominations and 17 renewals.
+- C167 | In 2006-07, among new Canada Research Chair nominations submitted to CFI, 68 were for Tier 1 and Tier 2 women, and 111 were for Tier 1 and Tier 2 men.
+- C168 | In 1997, the federal government announced a new multiculturalism policy focused on social justice, civic participation, and identity.
+- C169 | In November 2015, the Government of Canada transferred the multiculturalism portfolio from the Department of Immigration, Refugees and Citizenship to the Department of Canadian Heritage.
+- C170 | Phil Bates at The University of British Columbia received a Canada Research Chair in Chemical Biology from CIHR on October 1, 2008, with $1,400,000 funding over 7 years.
+- C171 | Jillian Buriak at University of Alberta received a Canada Research Chair in Nanomaterials from NSERC on October 1, 2008, with $1,400,000 funding over 7 years.
+- C172 | Clarence de Silva at The University of British Columbia received a Canada Research Chair in Industrial Automation from NSERC on October 1, 2008, with $1,400,000 funding over 7 years.
+- C173 | Mostafa Benzaazoua at Université du Québec en Abitibi-Témiscamingue received a Chaire de recherche du Canada en gestion intégrée des rejets miniers from NSERC on October 1, 2008, with $500,000 funding over 5 years.
+- C174 | Mostafa Benzaazoua received a Tier 2 Canada Research Chair.
+- C175 | Jack Callaghan at University of Waterloo received a Canada Research Chair in Spine Biomechanics and Injury Prevention from NSERC on October 1, 2008, with $500,000 funding over 5 years.
+- C176 | Aristides Docoslis at Queen's University received a Canada Research Chair in Colloids and Nanoscale Engineering from NSERC on October 1, 2008, with $500,000 funding over 5 years.
+- C177 | Eldon Emberly at Simon Fraser University received a Canada Research Chair in Materials and Structural Biology from NSERC on October 1, 2008, with $500,000 funding over 5 years.
+- C178 | Graham Gagnon at Dalhousie University received a Canada Research Chair in Water Quality & Treatment from NSERC on October 1, 2008, with $500,000 funding over 5 years.
+- C179 | Jim Geelen at University of Waterloo received a Canada Research Chair in Combinatorial Optimization from NSERC on October 1, 2008, with $500,000 funding over 5 years.
+- C180 | Jeremy Heyl at The University of British Columbia received a Canada Research Chair in Neutron Stars and Black Holes from NSERC on October 1, 2008, with $500,000 funding over 5 years.
+- C181 | Yannick Huot at Université de Sherbrooke received a Canada Research Chair in Earth Observation and Phytoplankton Ecophysiology from NSERC on October 1, 2008, with $500,000 funding over 5 years.
+- C182 | John F. Kadla at The University of British Columbia received a Canada Research Chair in Advanced Biomaterials from NSERC on October 1, 2008, with $500,000 funding over 5 years.
+- C183 | Narayan Kar at University of Windsor received a Canada Research Chair in Hybrid Drivetrain Systems from NSERC on October 1, 2008, with $500,000 funding over 5 years.
+- C184 | Narayan Kar received a Tier 2 Canada Research Chair in Hybrid Drivetrain Systems.
+- C185 | Since 2002, the Secretariat of the Canada Research Chairs Program requires universities to produce an annual report.
+- C186 | The annual reports from universities present the state of expenditures for the current year and information on the program's impact on the institution's research capacity.
+- C187 | Universities consider that maintaining CFI funding is crucial for the long-term success of the Canada Research Chairs Program.
+- C188 | The Canada Research Chairs Program enables Canadian universities, together with their affiliated research institutes, to attract research talent.
+- C189 | The University of Manitoba is committed to improving governance, transparency and monitoring of equity, diversity and inclusion within the Canada Research Chairs program.
+- C190 | A second competition for the Canada Excellence Research Chairs Program was launched in 2012 to allocate 11 new CERC awards.
+- C191 | The 2012 CERC competition allocated awards in fields relevant to four priority research areas.
+- C192 | Impact+ Chairs receive long-term funding and institutional support to advance ambitious and transformative projects.
+- C193 | Impact+ Chairs work in Canada's strategic priority areas.
+- C194 | The University of Manitoba has two main campuses in Winnipeg.
+- C195 | A $7.5 million federal investment through the Canada Research Chairs program funded two researchers exploring rural innovation, economic development, and water supply safety and security, and backed the continued efforts of four researchers working in atmospheric, materials, and crop sciences.
+- C196 | Karen Chad is the U of S Vice President Research.
+- C197 | Funds from Canada Research Chairs are used for the researchers' salaries and for operating their research programs.
+- C198 | Ken Coates is a new faculty member in the Johnson-Shoyama Graduate School of Public Policy.
+- C199 | Ken Coates received $200,000 per year for seven years from his new Canada Research Chair in Regional Innovation.
+- C200 | Ken Coates will work with Aboriginal groups, northern and rural communities, business groups, and provincial and federal governments to examine innovation-based investment, skills training and entrepreneurship in non-metropolitan areas.
+- C201 | Markus Hecker is an associate professor in the School of Environment and Sustainability.
+- C202 | Markus Hecker received $100,000 per year for five years from his new Canada Research Chair in Predictive Aquatic Ecotoxicology.
+- C203 | Markus Hecker's research lab will examine more effective and objective ways to gauge how environmental stressors such as pollution from human activities or climate change affect water quality and aquatic species in western and northern Canadian watersheds.
+- C204 | Ravindra Chibbar holds the Canada Research Chair in Molecular Biology for Crop Quality and received $200,000 per year for seven years.
+- C205 | Soledade Pedras holds the Canada Research Chair in Bioorganic and Agricultural Chemistry and received $200,000 per year for seven years.
+- C206 | Jean-Pierre St. Maurice holds the Canada Research Chair in Environmental Sciences and received $200,000 per year for seven years.
+- C207 | John Tse holds the Canada Research Chair in Materials Science and received $200,000 per year for seven years.
+- C208 | The U of S currently has 27 Canada Research Chairs.
+- C209 | Senior Industrial Chairs are researchers of international stature who bring an innovative perspective to the university in carrying out and managing research and training researchers.
+- C210 | The Government of Ontario has funded a new policy research chair in Cross-Border Transportation Studies at the University of Windsor.
+- C211 | Brian Sandoval was the 2017-2018 NGA Chair.
+- C212 | Terry McAuliffe was the 2016-2017 NGA Chair with the initiative 'Meet the Threat: States Confront the Cyber Challenge'.
+- C213 | Gary Herbert was the 2015-2016 NGA Chair with the initiative 'States: Finding Solutions, Improving Lives'.
+- C214 | John Hickenlooper was the 2014-2015 NGA Chair.
+- C215 | Mary Fallin was the 2013-14 NGA Chair with the initiative 'America Works: Education and Training for Tomorrow's Jobs'.
+- C216 | Jack Markell was the 2012-13 NGA Chair with the initiative 'A Better Bottom Line: Employing People with Disabilities'.
+- C217 | Dave Heineman was the 2011-12 NGA Chair.
+- C218 | Chris Gregoire was the 2010-11 NGA Chair.
+- C219 | Joe Manchin III served as NGA Chair for part of the 2010-2011 term.
+- C220 | Jim Douglas was the 2009-10 NGA Chair with the initiative 'Rx for Health Reform: Affordable, Accessible, Accountable'.
+- C221 | Edward Rendell was the 2008-09 NGA Chair with the initiative 'Strengthening Our Infrastructure for a Sustainable Future'.
+- C222 | The UNITWIN/UNESCO Chairs Programme was launched in 1992.
+- C223 | The CSB is an independent federal agency charged with investigating industrial chemical accidents.
+- C224 | The CSB is headquartered in Washington, DC.
+- C225 | The CSB's board members are appointed by the President and confirmed by the Senate.
+- C226 | University of Saskatchewan, University of Manitoba, and University of Toronto data are not visible in search result snippets from the 2008 and 2012 Re-allocation PDF documents.
+- C227 | University of Manitoba held 47 Canada Research Chairs in 2008 according to archived university website.
+- C228 | University of Manitoba has a current allocation of 50 Canada Research Chairs.
+- C229 | The 2008 and 2012 allocation PDF snippets visible in search results show only the first portion of an alphabetically ordered table.
+- C230 | Web Archive searches for the 2008 allocation PDF did not return archived versions of the PDF document.
+- C231 | fetch_web_content tool successfully retrieved the allocation methodology page from chairs-chaires.gc.ca.
+- C232 | The allocation methodology page contains links to Results of the 2012 re-allocation and Results of the 2008 re-allocation PDFs.
+- C233 | fetch_web_content tool did not successfully retrieve the 2008 and 2012 allocation PDF documents.
+- C234 | A subprocess execution error occurred when attempting to download a file from www.chairs-chaires.gc.ca.
+- C235 | The target URL was https://www.chairs-chaires.gc.ca/program-programme/2012_allocations_attributions.pdf.
+- C236 | The SSL certificate verification failed with the error 'unable to get local issuer certificate'.
+- C237 | The connection attempt used HTTPS protocol on port 443.
+- C238 | The download operation retried 3 times before failing.
+- C239 | The error originated from the urllib3 library's SSL socket wrapping process.
+- C240 | The requests library raised an SSLError after the urllib3 MaxRetryError.
+- C241 | The Python environment uses Python version 3.12.12.
+- C242 | The download_file.py script is located at /u/xlin4/Projects/multi-agent/Yunjue-Agent/output/EVAL5/private_dynamic_tools/dynamic_tools_30/download_file.py.
+- C243 | The virtual environment is located at /u/xlin4/Projects/multi-agent/Yunjue-Agent/.dynamic_tools_venv.
+- C244 | The Equity, Diversity and Inclusion Action Plan aims to increase the number of Canada Research Chairs from the four designated groups.
+- C245 | Support requests for 176 new Canada Research Chair nominations were submitted to CFI in 2006-07.
+- C246 | In 2006-07, 68 new Tier 1 and Tier 2 nominations were submitted to NSERC for Canada Research Chairs.
+- C247 | A total of 305 new and renewed Canada Research Chairs were awarded.
+- C248 | Stephane Angers holds a Tier 2 Canada Research Chair in Functional Architecture of Signal Transduction at University of Toronto starting April 1, 2012.
+- C249 | Khrisendath Chadee holds a Tier 1 Canada Research Chair in Gastrointestinal Inflammation at University of Calgary starting June 1, 2012.
+- C250 | Brian Ciruna holds a Tier 2 Canada Research Chair in Developmental Genetics and Cell Biology at University of Toronto starting April 1, 2012.
+- C251 | Julie Claycomb holds a Tier 2 Canada Research Chair in Small RNA Biology at University of Toronto starting April 1, 2012.
+- C252 | 155 new or renewed Canada Research Chairs work at 42 universities across Canada.
+- C253 | Lisa Robinson holds a Tier II Canada Research Chair in Pediatrics in the area of Infection, Trauma & Repair.
+- C254 | The Canada Research Chairs program had the highest French language representation among AI funding programs in Canada.
+- C255 | A $7.5 million federal investment through the Canada Research Chairs program will fund six researchers at the University of Saskatchewan.
+- C256 | Ken Coates holds the Canada Research Chair in Regional Innovation.
+- C257 | A researcher in the School of Environment and Sustainability at USask holds the Canada Research Chair in Predictive Aquatic Ecotoxicology.
+- C258 | The Canada Research Chair in Predictive Aquatic Ecotoxicology receives $100,000 per year for five years.
+- C259 | The University of Waterloo has 55 Canada Research Chair allocations.
+- C260 | Dalhousie University has 40 Canada Research Chair allocations.
+- C261 | As of 2010, the University of Saskatchewan was initially allocated 3 SSHRC Tier 1 chairs, 3 SSHRC Tier 2 chairs, 4 CIHR Tier 1 chairs, 5 CIHR Tier 2 chairs, 11 NSERC Tier 1 chairs, and 10 NSERC Tier 2 chairs.
+- C262 | The University of Saskatchewan has Tier 2 Canada Research Chair openings in Populations with Potential in Health (October 2025).
+- C263 | Graham George holds a Canada Research Chair affiliated with the College of Arts and Science at the University of Saskatchewan.
+- C264 | The University of Saskatchewan Strategic Research Plan indicators for high quality people include visionary leadership, ability to recruit and retain outstanding faculty, national and international awards and recognition, and training of highly qualified personnel.
+- C265 | A PDF file named '2012_allocations_attributions.pdf' exists at the file path '/tmp/downloads/2012_allocations_attributions.pdf'.
+- C266 | The PyPDF2 library raised a PdfReadError with the message 'EOF marker not found'.
+- C267 | The PDF file being processed may be corrupted or encrypted.
+- C268 | The error was re-raised as a ValueError with the message 'Failed to read PDF file (corrupted or encrypted): EOF marker not found'.
+- C269 | The fetch_content.py script is located in the directory /u/xlin4/Projects/multi-agent/Yunjue-Agent/output/EVAL5/dynamic_tools_public/.
+- C270 | The PyPDF2 library version being used is located in a virtual environment at .dynamic_tools_venv/lib/python3.12/site-packages/.
+- C271 | The task objective is to determine how many research chairs each of five universities (University of British Columbia, University of Alberta, University of Saskatchewan, University of Manitoba, University of Toronto) gained or lost between the 2008 and 2012 Re-allocation results.
+- C272 | No validated claim provides the 2012 total number of Canada Research Chairs for University of British Columbia from official allocation documents.
+- C273 | SSL certificate verification failures prevented direct PDF downloads from chairs-chaires.gc.ca, with the error 'unable to get local issuer certificate'.
+- C274 | Downloaded PDF files from chairs-chaires.gc.ca are corrupted or encrypted and cannot be read by PyPDF2, which raises errors including 'EOF marker not found' and 'Failed to read PDF file (corrupted or encrypted)'.
+- C275 | PDF search result snippets from the 2008 and 2012 Re-allocation documents are truncated alphabetically, cutting off before universities starting with M, S, or T (Manitoba, Saskatchewan, Toronto).
+- C276 | Web Archive searches for the 2008 Canada Research Chairs allocation PDF did not return archived versions.
+- C277 | The task cannot be completed because the complete information required to calculate gains or losses between 2008 and 2012 for all five universities is inaccessible due to multiple technical barriers.
+- C278 | The official 2008 and 2012 Canada Research Chairs Re-allocation PDF documents from chairs-chaires.gc.ca cannot be accessed due to SSL certificate verification errors.
+- C279 | Alternative sources including Web Archive, university announcements, and government reports searched extensively did not provide the complete official allocation data for all five universities in both 2008 and 2012.
+- C280 | No available tools or methods successfully extracted the complete allocation tables from the official 2008 and 2012 Re-allocation documents.
+- C281 | The task requires access to the complete, official 2008 and 2012 Re-allocation results tables, which remain inaccessible given current technical constraints and available tools.
+- C282 | University of Toronto Connaught Funds endowment had a fair value of $75,814 thousand as of April 30, 2012.
+- C283 | University of Toronto had a balanced budget at the institutional level for 2012-13.
+- C284 | University of Toronto Stage 2 pension solvency relief was $97.2 million base operating fund expense by 2015-16.
+- C285 | University of Toronto enrolment expansion continued for both undergraduate and graduate students in 2012-13.
+- C286 | University of Toronto base pension payments totaled $97 million with increments of 27, 30, 20, 10, 5, and 5 million.
+- C287 | University of Toronto Long Range Budget Guidelines covered the five-year budget cycle 2011-12 to 2015-16.
+- C288 | University of Toronto first-year retention rate data was reported for the 2010 cohort continuing their studies in 2011.
+- C289 | University of Toronto NSSE results included data on students who reported being part of a visible minority group in Canada for years 2004, 2006, 2008, and 2011.

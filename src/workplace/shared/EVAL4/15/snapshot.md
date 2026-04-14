@@ -1,0 +1,347 @@
+You are given a task context consisting of an overall objective and previously validated claims.
+
+Use the validated claims below as already-established evidence. You must treat them as available facts for reasoning and planning. Do not ignore them. Build on them.
+
+# Task Objective
+List all of the countries that meet all of the following conditions: Is an EU member state as of 2024; Doesn’t have a monarchy; Had over 100,000 people immigrate in 2022; As of 2024, the voting age is 18 or above for European Elections; According to Eurostat, over 20.0% of the population was at risk of poverty or social exclusion in 2022.
+
+# Constraints
+- Use the validated claims as prior evidence.
+- First determine whether the current claims are sufficient to directly complete the Task Objective.
+- If the Task Objective is already solvable from the claims, provide the answer in `## Final Conclusion`.
+- If the Task Objective is not yet solvable, do not force a conclusion. Instead, use `## Reasoning & Plan` to explain what missing information is needed, and provide the next best instruction(s) to execute.
+- Do not ask for user clarification.
+- Keep the reasoning concise but operational.
+- In `## Final Conclusion`, every factual statement must be supported by evidence already listed in `## Key Findings & Evidence`.
+
+## Key Findings & Evidence
+Use the following prior CLAIMS as established evidence. Preserve their identifiers and statuses.
+
+## Reasoning & Plan
+* **Analysis:** 
+  - Task Objective: [Restate the task objective briefly.]
+  - Sufficiency Check: Determine whether the validated claims already contain enough information to fully answer the Task Objective.
+  - Gap Check: If not sufficient, identify exactly what is missing.
+
+* **Plan:** 
+  - If sufficient: explain how you will synthesize the existing claims into the final answer.
+  - If insufficient: propose the next concrete instruction(s) that should be executed to obtain the missing evidence.
+  - Prefer instructions that are atomic, directly verifiable, and dependency-aware.
+  - If insufficient: propose the tool call(s) required to execute the instruction(s) when necessary.
+
+### Prior Claims
+- C1 | In 2022, 95.3 million people in the EU were at risk of poverty or social exclusion.
+- C2 | In Belgium, the share of people at risk of poverty or social exclusion in the capital region Région de Bruxelles-Capitale/Brussels Hoofdstedelijk Gewest was 37.6% in 2023.
+- C3 | Belgium's national average share of people at risk of poverty or social exclusion was 18.6% in 2023.
+- C4 | In Austria, the share of people at risk of poverty or social exclusion in the capital region Wien was 29.5% in 2023.
+- C5 | In the Euro area with 19 countries (2015-2022), the at risk of poverty or social exclusion rate was 22.8.
+- C6 | Eurostat provides data on persons at risk of poverty or social exclusion by age and sex.
+- C7 | Eurostat updated poverty and social exclusion statistics for the EU in May 2025.
+- C8 | The Eurostat regional yearbook 2025 edition contains living conditions statistics.
+- C9 | The European Union has 27 member states.
+- C10 | Nine states are currently EU accession candidates.
+- C11 | The EU states, along with Iceland, Liechtenstein and Norway, form the European Economic Area (EEA).
+- C12 | Switzerland is a member of EFTA.
+- C13 | Austria is an EU member state.
+- C14 | Belgium is an EU member state.
+- C15 | Bulgaria is an EU member state.
+- C16 | Croatia is an EU member state.
+- C17 | Cyprus is an EU member state.
+- C18 | Czech Republic is an EU member state.
+- C19 | Denmark is an EU member state.
+- C20 | Estonia is an EU member state.
+- C21 | Finland is an EU member state.
+- C22 | France is an EU member state.
+- C23 | Germany is an EU member state.
+- C24 | Hungary is an EU member state.
+- C25 | Ireland is an EU member state.
+- C26 | Malta is an EU member state.
+- C27 | Poland is an EU member state.
+- C28 | Portugal is an EU member state.
+- C29 | Romania is an EU member state.
+- C30 | Slovakia is an EU member state.
+- C31 | Slovenia is an EU member state.
+- C32 | Spain is an EU member state.
+- C33 | Romania and Bulgaria joined the Schengen area on 31.01.2024 with regards to the air and sea border.
+- C34 | Romania and Bulgaria's internal land borders are still maintained as of the document date.
+- C35 | Liechtenstein is a member of the European Economic Area.
+- C36 | Malta is the smallest EU member state by population with 542,051 inhabitants.
+- C37 | Germany is the largest EU member state by population with 84,358,845 inhabitants.
+- C38 | Austria became an EU member state on January 1, 1995.
+- C39 | Austria became a Schengen area member on March 26, 1995.
+- C40 | Belgium became an EU member state on January 1, 1958.
+- C41 | Belgium became a Schengen area member in 1995.
+- C42 | Estonia became a Schengen area member in 2007.
+- C43 | France became a Schengen area member in 1995.
+- C44 | Germany became a Schengen area member in 1995.
+- C45 | Greece became an EU member state on January 1, 1981.
+- C46 | Greece became a Schengen area member in 2000.
+- C47 | Italy became a Schengen area member in 1997.
+- C48 | Spain became an EU member state on January 1, 1986.
+- C49 | Sweden became an EU member state on January 1, 1995.
+- C50 | Portugal became an EU member state on January 1, 1986.
+- C51 | Denmark became an EU member state on January 1, 1973.
+- C52 | Belize has a King as head of state.
+- C53 | Charles III is the King of Belize.
+- C54 | Belize's monarchy succession is hereditary.
+- C55 | Belize became a monarchy in 1981.
+- C56 | Six of the twelve European monarchies are members of the European Union.
+- C57 | Andorra is a current monarchy.
+- C58 | Antigua and Barbuda is a current monarchy.
+- C59 | Australia is a current monarchy.
+- C60 | The Bahamas is a current monarchy.
+- C61 | Bahrain is a current monarchy.
+- C62 | Bhutan is a current monarchy.
+- C63 | Brunei Darussalam is a current monarchy.
+- C64 | Eswatini is a current monarchy.
+- C65 | Grenada is a current monarchy.
+- C66 | Jamaica is a current monarchy.
+- C67 | Japan is a current monarchy.
+- C68 | Jordan is a current monarchy.
+- C69 | Kuwait is a current monarchy.
+- C70 | Lesotho is a current monarchy.
+- C71 | Malaysia is a current monarchy.
+- C72 | Monaco is a current monarchy.
+- C73 | Morocco is a current monarchy.
+- C74 | New Zealand is a current monarchy.
+- C75 | Norway is a current monarchy.
+- C76 | Oman is a current monarchy.
+- C77 | Papua New Guinea is a current monarchy.
+- C78 | Qatar is a current monarchy.
+- C79 | Saint Kitts and Nevis is a current monarchy.
+- C80 | Saint Lucia is a current monarchy.
+- C81 | Saint Vincent and the Grenadines is a current monarchy.
+- C82 | Saudi Arabia is a current monarchy.
+- C83 | Thailand is a current monarchy.
+- C84 | Tonga is a current monarchy.
+- C85 | Tuvalu is a current monarchy.
+- C86 | United Arab Emirates is a current monarchy.
+- C87 | United Kingdom is a current monarchy.
+- C88 | Holy See (Vatican) is a current monarchy.
+- C89 | Eurostat provides immigration data by age group, sex, and citizenship.
+- C90 | The online data code for immigration by age group, sex and citizenship is migr_imm1ctz.
+- C91 | The derived dataset code for immigration statistics is tps00176.
+- C92 | Immigration by age group, sex and citizenship falls under the statistical theme of Population and social conditions.
+- C93 | Eurostat provides emigration data by age group, sex and citizenship with the code migr_emi1ctz.
+- C94 | Eurostat is managed by Eurostat and is an official website of the European Union.
+- C95 | All official European Union website addresses are in the europa.eu domain.
+- C96 | The immigration dataset uses age definition of age reached during the year.
+- C97 | The last data update for migr_imm1ctz was on 30/03/2026 at 21:00.
+- C98 | The data coverage for migr_imm1ctz spans from 1998 to 2024.
+- C99 | The custom dataset migr_imm1ctz contains 12,193,206 cells.
+- C100 | The databrowser frontend version is 5.15.10-SNAPSHOT.
+- C101 | The latest commit for the Eurostat databrowser is c7ee70a0a, built on 2026-03-04T13:51:08.533Z.
+- C102 | Social protection systems in the EU are under great pressure, leading to the weakening of their protective functions.
+- C103 | EAPN published the EU 2024 Poverty Watch report.
+- C104 | The EU 2024 Poverty Watch report includes data from EAPN's national members on poverty from an EU-wide perspective.
+- C105 | AROP is the acronym for 'At risk of poverty'.
+- C106 | EAPN stands for European Anti-Poverty Network.
+- C107 | SILC stands for Statistics on Income and Living Conditions.
+- C108 | The DOI for the Eurostat dataset 'ilc_peps01n' is '10.2908/ilc_peps01n'.
+- C109 | Multiple custom views and bookmarks exist for the Eurostat dataset 'ilc_peps01n' with different custom identifiers.
+- C110 | One bookmark for the Eurostat dataset 'ilc_peps01n' was created on 2026-04-09 at 20:40:27Z.
+- C111 | A spreadsheet file named 'Country_Codes_and_Names.xlsx' exists on the European Union Eurostat statistics-explained website.
+- C112 | The dataset ilc_peps01n has a DOI identifier 10.2908/ilc_peps01n.
+- C113 | Eurostat is the source of data for the ilc_peps01n dataset.
+- C114 | The dataset ilc_pecs01 is a derived dataset of sdg_01_10.
+- C115 | Eurostat offers a database section for Income and living conditions topics.
+- C116 | Eurostat database includes a Health category with data from 2017, 2022, and 2025 under the code ilc_hch.
+- C117 | As of 27 January 2025, Eurostat dispatches flags in two code lists: Obs_status (observation status) and Conf_status (confidentiality status).
+- C118 | The Eurostat Obs_status flag 'm' means missing value, data cannot exist.
+- C119 | The Eurostat Conf_status list includes newly introduced flag codes N (not for publication) and P (information under non-statistical secrecy arrangements).
+- C120 | Eurostat changed the code for 'not applicable' from 'z' to 'm' (missing value, data cannot exist).
+- C121 | Eurostat provides GISCO: Geographical Information and maps as part of database functionality.
+- C122 | Eurostat provides bulk download functionality updated twice daily at 11:00 and 23:00 CET.
+- C123 | Eurostat bulk download datasets are available in tsv (tab separated values) and sdmx format.
+- C124 | The dataset tps00176 is derived from migr_imm1ctz.
+- C125 | The statistical theme for tps00176 is Population and social conditions.
+- C126 | The last data update for tps00176 was on 30/03/2026 at 21:00, which was 7 days before the reference date.
+- C127 | The last structure update for tps00176 was on 11/02/2026 at 22:00.
+- C128 | The data coverage for tps00176 spans from 2013 to 2024.
+- C129 | The number of cells in dataset tps00176 is 844.
+- C130 | The statistical theme for migr_emi1ctz is Population.
+- C131 | A document provides annual immigration data by age group, sex, and citizenship, specifically focusing on Ukrainian immigrants.
+- C132 | A download attempt for the file 'data/ilc_peps01n.tsv.gz' from the URL 'https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?file=data/ilc_peps01n.tsv.gz' failed after 3 attempts.
+- C133 | The last error on attempt 3/3 was an HTTP 404 Client Error for the URL 'https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?file=data/ilc_peps01n.tsv.gz'.
+- C134 | The file size for 'data/ilc_peps01n.tsv.gz' is null.
+- C135 | The download success status for 'data/ilc_peps01n.tsv.gz' is false.
+- C136 | Italy is an EU member state in 2024.
+- C137 | Latvia is an EU member state in 2024.
+- C138 | Luxembourg is an EU member state in 2024.
+- C139 | Netherlands is an EU member state in 2024.
+- C140 | Sweden is an EU member state in 2024.
+- C141 | Six EU member states are constitutional monarchies.
+- C142 | Belgium is organized as a constitutional monarchy.
+- C143 | Denmark is organized as a constitutional monarchy.
+- C144 | Luxembourg is organized as a constitutional monarchy.
+- C145 | Netherlands is organized as a constitutional monarchy.
+- C146 | Spain is organized as a constitutional monarchy.
+- C147 | Sweden is organized as a constitutional monarchy.
+- C148 | The information about EU constitutional monarchies comes from Grokipedia.
+- C149 | Voting age for European Parliament elections 2024 varies by country.
+- C150 | Greece has a voting age of 17 for European Parliament elections 2024.
+- C151 | Malta has a voting age of 16 for European Parliament elections 2024.
+- C152 | A PDF file with detailed voting age information by EU country was successfully downloaded to /u/xlin4/Projects/multi-agent/Yunjue-Agent/voting_age_european_elections.pdf.
+- C153 | The PDF file with voting age information is from the European Parliament Research Service document EPRS_ATA(2023)749767_EN.pdf.
+- C154 | Individual country immigration data is available in Eurostat dataset migr_imm1ctz.
+- C155 | The immigration statistic comes from Eurostat news article ddn-20240327-1.
+- C156 | Country-specific poverty data is available in Eurostat dataset ilc_peps01n.
+- C157 | The poverty statistic comes from Reddit r/europe post.
+- C158 | Eurostat bulk download facility exists at https://ec.europa.eu/eurostat/data/bulkdownload.
+- C159 | Attempted bulk download of immigration data from https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?file=data/tps00176.tsv.gz failed with 404 error.
+- C160 | Attempted bulk download of poverty data from https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?file=data/ilc_peps01n.tsv.gz failed with 404 error.
+- C161 | The immigration data download failed after 3 attempts.
+- C162 | The poverty data download failed after 3 attempts.
+- C163 | A subprocess execution error occurred during the fetch_eurostat_data.py script execution.
+- C164 | The error type is subprocess_execution_error.
+- C165 | The error originated at line 64 in fetch_eurostat_data.py within the run function.
+- C166 | The _parse_eurostat_data function was called with parameters markdown_content, input.year, and input.filters.
+- C167 | A ValueError was raised at line 168 in the _parse_eurostat_data function.
+- C168 | No data could be extracted from the Eurostat table.
+- C169 | The Eurostat page may require JavaScript interaction for data extraction.
+- C170 | Verification of the table_code parameter is recommended to resolve the error.
+- C171 | Verification of the year parameter is recommended to resolve the error.
+- C172 | Under current EU law, EU Member States are free to set their minimum national voting age for European elections.
+- C173 | The minimum voting age for European elections is set at 16 in Austria.
+- C174 | The rules applicable to European elections are based on a combination of common principles established in the European Electoral Act of 1976 and different national rules implementing those principles.
+- C175 | The European Electoral Act of 1976 was amended by Council Decision 2002/772.
+- C176 | In May 2022, the European Parliament tabled a proposal for a Council regulation on the election of MEPs by direct universal suffrage.
+- C177 | The May 2022 proposal would replace the existing European Electoral Act of 1976.
+- C178 | The May 2022 proposal is designated as 2022/0902(APP).
+- C179 | Recital 17 of the May 2022 proposal states that a single harmonised age for voting should be introduced across the Union in order to ensure equality and to avoid discrimination.
+- C180 | Article 4(1) of the May 2022 proposal sets the voting age at 16.
+- C181 | For the May 2022 proposal to enter into force, the regulation needs the unanimous approval of the Council and the approval of all Member States in accordance with their constitutional requirements.
+- C182 | The 2024 European elections will be governed by the European Electoral Act of 1976.
+- C183 | In Belgium, a law adopted in 2022 lowered the voting age to 16.
+- C184 | Initially in Belgium, voters aged 16 and 17 could vote only after submitting a request to their municipality of residence.
+- C185 | On 20 July 2023 the Belgian Constitutional Court found the additional requirement for 16 and 17 year old voters to submit a request unconstitutional.
+- C186 | In 2007, Austria fixed its standard voting age at 16.
+- C187 | In Bulgaria, the legal basis for the voting age of 18 is Article 350 of the Electoral Code.
+- C188 | In Czechia, the legal basis for the voting age of 18 is Article 5 of the European Parliament Elections Act.
+- C189 | In Denmark, the legal basis for the voting age of 18 is § 6 of the Act Concerning the Election of the Danish MEPs in conjunction with § 1(1) of the Parliamentary Elections Act.
+- C190 | In Estonia, the legal basis for the voting age of 18 is § 4 (1) of the European Parliament Election Act.
+- C191 | In Ireland, the legal basis for the voting age of 18 is Rule 72, Schedule 2 of the European Parliament Elections Act 1997.
+- C192 | In Greece, the legal basis for the voting age of 17 is Article 1 of the European Elections Act 2014 in conjunction with Article 4(1) of the Parliamentary Elections Act.
+- C193 | In Spain, the legal basis for the voting age of 18 is Article 2 of the Organic Law 5/1985 of 19 June 1985.
+- C194 | In France, the legal basis for the voting age of 18 is Article 5 of the European Parliament Elections Act in conjunction with Article L.2 of the Electoral Code.
+- C195 | In Croatia, the legal basis for the voting age of 18 is Article 45 of the Constitution.
+- C196 | In Luxembourg, the legal basis for the voting age of 18 is Article 3 of the Electoral Act 2003.
+- C197 | In Hungary, the legal basis for the voting age of 18 is Article XXIII of the Fundamental Law in conjunction with § 2:10 of the Civil Code (age of majority).
+- C198 | In the Netherlands, the legal basis for the voting age of 18 is Article Y3(a) and (b)(2) of the Electoral Act.
+- C199 | In Portugal, the legal basis for the voting age of 18 is Article 1 of the Electoral Law for the European Parliament in conjunction with Article 1 of the Law governing Elections to the Assembly of the Republic.
+- C200 | In Slovenia, the legal basis for the voting age of 18 is Article 10 of the Election of MEPs from the Republic of Slovenia Act.
+- C201 | In Slovakia, the legal basis for the voting age of 18 is § 3 of the Act no. 180/2014 Coll., on the conditions for the exercise of the right to vote.
+- C202 | In Finland, the legal basis for the voting age of 18 is § 14(II) of the Constitution.
+- C203 | In Sweden, the legal basis for the voting age of 18 is Avdeling 5, 4 § of the Elections Act (2005:837) in conjunction with Proclamation (1974:152) on the adoption of a new form of government, kap., 4 §.
+- C204 | The document was authored by Rafał Mańko and the graphic was created by Samy Chahri.
+- C205 | The document was published by the European Parliamentary Research Service (EPRS) Members' Research Service.
+- C206 | The document reference number is PE 749.767 and it was published in August 2023.
+- C207 | The data in the document have been verified in May 2023 by country specialists from the EPRS Members' Research Service.
+- C208 | The information concerning Belgium was updated in August 2023.
+- C209 | The dataset ilc_peps01n contains data on persons at risk of poverty or social exclusion by age and sex.
+- C210 | Dataset ilc_peps01n has derived datasets including tepsr_lm410, tepsr_lm411, tepsr_lm412, and tipslc10.
+- C211 | The last data update for dataset ilc_peps01n was on 25/03/2026 at 22:00.
+- C212 | Living conditions statistics are available at regional level from Eurostat.
+- C213 | Regional statistics highlight NUTS level 2 regions with the highest and lowest at risk of poverty or social exclusion.
+- C214 | The income and living conditions database includes data on share of total population living in a dwelling with a leaking roof, damp walls, floors or foundation, or rot in window frames of floor from EU-SILC survey.
+- C215 | The Obs_status list includes the flag 'm' for missing value, data cannot exist.
+- C216 | The flag code 'z' (not applicable) was changed to 'm' (missing value, data cannot exist) in Eurostat's flag system.
+- C217 | The migr_imm1ctz dataset is a derived dataset from tps00176.
+- C218 | The migr_imm1ctz dataset falls under the statistical theme 'Population and social conditions'.
+- C219 | The migr_imm1ctz dataset is available in SDMX 2.1 format, SDMX-CSV format, and TSV format.
+- C220 | The migr_imm1ctz dataset provides annual immigration data by age group, sex, and citizenship.
+- C221 | The migr_imm1ctz dataset specifically focuses on Ukrainian immigrants.
+- C222 | Immigration to the EU was 4.2 million in 2024.
+- C223 | In 2024, 4.2 million immigrants came to the EU from non-EU countries.
+- C224 | The tps00176 dataset is titled 'Immigration' and is published by the European Commission.
+- C225 | The Migration Data Portal provides interactive world map access to international, publicly available, and internationally comparable migration data.
+- C226 | The Migration Data Portal explores how each Sustainable Development Goal relates to migration.
+- C227 | The Migration Data Portal provides official national migration data for Switzerland, South Africa, New Zealand, and Germany.
+- C228 | IOM's Displacement Tracking Matrix is a system for collecting and analysing data on displaced and mobile populations.
+- C229 | The Conf_status list contains confidentiality status flags.
+- C230 | The error traceback originates from line 16 in a string module.
+- C231 | The error involves frozen importlib._bootstrap_external at line 995 in exec_module.
+- C232 | A FileNotFoundError with errno 2 occurred.
+- C233 | The missing file path is '/u/xlin4/Projects/multi-agent/Yunjue-Agent/output/EVAL4/private_dynamic_tools/dynamic_tools_15/fetch_eurostat_data.py'.
+- C234 | The file 'fetch_eurostat_data.py' does not exist at the specified location.
+- C235 | The user path component is 'xlin4'.
+- C236 | The project name is 'Yunjue-Agent'.
+- C237 | The output directory is labeled 'EVAL4'.
+- C238 | The dynamic tools directory is numbered 'dynamic_tools_15'.
+- C239 | In 2022, the severe material and social deprivation rate among young people aged 15-29 was highest in Romania at 25.4%.
+- C240 | In 2024, Guyane (France) had the highest at-risk-of-poverty or social exclusion rate in the EU at 59.5%.
+- C241 | In 2024, Calabria (Italy) had an at-risk-of-poverty or social exclusion rate of 48.8%.
+- C242 | In 2024, Melilla (Spain) had an at-risk-of-poverty or social exclusion rate of 44.5%.
+- C243 | In 2024, Bremen (Germany) had at least 33% of the population at risk of poverty or social exclusion.
+- C244 | In 2024, Provincia Autonoma di Bolzano/Bozen (Italy) had the lowest at-risk-of-poverty or social exclusion rate in the EU at 6.6%.
+- C245 | In 2024, Jihozápad (Czechia) had the third lowest at-risk-of-poverty or social exclusion rate in the EU at 8.8%.
+- C246 | In 2024, Bratislavský kraj (Slovakia) had the second lowest at-risk-of-poverty or social exclusion rate in the EU at 8.6%.
+- C247 | In 2024, 3 regions in Vlaams Gewest (northern Belgium) had less than 12.5% of the population at risk of poverty or social exclusion.
+- C248 | In 2024, 2 regions in Poland, including the capital region Warszawski stołeczny, had less than 12.5% of the population at risk of poverty or social exclusion.
+- C249 | In 2024, the capital regions of Croatia, Romania, Slovenia, and Slovakia had less than 12.5% of the population at risk of poverty or social exclusion.
+- C250 | In 2024, Közép-Dunántúl (Hungary) had less than 12.5% of the population at risk of poverty or social exclusion.
+- C251 | Türkiye had a poverty rate of 30.4%.
+- C252 | Bulgaria had a poverty rate of 30.3%.
+- C253 | Romania had a poverty rate of 27.9%.
+- C254 | Greece had a poverty rate of 26.9%.
+- C255 | In 2024, Lithuania had 25.8% of the population at risk of poverty or social exclusion.
+- C256 | The EU poverty and social exclusion rate decreased by 0.4 percentage points between 2023 and 2024.
+- C257 | EU measures are delivering poor results to end poverty.
+- C258 | The European Union At Risk of Poverty rate for the total population was 15.50% in December 2024.
+- C259 | Estonia had a 21.30% At Risk of Poverty rate for the total population in December 2025.
+- C260 | Italy had an 18.10% At Risk of Poverty rate for the total population in December 2024.
+- C261 | Luxembourg had a 16.70% At Risk of Poverty rate for the total population in December 2024.
+- C262 | Finland had a 12.70% At Risk of Poverty rate for the total population in December 2024.
+- C263 | Roughly one in three residents in Bulgaria, Türkiye, and Romania face economic hardship.
+- C264 | Calabria had a high rate of population at risk of poverty or social exclusion among EU regions.
+- C265 | The file path is '/u/xlin4/Projects/multi-agent/Yunjue-Agent/eurostat_poverty_2022.html'.
+- C266 | The file size is 193626 bytes.
+- C267 | The file operation was successful.
+- C268 | Eurostat is located at 5 Rue Alphonse Weicker, L-2721 Luxembourg.
+- C269 | Eurostat was founded in 1953.
+- C270 | The immigration article has metadata description 'ddn-20240327-1'.
+- C271 | The immigration article has keywords 'data driven news,migr,population and social conditions'.
+- C272 | The poverty article has metadata description 'DDN-20230614-1'.
+- C273 | The poverty article has keywords 'data driven news,lcs,population and social conditions'.
+- C274 | The immigration HTML file is located at '/u/xlin4/Projects/multi-agent/Yunjue-Agent/eurostat_immigration_2022.html'.
+- C275 | The poverty HTML file is located at '/u/xlin4/Projects/multi-agent/Yunjue-Agent/eurostat_poverty_2022.html'.
+- C276 | The immigration HTML file size is 197359 bytes.
+- C277 | The poverty HTML file size is 193626 bytes.
+- C278 | The 27 EU member states in 2024 are Austria, Belgium, Bulgaria, Croatia, Cyprus, Czechia, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, and Sweden.
+- C279 | Six EU member states are constitutional monarchies: Belgium, Denmark, Luxembourg, Netherlands, Spain, and Sweden.
+- C280 | Austria is a non-monarchy EU member state with voting age 16 for European Parliament elections 2024.
+- C281 | The Eurostat immigration 2022 article was downloaded in HTML format requiring parsing to extract country-specific immigration numbers.
+- C282 | The Eurostat immigration 2022 article HTML file is 197359 bytes in size.
+- C283 | Spain had a poverty or social exclusion rate of 26 percent in the EU in 2022.
+- C284 | The Eurostat poverty 2022 article was downloaded in HTML format requiring parsing to extract all country-specific poverty rates above 20 percent.
+- C285 | The Eurostat poverty 2022 article HTML file is 193626 bytes in size.
+- C286 | The number of non-monarchy EU states is 21.
+- C287 | The source for EU member state list is government.nl.
+- C288 | The number of EU residents emigrating to countries outside the EU remained stable, with 1.0 million emigrants in 2021.
+- C289 | Malta recorded the highest rate of immigration from EU and non-EU countries in 2022, with 66 immigrants per 1,000 residents.
+- C290 | Luxembourg recorded 48 immigrants per 1,000 residents in 2022.
+- C291 | Estonia recorded 37 immigrants per 1,000 residents in 2022.
+- C292 | Slovakia registered the lowest rate of immigration in 2022, with 1 immigrant per 1,000 residents.
+- C293 | Bulgaria recorded 6 immigrants per 1,000 residents in 2022.
+- C294 | France recorded 6 immigrants per 1,000 residents in 2022.
+- C295 | On 1 January 2023, more than half (50.4%) of the population in Luxembourg was foreign-born.
+- C296 | Malta had 28.3% foreign-born population on 1 January 2023.
+- C297 | Cyprus had 22.7% foreign-born population on 1 January 2023.
+- C298 | Poland recorded 2.5% foreign-born population on 1 January 2023.
+- C299 | Bulgaria recorded 2.6% foreign-born population on 1 January 2023.
+- C300 | Romania recorded 2.8% foreign-born population on 1 January 2023.
+- C301 | Germany registered 16.5 million foreign-born residents in absolute terms.
+- C302 | France registered 8.9 million foreign-born residents in absolute terms.
+- C303 | Spain registered 8.2 million foreign-born residents in absolute terms.
+- C304 | Luxembourg had 33.2% of residents born in another EU country.
+- C305 | Austria had 9.5% of residents born in another EU country.
+- C306 | Poland recorded 0.6% of residents born in other EU countries.
+- C307 | Lithuania recorded 0.7% of residents born in other EU countries.
+- C308 | Bulgaria recorded 0.9% of residents born in other EU countries.
+- C309 | Ireland recorded 15.2% share of residents born in non-EU countries.
+- C310 | Sweden recorded 15.2% share of residents born in non-EU countries.
+- C311 | Estonia recorded 15.2% share of residents born in non-EU countries.
+- C312 | Slovakia registered 1% share of non-EU-born residents.
+- C313 | Romania registered 1.7% share of non-EU-born residents.
+- C314 | The article was published on 27 March 2024.
+- C315 | Eurostat published data on migration and migrant population.

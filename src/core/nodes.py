@@ -5,6 +5,7 @@ import json
 import logging
 import os
 import re
+from pathlib import Path
 from typing import Literal
 
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, ToolMessage
@@ -414,6 +415,7 @@ async def executor_node(
         failure_report=failure_report,
         context_summary=context_summary,
         query_id=(config.get("configurable", {}) or {}).get("thread_id"),
+        exp_name=(config.get("configurable", {}) or {}).get("exp_name"),
     )
 
     tool_guidance_block = f"## Tool Usage Guidance\n{tool_usage_guidance}\n" if tool_usage_guidance else ""

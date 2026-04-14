@@ -331,6 +331,7 @@ def run_task_process(
     run_dir: Path,
     task_id: str,
     timeout: int = 5400,
+    exp_name: str = "test",
 ):
     """Wrapper to run the async task in a separate process."""
 
@@ -341,6 +342,7 @@ def run_task_process(
                     query,
                     run_dir,
                     task_id=task_id,
+                    exp_name=exp_name,
                 ),
                 timeout=timeout,
             )
@@ -360,6 +362,7 @@ async def train(
     prediction_file: str,
     timeout: int,
     merge_policy: str = "naive",
+    exp_name: str = "test",
 ):
     manager = multiprocessing.Manager()
     step = 0
@@ -391,6 +394,7 @@ async def train(
                     run_dir,
                     data_item["task_id"],
                     timeout,
+                    exp_name,
                 )
                 for idx, data_item in enumerate(data_items)
             ]
@@ -501,13 +505,13 @@ if __name__ == "__main__":
         help="Number of training steps (default 100000 to run all data)",
     )
     parser.add_argument("--start", type=int, default=0, help="Start from the n-th step")
-    parser.add_argument("--run_name", type=str, default=None, help="Run name")
+    parser.add_argument("--run_name", type=str, default='test', help="Run name")
     parser.add_argument("--merge_policy", type=str, default="naive", help="Merge policy")
 
     parser.add_argument(
         "--timeout",
         type=int,
-        default=5400,
+        default=9000,
         help="Timeout in seconds for each query execution (default: None, no timeout)",
     )
 
@@ -535,5 +539,6 @@ if __name__ == "__main__":
             predictions_file,
             args.timeout,
             args.merge_policy,
+            args.run_name,   
         )
     )

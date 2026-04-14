@@ -46,6 +46,7 @@ async def run_task(
     debug: bool = False,
     task_id: str = "default",
     enable_billing: bool = True,
+    exp_name: str = "test",
 ):
     if not user_input:
         raise ValueError("Input could not be empty")
@@ -81,12 +82,13 @@ async def run_task(
         config = {
             "configurable": {
                 "thread_id": task_id,
+                "exp_name": exp_name,
                 "dynamic_tools_dir": f"{run_dir}/private_dynamic_tools/dynamic_tools_{task_id}",
                 "dynamic_tools_public_dir": f"{run_dir}/dynamic_tools_public",
             },
             "recursion_limit": 1000,
-            "run_name": f"YunjueAgent-task-{task_id}",
-            "tags": ["yunjue", "task", task_id],
+            "run_name": f"Yunjue-{exp_name}-{task_id}",
+            "tags": ["yunjue", "task", exp_name, task_id],
             **get_billing_config(billing_tracker),
         }
 

@@ -1,0 +1,436 @@
+You are given a task context consisting of an overall objective, previously validated claims, and the current instruction to execute.
+
+Use the validated claims below as already-established evidence. You must treat them as available facts for reasoning and planning. Do not ignore them. Build on them.
+
+# Task Objective
+In 2023, The World’s 50 Best restaurants as published by William Reed began to officially list restaurants 51-100 as well. Name any restaurants that are included on both the 2022 and 2023 lists and are situated either in Germany or in countries that share a land-border with Germany.
+
+# Current Instruction
+**T5** — Compare the filtered 2022 and 2023 restaurant lists to identify restaurants that appear on both lists
+
+# Constraints
+- Use the validated claims as prior evidence.
+- First determine whether the current claims are sufficient to directly complete the Task Objective.
+- If the Task Objective is already solvable from the claims, provide the answer in `## Final Conclusion`.
+- If the Task Objective is not yet solvable, do not force a conclusion. Instead, execute the current instructions and collect the information that may be helpful for solving the Task Objective.
+- Do not ask for user clarification.
+- Keep the reasoning concise but operational.
+- In `## Final Conclusion`, every factual statement must be supported by evidence already listed in `## Key Findings & Evidence`.
+
+## Key Findings & Evidence
+Use the following prior CLAIMS as established evidence. Preserve their identifiers and statuses.
+
+## Reasoning & Plan
+* **Analysis:** 
+  - Task Objective: [Restate the task objective briefly.]
+  - Current Instruction: [Restate the instruction briefly.]
+  - Sufficiency Check: Determine whether the validated claims already contain enough information to fully answer the Task Objective.
+  - Gap Check: If not sufficient, identify exactly what is missing.
+
+* **Plan:** 
+  - If sufficient: explain how you will synthesize the existing claims into the final answer.
+  - If insufficient: propose the next concrete instruction(s) that should be executed to obtain the missing evidence.
+  - Prefer instructions that are atomic, directly verifiable, and dependency-aware.
+  - If insufficient: propose the tool call(s) required to execute the instruction(s) when necessary.
+
+### Prior Claims
+- C1 | The World's 50 Best Restaurants is published by William Reed.
+- C2 | In 2023, The World's 50 Best Restaurants began to officially list restaurants 51-100.
+- C3 | The task requires identifying restaurants on both the 2022 and 2023 World's 50 Best Restaurants lists.
+- C4 | The task requires restaurants to be situated in Germany or in countries that share a land-border with Germany.
+- C5 | The 2023 list includes positions 51-100 in addition to the top 50.
+- C6 | Countries that share a land-border with Germany include Denmark, Poland, Czech Republic, Austria, Switzerland, France, Luxembourg, Belgium, and Netherlands.
+- C7 | Deloitte, a world-renowned independent consulting agency, oversees the process as William Reed organizes The World's 50 Best Restaurants list.
+- C8 | Alléno Paris au Pavillon Ledoyen is located in Paris and was ranked in the 51-100 list for 2022.
+- C9 | Chef's Table at Brooklyn Fare is located in New York and was ranked in the 51-100 list for 2022.
+- C10 | Table by Bruno Verjus is located in Paris and was ranked in the 51-100 list for 2022.
+- C11 | The World's 50 Best Restaurants 2022 is sponsored by S.Pellegrino and Acqua Panna.
+- C12 | Rosetta is located in Mexico City and was ranked No.60 in the 51-100 list for 2022.
+- C13 | Máximo Bistrot is located in Mexico City and was ranked No.89 in the 51-100 list for 2022.
+- C14 | Evvai is located in São Paulo, Brazil, and was ranked No.67 in the 51-100 list for 2022.
+- C15 | Kol is located in London and was ranked No.73 in the 51-100 list for 2022.
+- C16 | AM par Alexandre Mazzia is located in Marseille and was ranked No.80 in the 51-100 list for 2022.
+- C17 | Flocons de Sel is located in Megève and was ranked No.99 in the 51-100 list for 2022.
+- C18 | El Chato is located on one of the bustling streets in Bogotá, Colombia.
+- C19 | Chef Alvaro Clavijo is the chef at El Chato restaurant.
+- C20 | El Chato features some of the best produce the biodiverse country of Colombia has to offer.
+- C21 | Sézanne is the latest work from British chef Daniel Calvert.
+- C22 | Daniel Calvert cut his teeth at Pied à Terre in London.
+- C23 | Daniel Calvert worked at Per Se in New York.
+- C24 | Sézanne arrived on Tokyo's restaurant scene in 2021.
+- C25 | Sézanne has already become a firm favourite among Tokyo's food-lovers.
+- C26 | Chef's Table is located inside New York's bustling Brooklyn Fare market.
+- C27 | Chef César Ramírez is the chef at Chef's Table at Brooklyn Fare.
+- C28 | Chef Quique Dacosta pays homage to the fish, seafood and rice dishes of the levant.
+- C29 | Chef Quique Dacosta creates tasting menus that combine the traditional and the modern.
+- C30 | Atomix is located in Manhattan's Koreatown.
+- C31 | Atomix is a 14-seat tasting menu restaurant set around a U-shaped counter.
+- C32 | Atomix is run by chef Junghyun 'JP' Park and his wife Ellia.
+- C33 | German chef Tim Raue serves up a fusion of flavours inspired by Japan, Thailand and China at his eponymous restaurant.
+- C34 | Chef Mitsuharu Tsumura is the chef at Maido restaurant.
+- C35 | Chef Mitsuharu Tsumura's 12-course degustation menu combines Peruvian and Japanese cuisines.
+- C36 | Atelier Moessmer Norbert Niederkofler is listed among The World's 50 Best Restaurants.
+- C37 | Le Du is listed among The World's 50 Best Restaurants.
+- C38 | Le Calandre is listed among The World's 50 Best Restaurants.
+- C39 | La Cime is listed among The World's 50 Best Restaurants.
+- C40 | El Chato is listed among The World's 50 Best Restaurants.
+- C41 | La Colombe is listed among The World's 50 Best Restaurants.
+- C42 | Le Doyenné is located in El Puerto de Santa María.
+- C43 | North America's 50 Best Restaurants 2025 includes awards such as North America's Best Restaurant 2025, sponsored by S.Pellegrino & Acqua Panna.
+- C44 | Asmeret Berhe-Lumax received the North America's Best Female Chef Award 2025.
+- C45 | Michael Cimarusti received the Sustainable Restaurant Award 2025.
+- C46 | Normand Laprise received the Icon Award 2025, sponsored by Lavazza.
+- C47 | Susan Bae received the North America's Best Pastry Chef Award 2025, sponsored by Valrhona.
+- C48 | Vanya Filipovic received the North America's Best Sommelier Award 2025.
+- C49 | The 51-100 list features venues from 22 destinations.
+- C50 | Wing is ranked No.100 on The World's 50 Best Restaurants 2022 51-100 list.
+- C51 | Wing is located in Hong Kong.
+- C52 | Wing opened in 2021.
+- C53 | Vicky Cheng is the chef at Wing.
+- C54 | Wing is located on the first floor of its sister restaurant Vea.
+- C55 | Flocons de Sel is located in Megève.
+- C56 | Emmanuel Renaut is the chef at Flocons de Sel.
+- C57 | Tantris is ranked No.98 on The World's 50 Best Restaurants 2022 51-100 list.
+- C58 | Tantris is located in Munich.
+- C59 | Benjamin Chmura is the chef at Tantris.
+- C60 | Tantris opened in 1971.
+- C61 | Benu is ranked No.97 on The World's 50 Best Restaurants 2022 51-100 list.
+- C62 | Benu is located in San Francisco.
+- C63 | Corey Lee is the chef at Benu.
+- C64 | Maní is ranked No.96 on The World's 50 Best Restaurants 2022 51-100 list.
+- C65 | Maní is located in São Paulo.
+- C66 | Helena Rizzo is the chef at Maní.
+- C67 | Helena Rizzo was recognised as Latin America's Best Female Chef.
+- C68 | Meta is ranked No.95 on The World's 50 Best Restaurants 2022 51-100 list.
+- C69 | Meta is located in Singapore.
+- C70 | Sun Kim is the chef at Meta.
+- C71 | Sun Kim is Korean.
+- C72 | Sun Kim established Meta in 2015.
+- C73 | Sun Kim trained under chef Tetsuya Wakuda.
+- C74 | Burnt Ends is ranked No.94 on The World's 50 Best Restaurants 2022 51-100 list.
+- C75 | Burnt Ends is located in Singapore.
+- C76 | Dave Pynt is the chef-owner of Burnt Ends.
+- C77 | Victor Arguinzoniz is among Dave Pynt's early mentors.
+- C78 | Hertog Jan at Botanic Sanctuary is ranked No.93 on The World's 50 Best Restaurants 2022 51-100 list.
+- C79 | Hertog Jan at Botanic Sanctuary is located in Antwerp.
+- C80 | Gert de Mangeleer is the chef at Hertog Jan at Botanic Sanctuary.
+- C81 | Joachim Boudens is the business partner of Gert de Mangeleer at Hertog Jan at Botanic Sanctuary.
+- C82 | Hertog Jan in Zedelgem closed its doors in 2018.
+- C83 | Indian Accent is ranked No.92 on The World's 50 Best Restaurants 2022 51-100 list.
+- C84 | Indian Accent is located in New Delhi.
+- C85 | Manish Mehrotra is the chef at Indian Accent.
+- C86 | Oriole is ranked No.91 on The World's 50 Best Restaurants 2022 51-100 list.
+- C87 | Oriole is located in Chicago.
+- C88 | Noah Sandoval is the chef at Oriole.
+- C89 | Cara Sandoval is Noah Sandoval's wife and co-owner of Oriole.
+- C90 | Wolfgat is ranked No.90 on The World's 50 Best Restaurants 2022 51-100 list.
+- C91 | Wolfgat is located in Paternoster.
+- C92 | Kobus van der Merwe is the chef at Wolfgat.
+- C93 | Wolfgat has only 20 diners per sitting.
+- C94 | Máximo Bistrot is located in Mexico City.
+- C95 | Eduardo García is the chef at Máximo Bistrot.
+- C96 | Gabriela Lopez is Eduardo García's wife and co-owner of Máximo Bistrot.
+- C97 | Máximo Bistrot opened in 2011.
+- C98 | Eduardo García won the Estrella Damm Chefs' Choice Award in Latin America's special edition, Pasado y Futuro in 2021.
+- C99 | Mishiguene is ranked No.88 on The World's 50 Best Restaurants 2022 51-100 list.
+- C100 | Mishiguene is located in Buenos Aires.
+- C101 | Tomas Kalika is the chef at Mishiguene.
+- C102 | Mishiguene means 'crazy' in Yiddish.
+- C103 | Orfali Bros Bistro is located in Dubai.
+- C104 | Orfali Bros Bistro is founded by three Syrian brothers: Mohammad, Wasim and Omar.
+- C105 | Orfali Bros Bistro made its debut at the inaugural Middle East & North Africa's 50 Best Restaurants in 2022.
+- C106 | Mikla is ranked No.86 on The World's 50 Best Restaurants 2022 51-100 list.
+- C107 | Mikla is located in Istanbul.
+- C108 | Mehmet Gürs is the chef at Mikla.
+- C109 | Mehmet Gürs is Turkish-Scandinavian.
+- C110 | Raan Jay Fai is ranked No.85 on The World's 50 Best Restaurants 2022 51-100 list.
+- C111 | Raan Jay Fai is located in Bangkok.
+- C112 | Supinya 'Jay Fai' Junsuta is the chef at Raan Jay Fai.
+- C113 | Gimlet at Cavendish House is ranked No.84 on The World's 50 Best Restaurants 2022 51-100 list.
+- C114 | Gimlet at Cavendish House is located in Melbourne.
+- C115 | Andrew McConnell is the chef at Gimlet at Cavendish House.
+- C116 | El Chato is ranked No.83 on The World's 50 Best Restaurants 2022 51-100 list.
+- C117 | Sézanne is ranked No.82 on The World's 50 Best Restaurants 2022 51-100 list.
+- C118 | Sézanne is located in Tokyo.
+- C119 | Daniel Calvert is the chef at Sézanne.
+- C120 | Daniel Calvert is British.
+- C121 | Brat is ranked No.81 on The World's 50 Best Restaurants 2022 51-100 list.
+- C122 | Brat is located in London.
+- C123 | Tomos Parry is the chef at Brat.
+- C124 | AM par Alexandre Mazzia is located in Marseille.
+- C125 | Alexandre Mazzia is the chef at AM par Alexandre Mazzia.
+- C126 | AM par Alexandre Mazzia earns the American Express One To Watch Award 2022.
+- C127 | Estela is located in New York.
+- C128 | Ignacio Mattos is the chef at Estela.
+- C129 | Lasai is ranked No.78 on The World's 50 Best Restaurants 2022 51-100 list.
+- C130 | Lasai is located in Rio de Janeiro.
+- C131 | Rafa Costa e Silva is the chef at Lasai.
+- C132 | Lasai means 'tranquil' in the Basque language.
+- C133 | Malena Cardiel is Rafa Costa e Silva's wife.
+- C134 | Table by Bruno Verjus is located in Paris.
+- C135 | Bruno Verjus is the chef at Table.
+- C136 | Bruno Verjus opened Table in 2013.
+- C137 | Neighborhood is ranked No.76 on The World's 50 Best Restaurants 2022 51-100 list.
+- C138 | Neighborhood is located in Hong Kong.
+- C139 | David Lai is the chef at Neighborhood.
+- C140 | David Lai trained in fine dining restaurants in San Francisco.
+- C141 | David Lai is a native of Hong Kong.
+- C142 | Samrub Samrub Thai is ranked No.75 on The World's 50 Best Restaurants 2022 51-100 list.
+- C143 | Samrub Samrub Thai is located in Bangkok.
+- C144 | Prin Polsuk is the chef at Samrub Samrub Thai.
+- C145 | Thanyaporn 'Mint' Jarukittikun is Prin Polsuk's wife.
+- C146 | Prin Polsuk worked under chef David Thompson.
+- C147 | Blue Hill at Stone Barns is ranked No.74 on The World's 50 Best Restaurants 2022 51-100 list.
+- C148 | Blue Hill at Stone Barns is located in Pocantico Hills.
+- C149 | Dan Barber is the chef at Blue Hill at Stone Barns.
+- C150 | Kol is located in London.
+- C151 | Santiago Lastra is the chef at Kol.
+- C152 | Santiago Lastra travelled for four years before setting up Kol.
+- C153 | Santiago Lastra ran the Mexico pop-up outpost of Noma.
+- C154 | Atelier Crenn is located in San Francisco.
+- C155 | Dominique Crenn is the chef at Atelier Crenn.
+- C156 | Dominique Crenn won the Icon Award in 2021.
+- C157 | Mingles is ranked No.71 on The World's 50 Best Restaurants 2022 51-100 list.
+- C158 | Mingles is located in Seoul.
+- C159 | Mingoo Kang is the chef at Mingles.
+- C160 | Mingles opened in Seoul in 2014.
+- C161 | Mingles relocated to the Cheongdam-dong neighbourhood in 2019.
+- C162 | Zén is ranked No.70 on The World's 50 Best Restaurants 2022 51-100 list.
+- C163 | Zén is located in Singapore.
+- C164 | Zén is a sister venue to the Stockholm restaurant Frantzén.
+- C165 | Tristin Farmer is the executive chef at Zén.
+- C166 | Tristin Farmer is Scottish-born.
+- C167 | Tristin Farmer trained at restaurants led by Gordon Ramsey in London.
+- C168 | Cosme is ranked No.69 on The World's 50 Best Restaurants 2022 51-100 list.
+- C169 | Cosme is located in New York.
+- C170 | Gustavo Garnica is the chef at Cosme.
+- C171 | Cosme opened in 2014.
+- C172 | Gustavo Garnica has Narisawa, Frantzén, and Osteria Francescana on his CV.
+- C173 | Kjolle is located in Lima.
+- C174 | Pía León is the chef at Kjolle.
+- C175 | Pía León opened Kjolle in 2018.
+- C176 | Kjolle is situated in the same complex as Central.
+- C177 | Virgilio Martínez is Pía León's husband and co-owner of Kjolle.
+- C178 | Evvai is ranked No.67 on The World's 50 Best Restaurants 2022 51-100 list.
+- C179 | Evvai is located in São Paulo.
+- C180 | Luiz Filipe Souza is the chef at Evvai.
+- C181 | Sühring is ranked No.66 on The World's 50 Best Restaurants 2022 51-100 list.
+- C182 | Sühring is located in Bangkok.
+- C183 | Thomas Sühring and Mathias Sühring are twin brothers who own Sühring.
+- C184 | Le Du is ranked No.65 on The World's 50 Best Restaurants 2022 51-100 list.
+- C185 | Le Du is located in Bangkok.
+- C186 | Thitid 'Ton' Tassanakajohn is the chef at Le Du.
+- C187 | Le Du is derived from the Thai word for season.
+- C188 | Fu He Hui is ranked No.64 on The World's 50 Best Restaurants 2022 51-100 list.
+- C189 | Fu He Hui is located in Shanghai.
+- C190 | Tony Lu is the chef at Fu He Hui.
+- C191 | Ernst is ranked No.62 on The World's 50 Best Restaurants 2022 51-100 list.
+- C192 | Ernst is located in Berlin.
+- C193 | Dylan Watson-Brawn is the chef at Ernst.
+- C194 | Ernst has a 12-seat counter.
+- C195 | La Grenouillère is ranked No.61 on The World's 50 Best Restaurants 2022 51-100 list.
+- C196 | La Grenouillère is located in La Madelaine–sous–Montreuil.
+- C197 | Alexandre Gauthier is the chef at La Grenouillère.
+- C198 | Alexandre Gauthier took over his father's restaurant in 2003.
+- C199 | La Grenouillère is located in northern France.
+- C200 | Rosetta is located in Mexico City.
+- C201 | Elena Reygadas is the chef at Rosetta.
+- C202 | Sazenka is located in Tokyo.
+- C203 | Tomoya Kawada is the chef at Sazenka.
+- C204 | Sazenka has 12 seats plus two private rooms.
+- C205 | Yannick Alléno is the chef at Alléno Paris au Pavillon Ledoyen.
+- C206 | Pavillon Ledoyen's culinary narrative goes back to the 1700s.
+- C207 | Trèsind Studio is ranked No.57 on The World's 50 Best Restaurants 2022 51-100 list.
+- C208 | Trèsind Studio is located in Dubai.
+- C209 | Himanshu Saini is the chef at Trèsind Studio.
+- C210 | Trèsind Studio won the Art of Hospitality Award at Middle East & North Africa's 50 Best Restaurants 2022.
+- C211 | La Colombe is ranked No.56 on The World's 50 Best Restaurants 2022 51-100 list.
+- C212 | La Colombe is located in Cape Town.
+- C213 | James Gaag is the chef at La Colombe.
+- C214 | La Colombe is located on the grounds of Silvermist organic wine estate.
+- C215 | La Colombe is atop the mountain slopes of the Cape Peninsula.
+- C216 | La Petite Colombe is a sister location of La Colombe in Franschhoek.
+- C217 | Azurmendi is ranked No.55 on The World's 50 Best Restaurants 2022 51-100 list.
+- C218 | Azurmendi is located in Larrabetzu.
+- C219 | Eneko Atxa is the chef at Azurmendi.
+- C220 | Lyle's is ranked No.54 on The World's 50 Best Restaurants 2022 51-100 list.
+- C221 | Lyle's is located in London.
+- C222 | James Lowe is the chef at Lyle's.
+- C223 | D.O.M. is ranked No.53 on The World's 50 Best Restaurants 2022 51-100 list.
+- C224 | D.O.M. is located in São Paulo.
+- C225 | Alex Atala is the chef at D.O.M.
+- C226 | D.O.M. opened in 1999.
+- C227 | D.O.M. stands for 'Deo Optimo Maximo', which translates as 'To God, The Good, The Great'.
+- C228 | Sud 777 is ranked No.52 on The World's 50 Best Restaurants 2022 51-100 list.
+- C229 | Sud 777 is located in Mexico City.
+- C230 | Edgar Nuñez is the chef at Sud 777.
+- C231 | Edgar Nuñez cooked at Noma.
+- C232 | Alcalde is ranked No.51 on The World's 50 Best Restaurants 2022 51-100 list.
+- C233 | Alcalde is located in Guadalajara.
+- C234 | Francisco 'Paco' Ruano is the chef at Alcalde.
+- C235 | Leonor Espinosa was named The World's Best Female Chef in 2022.
+- C236 | Leonor Espinosa leads the kitchen of Leo, a Colombian restaurant that celebrates the country's diversity.
+- C237 | Ana Roš was named The World's Best Female Chef in 2017.
+- C238 | Ana Roš works with Slovenian traditions at Hiša Franko.
+- C239 | Hiša Franko is located in Kobarid in the green Soča Valley.
+- C240 | Ana Roš crafts tasting menus that highlight seasonality at Hiša Franko.
+- C241 | Quique Dacosta is a Valencian chef.
+- C242 | Quique Dacosta hunts for new dishes that dance along with the seasonality of ingredients.
+- C243 | The Latin American region had 17 restaurants in the overall 1-100 list at The World's 50 Best Restaurants 2023.
+- C244 | Chef Christophe Pelé serves at Le Clarence in a 19th-century Parisian townhouse just off the Champs Elysées.
+- C245 | Christophe Pelé serves tasting menus that blend Asian influences with French technique at Le Clarence.
+- C246 | Chef Peter Goossens serves a seven-course tasting menu showcasing the best of local produce at Hof van Cleve.
+- C247 | Lieve Goossens runs an immaculate dining room service at Hof van Cleve.
+- C248 | Hof van Cleve is decorated with Belgian art, furniture and crockery.
+- C249 | Noma is located in Copenhagen, Denmark.
+- C250 | Geranium is located in Copenhagen, Denmark.
+- C251 | Asador Etxebarri is located in Atxondo, Spain.
+- C252 | Central is located in Lima, Peru.
+- C253 | The Best of the Best group is formed of all the restaurants that have topped the annual poll of The World's 50 Best Restaurants over its history.
+- C254 | Le Bernardin appears on The World's 50 Best Restaurants 2023 list.
+- C255 | Piazza Duomo appears on The World's 50 Best Restaurants 2023 list.
+- C256 | Restaurant Tim Raue appears on The World's 50 Best Restaurants 2023 list.
+- C257 | The Jane appears on The World's 50 Best Restaurants 2023 list.
+- C258 | Plenitude appears on The World's 50 Best Restaurants 2023 list.
+- C259 | Ikoyi appears on The World's 50 Best Restaurants 2023 list.
+- C260 | Mugaritz appears on The World's 50 Best Restaurants 2023 list.
+- C261 | Borago appears on The World's 50 Best Restaurants 2023 list.
+- C262 | Florilege appears on The World's 50 Best Restaurants 2023 list.
+- C263 | Schloss Schauenstein appears on The World's 50 Best Restaurants 2023 list.
+- C264 | Kol appears on The World's 50 Best Restaurants 2023 list.
+- C265 | Elkano appears on The World's 50 Best Restaurants 2023 list.
+- C266 | Den appears on The World's 50 Best Restaurants 2023 list.
+- C267 | Don Julio appears on The World's 50 Best Restaurants 2023 list.
+- C268 | Gaggan Anand appears on The World's 50 Best Restaurants 2023 list.
+- C269 | Odette appears on The World's 50 Best Restaurants 2023 list.
+- C270 | Pujol appears on The World's 50 Best Restaurants 2023 list.
+- C271 | Lido 84 appears on The World's 50 Best Restaurants 2023 list.
+- C272 | Maido appears on The World's 50 Best Restaurants 2023 list.
+- C273 | Disfrutar appears on The World's 50 Best Restaurants 2023 list.
+- C274 | The Chairman appears on The World's 50 Best Restaurants 2023 list.
+- C275 | Rosetta appears on The World's 50 Best Restaurants 2023 list.
+- C276 | Nobelhart & Schmutzig appears on The World's 50 Best Restaurants 2023 list.
+- C277 | Atelier Crenn appears on The World's 50 Best Restaurants list.
+- C278 | Maito in Panama City was ranked at No.100 as a new entry in The World's 50 Best Restaurants 2023.
+- C279 | Maito was named The Best Restaurant in Panama for seven consecutive years.
+- C280 | Maito ascended to No.6 in Latin America's 50 Best Restaurants in 2022.
+- C281 | Mario Castrellón is the chef at Maito in Panama City.
+- C282 | Fu He Hui has been a regular in Asia's 50 Best Restaurants since 2015.
+- C283 | Saison in San Francisco was ranked at No.98 as a re-entry in The World's 50 Best Restaurants 2023.
+- C284 | Saison started as a pop-up in 2009.
+- C285 | Mark Bright is the co-founder and beverage director at Saison.
+- C286 | Paul Chung is the culinary director at Saison.
+- C287 | Richard Lee is the chef de cuisine at Saison.
+- C288 | Labyrinth in Singapore was ranked at No.97 as a new entry in The World's 50 Best Restaurants 2023.
+- C289 | Labyrinth has been rising rapidly up the Asia's 50 Best Restaurants list since its debut in 2021.
+- C290 | LG Han is the chef at Labyrinth in Singapore.
+- C291 | Ricard Camarena Restaurant in Valencia was ranked at No.96 as a new entry in The World's 50 Best Restaurants 2023.
+- C292 | Ricard Camarena Restaurant is located inside the Bomba Gens art gallery in Valencia.
+- C293 | Ceto in Roquebrune-Cap-Martin was ranked at No.95 as a new entry in The World's 50 Best Restaurants 2023.
+- C294 | Mauro Colagreco is the chef behind Ceto.
+- C295 | Mirazur was named The World's Best Restaurant in 2019.
+- C296 | Ceto is located inside the luxury Maybourne Riviera hotel.
+- C297 | Kei in Paris was ranked at No.93 as a new entry in The World's 50 Best Restaurants 2023.
+- C298 | Kei Kobayashi is the chef at Kei in Paris.
+- C299 | Kei Kobayashi left Japan for France almost 25 years ago.
+- C300 | Kei Kobayashi opened Kei in 2011.
+- C301 | Neighborhood in Hong Kong was ranked at No.92 in The World's 50 Best Restaurants 2023.
+- C302 | Neighborhood has no website or social media presence.
+- C303 | Kadeau in Copenhagen was ranked at No.91 as a re-entry in The World's 50 Best Restaurants 2023.
+- C304 | Nicolai Nørregaard is the chef at Kadeau.
+- C305 | The original Kadeau and its onsite farm are located on the Baltic Island of Bornholm.
+- C306 | Wing entered the Asia's 50 Best Restaurants list within a year of opening in 2022.
+- C307 | Mingles in Seoul was ranked at No.89 in The World's 50 Best Restaurants 2023.
+- C308 | Mingles held the title of The Best Restaurant in Korea within Asia's 50 Best Restaurants from 2016 to 2022.
+- C309 | Mingoo Kang won the Inedit Damm Chefs' Choice Award in 2021.
+- C310 | Potong in Bangkok was ranked at No.88 as a new entry in The World's 50 Best Restaurants 2023.
+- C311 | Pichaya 'Pam' Utharntharm is the chef at Potong in Bangkok.
+- C312 | Potong opened in 2021.
+- C313 | Potong is located in a generations-old property that once housed Pichaya Utharntharm's family's herbal medicine business.
+- C314 | Ossiano in Dubai was ranked at No.87 as a new entry in The World's 50 Best Restaurants 2023.
+- C315 | Ossiano debuted at No.4 in the second edition of Middle East & North Africa's 50 Best Restaurants in 2023.
+- C316 | Gregoire Berger is the French chef at Ossiano.
+- C317 | Ossiano is located in the Atlantis The Palm resort.
+- C318 | James Lowe trained under Heston Blumenthal and Fergus Henderson.
+- C319 | Lyle's opened almost a decade ago.
+- C320 | The Tea Building was once a Lipton factory.
+- C321 | Enrico Bartolini in Milan was ranked at No.85 as a new entry in The World's 50 Best Restaurants 2023.
+- C322 | Enrico Bartolini is located on the third floor of Milan's modernist Mudec Museum of Cultures.
+- C323 | Meta was recognised as the American Express One To Watch as part of Asia's 50 Best Restaurants 2021.
+- C324 | Sun Kim trained under Tetsuya Wakuda in Sydney.
+- C325 | Sazenka in Tokyo was ranked at No.83 in The World's 50 Best Restaurants 2023.
+- C326 | Enigma in Barcelona was ranked at No.82 as a re-entry in The World's 50 Best Restaurants 2023.
+- C327 | Enigma opened in 2016.
+- C328 | Enigma closed during the pandemic in 2020.
+- C329 | Enigma reopened in 2022 with a different 'fun dining' à la carte concept.
+- C330 | In 2023, Enigma returned to its original tasting menu format.
+- C331 | Albert Adrià is the chef at Enigma.
+- C332 | Albert Adrià was named World's Best Pastry Chef.
+- C333 | Azurmendi is a two-time winner of the Sustainable Restaurant Award.
+- C334 | Kristine Renaut runs Flocons de Sel with Emmanuel Renaut.
+- C335 | Nuema in Quito was ranked at No.79 as a new entry in The World's 50 Best Restaurants 2023.
+- C336 | Alejandro Chamorro and Pía Salazar are the husband-and-wife team behind Nuema.
+- C337 | Pía Salazar was named Latin America's Best Pastry Chef 2022.
+- C338 | Yannick Alléno is the author of 'Sauces: Reflections of a Chef'.
+- C339 | Oteque in Rio de Janeiro was ranked at No.76 in The World's 50 Best Restaurants 2023.
+- C340 | Alberto Landgraf is the chef at Oteque.
+- C341 | Alberto Landgraf launched his first London restaurant, Bossa, in 2023.
+- C342 | Fyn in Cape Town was ranked at No.75 in The World's 50 Best Restaurants 2023.
+- C343 | Ashley Moss and Peter Tempelhoff are the chefs at Fyn.
+- C344 | Jennifer Hugé is the general manager at Fyn.
+- C345 | Fyn is located on the fifth floor of a 19th-century silk factory in Cape Town.
+- C346 | Nusara in Bangkok was ranked at No.74 as a new entry in The World's 50 Best Restaurants 2023.
+- C347 | Nusara has 10 seats.
+- C348 | Tam Tassanakajohn is Ton Tassanakajohn's brother and acts as sommelier and maître d' at Nusara.
+- C349 | Daniela Soto-Innes and Enrique Olvera were the co-founding chefs at Cosme.
+- C350 | Gustavo Garnica is a protégé of Daniela Soto-Innes.
+- C351 | Pujol is Enrique Olvera's Mexico City flagship restaurant.
+- C352 | Core by Clare Smyth in London was ranked at No.71 as a re-entry in The World's 50 Best Restaurants 2023.
+- C353 | Clare Smyth worked under Gordon Ramsay for 13 years.
+- C354 | Clare Smyth became the first woman to run a three-Michelin-star restaurant in the UK.
+- C355 | Core opened in 2017.
+- C356 | Clare Smyth was named The World's Best Female Chef in 2018.
+- C357 | Core earned three Michelin stars.
+- C358 | Clare Smyth runs Oncore by Clare Smyth, overlooking Sydney Harbour in Australia.
+- C359 | SingleThread in Healdsburg was ranked at No.68 in The World's 50 Best Restaurants 2023.
+- C360 | Kyle Connaughton is the chef at SingleThread.
+- C361 | Katina Connaughton is the farmer at SingleThread.
+- C362 | SingleThread is located in the Sonoma wine region.
+- C363 | Le Clarence in Paris was ranked at No.67 in The World's 50 Best Restaurants 2023.
+- C364 | Christophe Pelé is the chef at Le Clarence.
+- C365 | Le Clarence is located in a 19th-century Parisian townhouse just off the Champs Elysées.
+- C366 | Turk Fatih Tutak in Istanbul was ranked at No.66 as a new entry in The World's 50 Best Restaurants 2023.
+- C367 | Fatih Tutak is the chef at Turk Fatih Tutak.
+- C368 | Fatih Tutak worked at The Dining Room at The House on Sathorn in Bangkok.
+- C369 | Turk Fatih Tutak opened in 2019.
+- C370 | Aponiente in El Puerto de Santa María was ranked at No.64 as a re-entry in The World's 50 Best Restaurants 2023.
+- C371 | Ángel León is the fisherman-chef at Aponiente.
+- C372 | Aponiente won the Flor de Caña Sustainable Restaurant Award in 2022.
+- C373 | Neolokal in Istanbul was ranked at No.63 as a re-entry in The World's 50 Best Restaurants 2023.
+- C374 | Maksut Askar is the chef at Neolokal.
+- C375 | Arpège in Paris was ranked at No.62 in The World's 50 Best Restaurants 2023.
+- C376 | Alain Passard is the chef at Arpège.
+- C377 | La Cime in Osaka was ranked at No.60 in The World's 50 Best Restaurants 2023.
+- C378 | Yusuke Takada is the chef at La Cime.
+- C379 | La Cime opened in 2010.
+- C380 | Mérito in Lima was ranked at No.59 as a new entry in The World's 50 Best Restaurants 2023.
+- C381 | Mérito opened in 2018.
+- C382 | Juan Luis Martínez is the Venezuelan chef at Mérito.
+- C383 | Mérito is located in Barranco, Lima.
+- C384 | Rafa Costa e Silva recently opened Crypto Kitchen, where diners can pay with cryptocurrency.
+- C385 | Jordnær in Copenhagen was ranked at No.57 in The World's 50 Best Restaurants 2023.
+- C386 | Tina and Eric Vildgaard are the couple leading Jordnær.
+- C387 | Jordnær is located inside a hotel.
+- C388 | Sorn in Bangkok was ranked at No.56 in The World's 50 Best Restaurants 2023.
+- C389 | Supaksorn 'Ice' Jongsiri is the chef at Sorn.
+- C390 | Sorn is located in a beautifully restored Thai home.
+- C391 | Ernst is an eight-seat counter restaurant in Berlin's Wedding neighbourhood.
+- C392 | Alcalde first entered Latin America's 50 Best Restaurants via the One To Watch Award in 2016.
+- C393 | Tomos Parry is set to open a new wood grill and wine bar called Mountain in London's Soho later in 2023.
+- C394 | Hof Van Cleve in Kruishoutem was ranked at No.52 in The World's 50 Best Restaurants 2023.
+- C395 | Peter Goossens is the chef at Hof Van Cleve.
+- C396 | Hof Van Cleve was previously a working farm.
+- C397 | The Goossens will retire at the end of 2023.
+- C398 | Floris Van Der Veken is the chef de cuisine who will take over Hof Van Cleve after the Goossens retire.
+- C399 | Yoshihiro Narisawa is the chef at Narisawa.
+- C400 | Narisawa is celebrating its 20th anniversary in 2023.

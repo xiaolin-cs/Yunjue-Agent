@@ -5,6 +5,7 @@ import logging
 from typing import Any, List
 
 from langchain_core.messages import BaseMessage, HumanMessage, SystemMessage, RemoveMessage
+from langsmith import traceable
 
 from src.tools.dynamic_tool_loader import count_text_tokens
 from src.utils.utils import summarize_context, extract_tool_calls_from_messages
@@ -25,6 +26,7 @@ class ContextTrimmer:
         total_tokens = 0
         for message in messages:
             total_tokens += self.count_message_tokens(message)
+        logger.info(f"Total tokens: {total_tokens}")
         return total_tokens
 
     def count_message_tokens(self, message: BaseMessage) -> int:
@@ -61,9 +63,16 @@ class ContextTrimmer:
         return str(content)
 
 
+    @traceable(run_type="chain", name="ContextTrimmer.is_exceeded")
     def is_exceeded(self, messages: List[BaseMessage]) -> bool:
-        return self.count_tokens(messages) > self.token_limit
+        total_tokens = self.count_tokens(messages)
+        exceeded = total_tokens > self.token_limit
+        logger.info(
+            f"is_exceeded check: {total_tokens} tokens vs {self.token_limit} limit -> {'EXCEEDED' if exceeded else 'within limit'}"
+        )
+        return exceeded
 
+    @traceable(run_type="chain", name="ContextTrimmer.trim")
     def trim(self, state: dict) -> List[BaseMessage]:
         if self.token_limit is None:
             logger.info("No token_limit set, the context management doesn't work.")
@@ -78,16 +87,18 @@ class ContextTrimmer:
         if not self.is_exceeded(messages):
             return state
 
-        # 2. Compress messages
+        tokens_before = self.count_tokens(messages)
         compressed_messages = self._trim_internal(messages)
+        tokens_after = self.count_tokens(compressed_messages)
 
         logger.info(
-            f"Message trimming completed: {self.count_tokens(messages)} -> {self.count_tokens(compressed_messages)} tokens"
+            f"Message trimming completed: {tokens_before} -> {tokens_after} tokens"
         )
 
         state["messages"] = compressed_messages
         return state
 
+    @traceable(run_type="chain", name="ContextTrimmer._trim_internal")
     def _trim_internal(self, messages: List[BaseMessage]) -> List[BaseMessage]:
         current_context_summary = ""
         for message in messages:
@@ -96,6 +107,10 @@ class ContextTrimmer:
                     current_context_summary = message.content
                     break
         tool_calls = extract_tool_calls_from_messages(messages)
+        logger.info(
+            f"Trimming {len(messages)} messages with {len(tool_calls)} tool calls, "
+            f"has_prior_summary={bool(current_context_summary)}"
+        )
 
         output_messages = []
         for message in messages:

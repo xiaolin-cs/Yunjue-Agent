@@ -14,9 +14,10 @@ _CLAIMS_TEMPLATE_BLOCK = re.compile(r"\{\{#CLAIMS\}\}[\s\S]*?\{\{/CLAIMS\}\}")
 
 
 class MemoryAnalyzer:
-    def __init__(self, llm, query_id: Optional[str]) -> None:
+    def __init__(self, llm, query_id: Optional[str], exp_name: Optional[str] = None) -> None:
         self._llm = llm
         self._query_id = query_id
+        self._exp_name = exp_name or "default"
         self._seq = 0
         self._classifier_prompt: str = ""
         self._task_analysis_prompt: str = ""
@@ -105,12 +106,11 @@ class MemoryAnalyzer:
         if not self._query_id:
             return
         try:
-            base_dir = Path(__file__).resolve().parents[1] / "workplace" / "shared"
-            prompt_dir = base_dir / "memprompts"
+            prompt_dir = self._shared_root_dir() / "memprompts"
             self._classifier_prompt = (prompt_dir / "classifer.md").read_text(encoding="utf-8")
             self._task_analysis_prompt = (prompt_dir / "task_analysis.md").read_text(encoding="utf-8")
             self._claim_analysis_prompt = (prompt_dir / "claim_analysis.md").read_text(encoding="utf-8")
-            output_dir = base_dir / self._query_id
+            output_dir = self._query_base_dir(self._query_id)
             output_dir.mkdir(parents=True, exist_ok=True)
             self._output_file = output_dir / "memory_analysis.json"
             self._tasks_file = output_dir / "TASKS.json"
@@ -122,8 +122,14 @@ class MemoryAnalyzer:
             self._claims_file = None
 
     @staticmethod
-    def _shared_dir() -> Path:
+    def _shared_root_dir() -> Path:
         return Path(__file__).resolve().parents[1] / "workplace" / "shared"
+
+    def _shared_dir(self) -> Path:
+        return self._shared_root_dir() / self._exp_name
+
+    def _query_base_dir(self, query_id: str) -> Path:
+        return self._shared_dir() / query_id
 
     @staticmethod
     def _task_id_sort_key(task_id: str) -> tuple[int, int | str]:
@@ -160,7 +166,7 @@ class MemoryAnalyzer:
         qid = query_id if query_id is not None else self._query_id
         if not qid:
             return None, None, None
-        base = self._shared_dir() / qid
+        base = self._query_base_dir(qid)
         return qid, base / "TASKS.json", base / "CLAIMS.json"
 
     @staticmethod
@@ -197,7 +203,7 @@ class MemoryAnalyzer:
 
         current = self._pick_smallest_todo_task(tasks)
         if current is not None:
-            exec_template_path = self._shared_dir() / "memprompts" / "progress_execution.md"
+            exec_template_path = self._shared_root_dir() / "memprompts" / "progress_execution.md"
             if not exec_template_path.exists():
                 logger.warning("progress_execution.md not found at %s", exec_template_path)
                 return None
@@ -205,7 +211,7 @@ class MemoryAnalyzer:
             return self.snapshot_execute(task_objective, current, claims, template)
 
         else:
-            plan_template_path = self._shared_dir() / "memprompts" / "progress_planning.md"
+            plan_template_path = self._shared_root_dir() / "memprompts" / "progress_planning.md"
             if not plan_template_path.exists():
                 logger.warning("progress_planning.md not found at %s", plan_template_path)
                 return None
@@ -218,19 +224,19 @@ class MemoryAnalyzer:
         query_id: Optional[str] = None,
     ) -> Optional[Path]:
         """
-        Run ``snapshot()`` and overwrite ``shared/<query_id>/snapshot.md`` with the result.
+        Run ``snapshot()`` and overwrite ``shared/<run_name>/<query_id>/snapshot.md`` with the result.
         If snapshot generation fails (e.g. missing CLAIMS.json), the file is not written.
         """
         qid = query_id if query_id is not None else self._query_id
-        logger.info(f"(Test) write_snapshot_md: qid: {qid}")
+        # logger.info(f"(Test) write_snapshot_md: qid: {qid}")
         if not qid:
             return None
         try:
             content = self.snapshot(task_objective=task_objective, query_id=query_id)
-            logger.info(f"(Test) write_snapshot_md: content: {content}")
+            # logger.info(f"(Test) write_snapshot_md: content: {content}")
             if content is None:
                 return None
-            out_dir = self._shared_dir() / qid
+            out_dir = self._query_base_dir(qid)
             out_dir.mkdir(parents=True, exist_ok=True)
             path = out_dir / "snapshot.md"
             path.write_text(content, encoding="utf-8")
@@ -241,12 +247,12 @@ class MemoryAnalyzer:
 
     def read_snapshot_md(self, query_id: Optional[str] = None) -> str:
         """
-        Read ``shared/<query_id>/snapshot.md`` (UTF-8). Returns empty string if missing or unreadable.
+        Read ``shared/<run_name>/<query_id>/snapshot.md`` (UTF-8). Returns empty string if missing or unreadable.
         """
         qid = query_id if query_id is not None else self._query_id
         if not qid:
             return ""
-        path = self._shared_dir() / qid / "snapshot.md"
+        path = self._query_base_dir(qid) / "snapshot.md"
         if not path.exists():
             return ""
         try:
@@ -267,7 +273,7 @@ class MemoryAnalyzer:
         return None
 
     def mark_task_done_in_tasks_json(self, task_id: str) -> None:
-        """Set ``status`` to ``done`` for ``task_id`` in ``shared/<query_id>/TASKS.json``."""
+        """Set ``status`` to ``done`` for ``task_id`` in ``shared/<run_name>/<query_id>/TASKS.json``."""
         _, tasks_path, _ = self._resolve_query_paths(self._query_id)
         if tasks_path is None or not tasks_path.exists():
             return

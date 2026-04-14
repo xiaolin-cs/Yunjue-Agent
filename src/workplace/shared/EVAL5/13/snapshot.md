@@ -1,0 +1,370 @@
+You are given a task context consisting of an overall objective and previously validated claims.
+
+Use the validated claims below as already-established evidence. You must treat them as available facts for reasoning and planning. Do not ignore them. Build on them.
+
+# Task Objective
+In the year that featured a volcanic eruption in Iceland causing widespread air-travel disruption across Europe and the northern hemisphere, a historic weather event led to severe flooding in England. During this weather event, there is an area that recorded the highest daily rainfall total and also has a castle. The castle is protected by a drawbridge, does the main gatehouse entrance of this castle predominantly face north, south, east, or west?
+
+# Constraints
+- Use the validated claims as prior evidence.
+- First determine whether the current claims are sufficient to directly complete the Task Objective.
+- If the Task Objective is already solvable from the claims, provide the answer in `## Final Conclusion`.
+- If the Task Objective is not yet solvable, do not force a conclusion. Instead, use `## Reasoning & Plan` to explain what missing information is needed, and provide the next best instruction(s) to execute.
+- Do not ask for user clarification.
+- Keep the reasoning concise but operational.
+- In `## Final Conclusion`, every factual statement must be supported by evidence already listed in `## Key Findings & Evidence`.
+
+## Key Findings & Evidence
+Use the following prior CLAIMS as established evidence. Preserve their identifiers and statuses.
+
+## Reasoning & Plan
+* **Analysis:** 
+  - Task Objective: [Restate the task objective briefly.]
+  - Sufficiency Check: Determine whether the validated claims already contain enough information to fully answer the Task Objective.
+  - Gap Check: If not sufficient, identify exactly what is missing.
+
+* **Plan:** 
+  - If sufficient: explain how you will synthesize the existing claims into the final answer.
+  - If insufficient: propose the next concrete instruction(s) that should be executed to obtain the missing evidence.
+  - Prefer instructions that are atomic, directly verifiable, and dependency-aware.
+  - If insufficient: propose the tool call(s) required to execute the instruction(s) when necessary.
+
+### Prior Claims
+- C1 | A volcanic eruption in Iceland caused widespread air-travel disruption across Europe and the northern hemisphere in 2010.
+- C2 | A historic weather event led to severe flooding in England in 2010.
+- C3 | During the 2010 weather event in England, an area recorded the highest daily rainfall total.
+- C4 | The castle in the area with highest rainfall is protected by a drawbridge.
+- C5 | The main gatehouse entrance of the castle faces a specific cardinal direction among north, south, east, or west.
+- C6 | London is located in the City of London Greater London region of the United Kingdom.
+- C7 | London's coordinates are latitude 51.517 and longitude -0.106.
+- C8 | London's timezone is Europe/London.
+- C9 | On 2026-04-13 at 19:53 local time in London, the temperature was 11.1 degrees Celsius.
+- C10 | A deep area of low pressure brought strong winds and heavy rain overnight on 16-17 November 2010 to Cornwall.
+- C11 | A line of intense rainfall developed during the 16-17 November 2010 event bringing 40 mm or more rainfall in 2 hours in some places in Cornwall.
+- C12 | 30.8 mm of rainfall was recorded at St Clether north of Bodmin Moor during the 2-hour period 0500-0700 GMT on 17 November 2010.
+- C13 | Heligan is located near Mevagissey.
+- C14 | Cardinham is located near Bodmin.
+- C15 | More than 100 homes were evacuated in Cornwall as heavy rain and gale-force winds caused widespread flooding and travel disruption in November 2010.
+- C16 | Heavy rain brought localised flooding and transport disruption to southern England on or around August 23, 2010.
+- C17 | Forecasters warned of further heavy rainfall to come in southern England following the August 2010 flooding event.
+- C18 | The 2010s decade experienced droughts at the beginning of the decade and in the summer of 2018 in the UK.
+- C19 | By late-June 2010, the combined stocks for a network of major reservoirs in north-west England were at their lowest for the time of year since the 1984 drought.
+- C20 | A temporary use ban including a domestic hosepipe ban affecting over six million people was introduced in north-west England in 2010 due to low reservoir stocks.
+- C21 | Modest rainfall during the winter half-year of 2010-2011 resulted in natural replenishment to a number of major lowland reservoirs in England which were only around half of the long-term average.
+- C22 | The spring of 2011 proved pivotal to the 2010-2012 drought's development in England.
+- C23 | Newspapers frequently mentioned that dry weather conditions affected the water levels of rivers and reservoirs during the 2010-2012 drought period.
+- C24 | Tabloid newspapers specifically mentioned the negative impact of the 2010-2012 drought on wildlife and plants/gardens.
+- C25 | A period of heavy and persistent rain from 18 to 20 November 2009 brought severe flooding to much of Cumbria.
+- C26 | Heavy rain and flooding also occurred in Cumbria during the 18-20 November 2009 event.
+- C27 | The tail end of a continental storm hit the UK around February 28, 2010.
+- C28 | Emergency services braced for grim weather as the continental storm swept across UK counties in February 2010.
+- C29 | The Met Office confirmed that the snowfall during the winter of 2010-11 was the most widespread snowfall in the United Kingdom for 17 years.
+- C30 | By 2 December 2010, most of the United Kingdom and much of Ireland was covered with snow.
+- C31 | Snow accumulations in the north and east of Scotland and England were over 50 cm in places by December 2, 2010.
+- C32 | In early December 2010, a minimum temperature of -21.1 degrees Celsius was recorded at Altnaharra in the Scottish Highlands.
+- C33 | A band of snow moving north affected Lincolnshire, Nottinghamshire, South and West Yorkshire during the winter of 2010-11, giving significant accumulations.
+- C34 | December 2010 was the coldest month in Ireland since records began.
+- C35 | December 2010 had a mean temperature of -1 degree Celsius in the UK.
+- C36 | The URL fetch attempt was blocked by anti-bot protection.
+- C37 | The blocking reason was classified as 'Structural: minimal_text, no_content_elements'.
+- C38 | The fetched content contained 174 bytes.
+- C39 | Up to 140mm of rain fell in 220 minutes in Wadebridge in November 2010.
+- C40 | Wadebridge suffered from fluvial flooding in November 2010.
+- C41 | Polmorla suffered from fluvial flooding in November 2010.
+- C42 | Numerous properties in Wadebridge were flooded in November 2010.
+- C43 | Numerous properties in Polmorla were flooded in November 2010.
+- C44 | Serious flooding affected parts of Cornwall on Wednesday 17 November 2010.
+- C45 | The flooding on 17 November 2010 caused disruption and distress to many people in Cornwall.
+- C46 | The Association of British Insurers stated that insurers' first priority was to ensure that every claim related to the November 2010 Cornwall flooding was dealt with as quickly as possible.
+- C47 | The Environment Agency and local emergency partners including local authorities were active in preventing flooding in areas at risk during November 2010 in Cornwall.
+- C48 | Cardinham in Cornwall recorded 41 consecutive days of rainfall.
+- C49 | Lostwithiel suffered severe flooding in November 2010.
+- C50 | November 2009 was the wettest month on record across the UK.
+- C51 | On November 18, 2009, the rains in Cumbria became more intense.
+- C52 | St Blazey was one of the worst hit areas by flooding in Cornwall in November 2010.
+- C53 | St Austell was one of the worst hit areas by flooding in Cornwall in November 2010.
+- C54 | Mevagissey was one of the worst hit areas by flooding in Cornwall in November 2010.
+- C55 | The Environment Agency warned that further floods were possible overnight following the November 2010 Cornwall flooding.
+- C56 | Cornwall council and the Environment Agency held flood surgeries in St Blazey where local residents could share their experiences and concerns after the November 2010 flooding.
+- C57 | More than 3,000 properties in vulnerable areas throughout Cornwall were protected as a result of flood defence schemes.
+- C58 | The severe Boscastle flood occurred on 16 August 2004.
+- C59 | The bridge at Wadebridge is a 15th century stone bridge.
+- C60 | The bridge at Wadebridge spans the River Camel.
+- C61 | Wadebridge is a market town in North Cornwall, England.
+- C62 | The bridge at Wadebridge is among the finest bridges ever constructed in Cornwall.
+- C63 | The bridge at Wadebridge was widened in 1852-3.
+- C64 | Building of the bridge at Wadebridge began in 1468.
+- C65 | The bridge at Wadebridge was superseded for non-local traffic by another route.
+- C66 | The bridge at Wadebridge was built on wool, probably meaning on the profits of the wool trade.
+- C67 | The bridge at Wadebridge has List Entry Number 1142975.
+- C68 | The bridge at Wadebridge was first listed on 06-Jun-1969.
+- C69 | JMW Turner created artwork depicting the bridge at Wadebridge from the south bank of the River Camel looking downstream.
+- C70 | The bridge at Lostwithiel was in danger of coming down in November 2010 during flooding.
+- C71 | November 2010 flooding was some of the worst flooding the Lostwithiel area had ever seen.
+- C72 | About 230 homes suffered flooding on 17 November 2010 in Cornwall.
+- C73 | Water reached up to 6 feet deep in places during the 17 November 2010 flooding.
+- C74 | St Austell Market was flooded in November 2010.
+- C75 | The Eden Project was flooded in November 2010.
+- C76 | Par was affected by flooding in November 2010.
+- C77 | Properties and low lying areas around Coulson Park in Lostwithiel were areas of concern during flooding.
+- C78 | The Sewage Treatment Works in Lostwithiel was an area of concern during flooding.
+- C79 | Lostwithiel Railway Station was an area of concern during flooding.
+- C80 | Quay area in Lostwithiel was an area of concern during flooding.
+- C81 | Residents were rescued from flooded homes in Cornwall during heavy rain and strong winds.
+- C82 | Motorists were rescued from stranded vehicles in Cornwall during heavy rain and strong winds.
+- C83 | Heavy rain and strong winds caused chaos in Cornwall in November 2010.
+- C84 | Landslides occurred in southwest England during the November 2010 flooding.
+- C85 | A major clean-up operation took place in Cornwall following the November 2010 flooding.
+- C86 | Most of the water had subsided after the November 2010 flooding, leaving a big clean up operation.
+- C87 | David Lormer was a shopkeeper affected by the November 2010 Cornwall flooding.
+- C88 | Prime Minister David Cameron said that Cornwall would receive as much help as it needed after the November 2010 flooding.
+- C89 | Alec Robertson was Cornwall Council leader during the November 2010 flooding.
+- C90 | Alec Robertson praised the response from all the agencies involved in the November 2010 flooding.
+- C91 | The November 2010 Cornwall flooding was described as a very serious incident by Cornwall Council leader Alec Robertson.
+- C92 | Restormel Castle is located near Lostwithiel in Cornwall, England.
+- C93 | Restormel Castle is a prime example of a medieval motte-and-bailey fortification.
+- C94 | Restormel Castle lies by the River Fowey.
+- C95 | Restormel Castle in Cornish is Kastel Rostorrmel.
+- C96 | Restormel Castle was once a luxurious residence of the Earl of Cornwall.
+- C97 | Restormel Castle was all but ruined by the 16th century.
+- C98 | Circular shell keeps are a rare type of fortification built during a short period in the 12th and early 13th centuries.
+- C99 | 71 examples of circular shell keeps are known in England and Wales.
+- C100 | The walk from Restormel Castle to Lostwithiel offers an enchanting journey through time and nature.
+- C101 | Lostwithiel offers a unique and enchanting glimpse into Cornwall's past and present.
+- C102 | The Lostwithiel Museum is housed in a 19th-century building that once served as the town's Corn Exchange.
+- C103 | The Lostwithiel Museum showcases an extensive collection of artifacts, photographs, and documents detailing the town's medieval history.
+- C104 | China clay and tin mining sectors have shaped the region's economy and culture.
+- C105 | The Lostwithiel Valley and Restormel Castle Circular trail is an 11.6-km circular trail near Bodmin, Cornwall.
+- C106 | Restormel Castle is surrounded by a deep moat.
+- C107 | Restormel Castle is a favourite picnic spot.
+- C108 | Restormel Castle has beautiful spring flowers and plants all year.
+- C109 | Camden associated Uzella with the fort close by Restormel Castle.
+- C110 | A timber motte and bailey castle would likely have been the origins of Restormel before it was built in stone.
+- C111 | Edmund Earl of Cornwall used his inherited wealth to begin the transformation of Restormel Castle.
+- C112 | Edward the Black Prince as Duke of Cornwall visited Cornwall at least twice.
+- C113 | Edward the Black Prince stayed at Restormel Castle.
+- C114 | The standing ruin of Restormel Castle was formerly the castle's inner ward or enclosure.
+- C115 | There is a ditch and bank surrounding the castle's curtain wall at Restormel Castle.
+- C116 | Inside Restormel Castle are four square stone-lined pits.
+- C117 | The four square stone-lined pits at Restormel Castle all probably pre-date the present buildings.
+- C118 | Earl Richard, owner of Restormel Castle, built a castle on an inhospitable rock at Tintagel because of the legend of King Arthur.
+- C119 | At Restormel today visitors can explore the castle buildings.
+- C120 | Cardinham, near Bodmin, experienced the heaviest rain during November 2010 Cornwall flooding with 50 mm total.
+- C121 | St Clether is located north of Bodmin Moor in Cornwall.
+- C122 | Cornwall is the westernmost part of the South West Peninsula.
+- C123 | In some parts of Cornwall it rained for 40 days in a row.
+- C124 | The November 2010 floods forced hundreds of people in Cornwall from their homes.
+- C125 | Flooding occurred in Hayle on 19 December 2019.
+- C126 | The four chief Norman castles of Cornwall are Restormel, Launceston, Tintagel, and Trematon.
+- C127 | Restormel Castle is notable for its perfectly circular design.
+- C128 | Restormel Castle was briefly reoccupied and fought over during the English Civil War.
+- C129 | Restormel Castle is now in the care of English Heritage.
+- C130 | Restormel Castle wall measures 38 metres in diameter.
+- C131 | Both the wall and the internal buildings of Restormel Castle were constructed from slate.
+- C132 | The slate for Restormel Castle appears to have been quarried from the scarp face north-east of the castle.
+- C133 | The domestic buildings within Restormel Castle wall included a kitchen, hall, solar, guest chambers, and an ante-chapel.
+- C134 | Water from a spring was piped under pressure into Restormel Castle buildings.
+- C135 | A square gate tower guards the entrance to Restormel Castle inner castle.
+- C136 | The chapel tower of Restormel Castle is thought to have been a 13th-century addition.
+- C137 | Restormel Castle was located within the manor of Bodardle in the parish of Lanlivery.
+- C138 | Restormel Castle was probably built after the Norman Conquest of England as a motte and bailey castle around 1100 by Baldwin Fitz Turstin.
+- C139 | Baldwin Fitz Turstin was the local sheriff when Restormel Castle was built.
+- C140 | Robert de Cardinham was lord of the manor of Restormel between 1192 and 1225.
+- C141 | Robert de Cardinham built up the inner curtain walls of Restormel Castle and converted the gatehouse completely to stone.
+- C142 | The town of Lostwithiel was established close to Restormel Castle at around the same time as Robert de Cardinham's construction work.
+- C143 | The Cardinham family used Restormel Castle in preference to their older castle at Old Cardinham.
+- C144 | Andrew de Cardinham's daughter, Isolda de Cardinham, married Thomas de Tracey.
+- C145 | Thomas de Tracey owned Restormel Castle until 1264.
+- C146 | Restormel Castle was seized in 1264 without fighting by Simon de Montfort during the civil conflicts in the reign of Henry III.
+- C147 | Isolda de Cardinham granted Restormel Castle to Richard of Cornwall in 1270.
+- C148 | Richard of Cornwall was Henry III's brother.
+- C149 | Richard of Cornwall died in 1271.
+- C150 | Edmund built the inner chambers to Restormel Castle during his residence there.
+- C151 | Edmund titled Restormel Castle his duchy palace.
+- C152 | Restormel Castle was home to stannary administration and oversaw the profitable tin-mines in the town of Lostwithiel.
+- C153 | After Edmund's death in 1299 Restormel Castle reverted to the Crown.
+- C154 | From 1337 onwards Restormel Castle was one of the 17 antiqua maneria of the Duchy of Cornwall.
+- C155 | After the loss of Gascony the contents of Restormel Castle were removed to other residences.
+- C156 | When the antiquary John Leland saw Restormel Castle in the 16th century, the castle had fallen into ruin and had been extensively robbed for its stonework.
+- C157 | Henry VIII converted Restormel Castle's parkland to ordinary countryside.
+- C158 | A manor house was established during the 16th century a short distance away from Restormel Castle on lower-lying land adjoining the river.
+- C159 | Restormel Manor is now a grade II listed building.
+- C160 | Restormel Manor is subdivided into luxury apartments with holiday accommodation in the outbuildings.
+- C161 | During Christmas in 2009, Kate Middleton stayed at Restormel Manor and won a landmark victory over a paparazzo who photographed her there.
+- C162 | A Parliamentary garrison occupied the ruins of Restormel Castle and made some basic repairs during the Civil War.
+- C163 | Restormel Castle was invested by a force loyal to Charles I, led by Sir Richard Grenville.
+- C164 | Sir Richard Grenville was a local member of the gentry who had been the member of parliament for Fowey before the war.
+- C165 | Sir Richard Grenville stormed Restormel Castle on 21 August 1644.
+- C166 | In a Parliamentary survey of 1649, Restormel Castle was recorded to be utterly ruined, with only the outer walls still standing.
+- C167 | Restormel Castle was deemed in 1649 to be too badly ruined to repair and too worthless to demolish.
+- C168 | By the 19th century Restormel Castle had become a popular attraction.
+- C169 | The French writer Henri-François-Alphonse Esquiros visited Restormel Castle in 1865.
+- C170 | Henri-François-Alphonse Esquiros described Restormel Castle ruins as forming what the English call a romantic scene.
+- C171 | In 1846 the British royal family visited Restormel Castle, arriving on their yacht Victoria and Albert up the River Fowey.
+- C172 | In 1925, Prince Edward, Duke of Cornwall, entrusted the ruin of Restormel Castle to the Office of Works.
+- C173 | Prince Edward, Duke of Cornwall later became King Edward VIII.
+- C174 | In 1971 a proposal was made to restore Restormel Castle, but was dropped after strong opposition.
+- C175 | Restormel Castle was designated a scheduled monument a decade after 1971.
+- C176 | Restormel Castle has never been excavated.
+- C177 | The Great Western Railway named one of their Castle class locomotives, number 5010, Restormel Castle.
+- C178 | The locomotive Restormel Castle was built in 1927 and withdrawn from service in 1959.
+- C179 | The north, east and west sides of Restormel Castle are bivallate, protected by two banks and ditches.
+- C180 | The south side of Restormel Castle is steep sloped.
+- C181 | Restormel Castle is a 12th-century castle.
+- C182 | Restormel Castle has a gatehouse.
+- C183 | Restormel Castle has a rectangular bailey sited on gently sloping land extending west south west from the motte.
+- C184 | Restormel Castle has latrines.
+- C185 | Multiple web search results reference November 2010 Cornwall flooding as a historic weather event.
+- C186 | The November 2010 flooding in Cornwall, England occurred on November 16-17, 2010.
+- C187 | In excess of 400 properties were flooded during the November 2010 Cornwall flooding, including the St Austell Market and the Eden Project.
+- C188 | Heligan recorded 60.8mm of rainfall during a 12-hour period in the November 2010 Cornwall flooding.
+- C189 | St Clether recorded 55.0mm of rainfall during a 12-hour period in the November 2010 Cornwall flooding.
+- C190 | The stone bridge at Restormel Castle replaces a medieval drawbridge.
+- C191 | Earl Richard owned Restormel Castle.
+- C192 | There is not a whole lot of the internal structure left at Restormel Castle.
+- C193 | Restormel Castle has an ante-chapel.
+- C194 | The Chapel of St Mary at Restormel Castle has a piscina.
+- C195 | Restormel Castle has construction phases dated circa 1200.
+- C196 | The site plan of Restormel Castle is copyright of The English Heritage Trust.
+- C197 | A labelled site plan of Restormel Castle exists dated August 1920.
+- C198 | Aydon Castle is an intact 13th century English manor house.
+- C199 | Aydon Castle is owned by English Heritage.
+- C200 | Berkhamsted Castle has remains of an 11th to 13th century motte and bailey stronghold.
+- C201 | Berkhamsted Castle is owned by English Heritage.
+- C202 | Bowes Castle has remains of a 12th century keep on the site of a Roman fort.
+- C203 | Bowes Castle is owned by English Heritage.
+- C204 | An 11th century Norman motte and bailey castle was built by Nigel d'Aubigny sometime after the Norman Invasion of 1066.
+- C205 | Cartington Castle has remains of a 14th century castle originally built as a pele tower.
+- C206 | Nether Stowey Castle is thought to have been built by Alfred of Spain sometime in the 11th century.
+- C207 | Alfred of Spain was the Norman Lord Stowey.
+- C208 | Nether Stowey Castle had a 10 metre square stone and timber keep atop its earthen defences.
+- C209 | Motte-and-bailey castles transitioned to shell keeps in elite residential architecture in medieval England.
+- C210 | A PDF file named 'restormel-castle-plan.pdf' exists at the file path '/tmp/restormel-castle-plan.pdf'.
+- C211 | The file operation for 'restormel-castle-plan.pdf' was successful.
+- C212 | No error message was generated for the file 'restormel-castle-plan.pdf'.
+- C213 | Cornwall Council leader Alec Robertson praised the response from all agencies involved in the November 2010 flooding.
+- C214 | St Blazey, St Austell, Mevagissey and Lostwithiel were the worst hit areas during the November 2010 Cornwall flooding.
+- C215 | The gatehouse at Restormel Castle was built in two phases.
+- C216 | The Met Office document on November 2010 Cornwall flooding was successfully downloaded to /tmp/cornwall_flooding_nov2010_metoffice.pdf with file size 303,916 bytes.
+- C217 | The Restormel Castle architectural plan PDF was successfully downloaded to /tmp/restormel-castle-plan.pdf with file size 118,093 bytes from English Heritage.
+- C218 | The Met Office document shows 24-hour rainfall totals from 0900 GMT on 16 November to 0900 GMT on 17 November 2010.
+- C219 | Scores of residents were rescued in Mevagissey during the November 2010 Cornwall flooding.
+- C220 | Residents of Lostwithiel described the November 2010 flooding as a Boscastle-type event.
+- C221 | The UK Government worked with local authorities to help people rebuild their lives after the November 2010 Cornwall flooding.
+- C222 | A Cornish village has logged its 50th straight day of rain, bringing flooding, road closures and a sodden start to 2026.
+- C223 | Alec Robertson stated that the November 2010 Cornwall flooding was a very serious incident.
+- C224 | Restormel Castle has guest chambers labeled as B in the plan.
+- C225 | Launceston Castle is a later example of circular shell keep development.
+- C226 | Gisors is a prominent Normandy equivalent of circular shell keep.
+- C227 | Trematon Castle is similar in style to Restormel Castle.
+- C228 | Trematon Castle has a 12th-century keep.
+- C229 | Trematon Castle overlooks Plymouth Sound.
+- C230 | Trematon Castle was probably built by Robert.
+- C231 | More than 800 medieval castles in England have visible remains.
+- C232 | Trinity is located within the east wing of Restormel Manor.
+- C233 | Trinity enjoys wonderful views over the River Fowey.
+- C234 | The St Austell Market was flooded during the November 2010 Cornwall flooding.
+- C235 | Cardinham Castle was a motte-and-bailey fortification in Cornwall.
+- C236 | Cardinham does not have a drawbridge-protected castle.
+- C237 | Restormel Castle is one of four Norman castles in Cornwall.
+- C238 | Restormel Castle was built in the middle of what would have been a sizeable hunting ground.
+- C239 | Bodmin Moor was a quick ride from Restormel Castle.
+- C240 | On the south-facing side of a castle site are the remains of a stone curtain wall.
+- C241 | A north-west entrance of a castle was protected by a stone gatehouse.
+- C242 | Restormel Castle OS Map Grid Reference is SX10406138.
+- C243 | Restormel Castle latitude is 50.42171 degrees.
+- C244 | A castle was almost certainly established at the Restormel site in the 12th if not the 11th century by the Normans.
+- C245 | The Anarchy was a civil war in England between King Stephen and Empress Matilda.
+- C246 | Parking is available at Restormel Castle site.
+- C247 | A proposed new entrance arch for Restormel Castle was sketched between 1930 and 1939.
+- C248 | The Restormel Castle plan was published in September 2020.
+- C249 | The Eyjafjallajökull eruption occurred in 2010.
+- C250 | Web searches for specific rainfall totals at Lostwithiel during November 2010 flooding did not yield location-specific daily rainfall data.
+- C251 | The English Heritage architectural plan PDF for Restormel Castle is available at https://www.english-heritage.org.uk/siteassets/home/visit/places-to-visit/restormel-castle/history/restormel-castle-plan.pdf
+- C252 | The buildings of the 13th-century inner ward at Restormel Castle are fitted into a circular plan.
+- C253 | Only one other circular castle is known in England in the Middle Ages.
+- C254 | The shell keep building type is generally associated with the 12th century rather than the late 13th.
+- C255 | Surviving architectural elements at Restormel Castle include fragments of three cross-shaped arrowloops in the curtain wall.
+- C256 | A shallow pointed arch in the inner gatehouse at Restormel Castle is made of fine stone from Pentewan, about 10 miles away.
+- C257 | The kitchen at Restormel Castle lay to the south of the gatehouse.
+- C258 | The main first-floor rooms at Restormel Castle included a hall, an inner hall or solar, the ante-chapel, and two further rooms thought to be the great chamber and a wardrobe.
+- C259 | All the first-floor rooms at Restormel Castle communicated directly with adjoining spaces apart from the wardrobe at the north-west corner.
+- C260 | The wardrobe at Restormel Castle was accessible only by a stone stair against its gable wall.
+- C261 | The ground-floor spaces at Restormel Castle were all unheated and most were probably storerooms.
+- C262 | Three large windows at Restormel Castle provide views southwards down the valley towards Lostwithiel.
+- C263 | There is only one window facing north at Restormel Castle.
+- C264 | A shallow projection on the north side of Restormel Castle covers a latrine chamber.
+- C265 | The stack of the great hall chimney at Restormel Castle was removed.
+- C266 | The area of the outer ward at Restormel Castle is planted with trees, a vestige of a designed landscape created by the owners of Restormel Manor in the 18th century.
+- C267 | The east window of the chapel at Restormel Castle was blocked, probably during the Civil War, to support cannon on the chapel roof.
+- C268 | There are tales of a hidden crypt in which two skeletons were found at Restormel Castle.
+- C269 | Queensborough, Kent, begun 1361, is the only other circular castle known in England in the Middle Ages.
+- C270 | Launceston Castle was begun soon after the Norman Conquest.
+- C271 | Tintagel Castle is built half on the mainland and half on a jagged headland.
+- C272 | Restormel Castle has a chapel named Chapel of St Mary.
+- C273 | The gatehouse at Radcot Castle was located on the north side of the site.
+- C274 | The gatehouse area at Radcot Castle was excavated in 2008.
+- C275 | The nearest bus stop to Restormel Castle is The Royal Talbot in Lostwithiel.
+- C276 | Service 28 or 428 runs from St Austell Bus Station to Lostwithiel Royal Talbot.
+- C277 | The nearest train station to Restormel Castle is Lostwithiel, which is approximately 1.5 miles or 2 km from Restormel Castle.
+- C278 | Restormel Castle is open every day for visitors from April to October.
+- C279 | Adult entrance fee to Restormel Castle is 4.70 English pounds.
+- C280 | Edward, The Black Prince, the eldest son of Edward III and Philippa of Hainault, was the only member of the English royal family to ever stay within Restormel Castle.
+- C281 | Lostwithiel has less than 3,000 people.
+- C282 | Visitors can trace the great hall and other buildings the Black Prince used during his two long visits to Restormel Castle and its surrounding deer park.
+- C283 | English Heritage membership gives unlimited access to Restormel Castle and other castles, gardens, historic houses and abbeys.
+- C284 | English Heritage membership offers free entry for up to six children accompanied by an adult member under 18 years and within the family group.
+- C285 | Lostwithiel station is approximately 1½ miles (2 km) from Restormel Castle.
+- C286 | The Lostwithiel Museum has exhibits on Lostwithiel's role in the English Civil War.
+- C287 | The Lostwithiel Museum has exhibits on local industries including china clay and tin mining sectors.
+- C288 | Lostwithiel played a role in the English Civil War.
+- C289 | Lostwithiel was important as a stannary town.
+- C290 | The iWalk Cornwall app offers a walk from Restormel Castle to Lostwithiel for £3.49.
+- C291 | The Restormel Walking Trail starts at Castle car park or Duchy Nursery car park.
+- C292 | The Restormel Walking Trail takes approximately 45 minutes.
+- C293 | Dogs are permitted on the Restormel Walking Trail on leads where livestock is present.
+- C294 | The Restormel Castle car park postcode is PL22 0EE.
+- C295 | The Duchy of Cornwall Nursery postcode is PL22 0HW.
+- C296 | The Restormel Castle telephone number is 01208 872687.
+- C297 | The Duchy of Cornwall Nursery telephone number is 01208 872668.
+- C298 | The Restormel Walking Trail is a meander through the River Fowey Valley linking Restormel Castle with the Duchy of Cornwall Nursery.
+- C299 | English Heritage membership includes a free handbook worth £12.95.
+- C300 | The English Heritage Trust is a charity.
+- C301 | The specific castle must be located in an area that recorded the highest daily rainfall total during the 2010 England flooding.
+- C302 | No validated claim establishes that any single area both recorded the highest daily rainfall total during 2010 England flooding and has a drawbridge-protected castle.
+- C303 | The validated claims do not definitively state which cardinal direction the main gatehouse entrance of Restormel Castle faces.
+- C304 | The task cannot be completed based on the validated claims due to insufficient evidence regarding castle identification and gatehouse entrance direction.
+- C305 | The gatehouse at Restormel Castle has an attached drawbridge over the ditch that surrounds the castle.
+- C306 | A square tower sticks out from the wall on the other side of Restormel Castle.
+- C307 | Today, English Heritage looks after Restormel Castle.
+- C308 | Restormel Castle in Cornwall has undergone many phases of construction and alteration over the centuries.
+- C309 | Restormel Castle's domestic buildings include a kitchen with a large fireplace.
+- C310 | Restormel Castle's hall was raised above a storage cellar with a timber ceiling, not stone-vaulted.
+- C311 | Restormel Castle has a chamber normally identified as the lord's chamber, which had a cellar beneath as well as its own fireplace and garderobe.
+- C312 | In 1268, Isolda de Tracy, the Cardinhams' heiress, granted to Richard, Earl of Cornwall and King of the Romans, the town of Lostwithiel, a fishery on the river Fowey, and the castle of Restormel.
+- C313 | Richard, Earl of Cornwall, owned castles at Launceston and Tintagel in addition to Restormel.
+- C314 | Earl Richard died in 1272, only four years after acquiring Restormel.
+- C315 | Restormel Castle was sporadically repaired under Richard II in the later 14th century.
+- C316 | The mid 15th century repairs under Henry VI and Edward IV were the last time Restormel functioned as a castle.
+- C317 | Restormel Castle is not mentioned in the Domesday book.
+- C318 | From the mid-12th century the lands of Restormel belonged to the powerful Cardinham family.
+- C319 | King Edward II elevated Piers Gaveston to the title of Earl of Cornwall in 1307.
+- C320 | Piers Gaveston was stabbed and beheaded by the nobility in 1312.
+- C321 | Piers Gaveston had allowed the castles of Cornwall, including Restormel, to fall into disrepair.
+- C322 | Edward III endowed the Black Prince with the huge estate formerly belonging to the Earldom of Cornwall, including Restormel Castle, parklands, and town of Lostwithiel.
+- C323 | The Black Prince spent a great deal of money on Restormel Castle but more on maintaining the park boundary.
+- C324 | Until the Civil War, Restormel Castle played no military role.
+- C325 | In 1644 the Parliamentary commander, Robert Devereux, invaded the South West.
+- C326 | Robert Devereux's aim was to sever the flow of Cornish tin that was funding King Charles I.
+- C327 | In 1645 the Royalist cause was lost.
+- C328 | Restormel Castle was evacuated in 1645, which saved it from being destroyed.
+- C329 | The evacuation of Restormel Castle subsequently allowed it to fall to ruin.
+- C330 | The ruin of Restormel Castle is highly distinctive.
+- C331 | The remains of Restormel Castle rooms include the large fireplaces, high windows, and the Great Hall which reflect its past grandeur.
+- C332 | Viewed from outside, the surrounding curtain wall of Restormel Castle has two projecting structures: the gatehouse to the west and the chapel to the east.
+- C333 | The gatehouse guards the entrance to the inner castle and may have been the first part of the original castle partially constructed in stone.
+- C334 | Today the castle grounds of Restormel are a favorite picnic spot.
+- C335 | Black Pheasant and other wildlife can be spotted in the woodland near Restormel Castle.
+- C336 | Visitors can enjoy stunning 360-degree views of the surrounding countryside from Restormel Castle.
+- C337 | Outdoor theatre performances take place at Restormel Castle during the summer evening.
+- C338 | Accommodation is plentiful in the area around Restormel Castle.

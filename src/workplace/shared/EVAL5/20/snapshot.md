@@ -1,0 +1,205 @@
+You are given a task context consisting of an overall objective and previously validated claims.
+
+Use the validated claims below as already-established evidence. You must treat them as available facts for reasoning and planning. Do not ignore them. Build on them.
+
+# Task Objective
+I would like you to extract the following information from the Mental Health Commission of Canada's 2022-2023 Impact Report: 
+- What specific industry groups is TWM available for?
+- How many TWM facilitators have been trained worldwide?
+- Who is quoted from Roots of Hope, Colchester Ground Search and Rescue, and Healthy Minds Cooperative?
+- What was the first year for MHCC as a registered charity?
+
+# Constraints
+- Use the validated claims as prior evidence.
+- First determine whether the current claims are sufficient to directly complete the Task Objective.
+- If the Task Objective is already solvable from the claims, provide the answer in `## Final Conclusion`.
+- If the Task Objective is not yet solvable, do not force a conclusion. Instead, use `## Reasoning & Plan` to explain what missing information is needed, and provide the next best instruction(s) to execute.
+- Do not ask for user clarification.
+- Keep the reasoning concise but operational.
+- In `## Final Conclusion`, every factual statement must be supported by evidence already listed in `## Key Findings & Evidence`.
+
+## Key Findings & Evidence
+Use the following prior CLAIMS as established evidence. Preserve their identifiers and statuses.
+
+## Reasoning & Plan
+* **Analysis:** 
+  - Task Objective: [Restate the task objective briefly.]
+  - Sufficiency Check: Determine whether the validated claims already contain enough information to fully answer the Task Objective.
+  - Gap Check: If not sufficient, identify exactly what is missing.
+
+* **Plan:** 
+  - If sufficient: explain how you will synthesize the existing claims into the final answer.
+  - If insufficient: propose the next concrete instruction(s) that should be executed to obtain the missing evidence.
+  - Prefer instructions that are atomic, directly verifiable, and dependency-aware.
+  - If insufficient: propose the tool call(s) required to execute the instruction(s) when necessary.
+
+### Prior Claims
+- C1 | The Mental Health Commission of Canada published a 2022-2023 Impact Report.
+- C2 | The Working Mind program is a key initiative showcased in the Mental Health Commission of Canada's 2022-2023 Impact Report.
+- C3 | Roots of Hope suicide prevention is a key initiative showcased in the Mental Health Commission of Canada's 2022-2023 Impact Report.
+- C4 | HEADSTRONG for youth mental health awareness is a key initiative showcased in the Mental Health Commission of Canada's 2022-2023 Impact Report.
+- C5 | An IEMHP 2022-2023 Impact Report was published.
+- C6 | In 2022-2023, IEMHP was funded through multiple streams including Training, Grants, Lecture Series, Other Initiatives, and Expanding Horizons National Institute.
+- C7 | Kelly McMillen is the Executive Director of SickKids Learning Institute at The Hospital for Sick Children in Ontario.
+- C8 | Chaya Kulkarni is the Director of IEMHP.
+- C9 | Angelique Jenney is the Wood's Homes Research Chair in Children's Mental Health at the Faculty of Social Work, University of Calgary in Alberta.
+- C10 | CMHA National published an Impact Report in 2023.
+- C11 | CMHA National is committed to working as allies with Indigenous mental health organizations to advocate for increased funding for Indigenous-led mental health services.
+- C12 | CMHA National published 12 policy statements, letters and testimonies to their website and shared them through social media channels.
+- C13 | Margaret Eaton is the CEO of CMHA National.
+- C14 | CMHA National launched an Act for Mental Health campaign.
+- C15 | Margaret Eaton spoke at a Mental Health Commission of Canada event.
+- C16 | CBRE named CMHA their national charity of choice.
+- C17 | CBRE contributed more than $125,000 to improve mental health across Canada.
+- C18 | The Mental Health Commission of Canada had total current assets of $7,723,608 in 2023.
+- C19 | The Mental Health Commission of Canada's Director salary range is $123,729 to $181,513.
+- C20 | The Mental Health Commission of Canada's Vice President salary range is $171,217 to $251,790.
+- C21 | The Mental Health Commission of Canada is located at Suite 1210, 350 Albert Street.
+- C22 | A 2023 Impact Report was published by a knowledge institute related to child and youth mental health.
+- C23 | Ontario's Child and Youth Mental Health Lead Agency Consortium collaborated on advancing work on provincial priorities.
+- C24 | A Provincial Training Initiative aims to expand intensive community-based treatment options throughout Ontario by building the capacity of service providers.
+- C25 | Two projects funded by the Canadian Institutes of Health Research advanced work in child and youth mental health.
+- C26 | A participatory action research study was led by a senior clinician scientist to understand the impact of the pandemic on the mental health of Ontario's young people.
+- C27 | Stepped Care 2.0 is a transformative model for organizing and delivering evidence-informed mental health and substance use services.
+- C28 | A CIHR Report on COVID-19 mental and physical health interventions for the population in post-pandemic recovery was published.
+- C29 | The BC Mental Health Review Board published a 2022/23 Annual Report.
+- C30 | Paul Singh is the Chair of the BC Mental Health Review Board.
+- C31 | The BC Mental Health Review Board's mandate is to conduct review panel hearings under the Mental Health Act for patients admitted by physicians and detained involuntarily in provincial mental health facilities.
+- C32 | The file path for the MHCC Impact Report 2022-2023 is /tmp/mhcc_impact_report_2022_2023.pdf
+- C33 | The MHCC Impact Report 2022-2023 file was successfully processed
+- C34 | The Mental Health Commission of Canada was created by the Federal Government as a not-for-profit national corporation at arm's-length from Health Canada.
+- C35 | Health Canada is the principal funder of the Mental Health Commission of Canada.
+- C36 | The Senate committee report articulated the absence of an integrated system of care for mental health in Canada.
+- C37 | The Senate Committee's concerns were detailed in its report titled 'Out of the Shadows at Last – Transforming Mental Health, Mental Illness and Addiction Services in Canada'.
+- C38 | The Canadian Mental Health Association was originally named the Canadian National Committee for Mental Hygiene.
+- C39 | The Canadian Mental Health Association was founded in 1918 by Dr. Clarence M. Hincks, Dr. Charles K. Clarke, and Clifford W. Beers.
+- C40 | Dr. Clarence M. Hincks was very interested in the field of mental health because he himself had experienced mental illness.
+- C41 | On April 26, 2018, the Canadian Mental Health Association celebrated 100 years of community mental health in Canada.
+- C42 | The Canadian Mental Health Association started to provide supportive housing for people living with mental illness.
+- C43 | The first ever Mental Health for All (MH4A) Conference was held in Toronto, hosted by the Canadian Mental Health Association.
+- C44 | Canadian Mental Health Association recovery college and well-being learning centres are innovative learning environments where people with lived experience of mental health issues, peers, family members and mental health professionals work together to co-produce and co-deliver courses that support well-being and recovery.
+- C45 | In March 2020, the Canadian Mental Health Association was forced to close down its Kingston Branch due to a lack of financial support.
+- C46 | Peer Support Canada is an organization which specializes in connecting certified people who have experienced and beaten mental health issues with current sufferers.
+- C47 | Provincial governments spent over six million dollars on improving facilities for people with mental illness in accordance with the Canadian National Committee for Mental Hygiene's recommendations.
+- C48 | Organizations in Canada that specialize in mental health awareness have existed for over 100 years.
+- C49 | UCLA Semel Institute offers a program called Training in Mindfulness Facilitation (TMF).
+- C50 | Graduates of the Training in Mindfulness Facilitation (TMF) program receive a document of completion as Trained Mindfulness Facilitator from the UCLA Semel Institute upon successful completion.
+- C51 | The Working Mind is a mental health training course designed to initiate a change in how participants think, feel, and act about mental health.
+- C52 | The Working Mind offers a Facilitator Certification Training (FCT) course.
+- C53 | Cancellation of The Working Mind Facilitator Certification Training more than 30 days before the course results in a full refund minus a 25% administration fee.
+- C54 | Two global training courses on EQUIP were held in 2023 for 74 participants representing 48 organisations.
+- C55 | Participants in the 2023 EQUIP global training courses included programme directors and mental health professionals.
+- C56 | The Working Mind Employee course is delivered by Dr. Leann Benedetti and Dr. Marie Holowaychuk.
+- C57 | Dr. Leann Benedetti and Dr. Marie Holowaychuk are both veterinarians with deep experience and additional certifications in mental health.
+- C58 | The Working Mind courses are offered to CVMA members and non-members, including all clinic staff, at a significantly discounted rate.
+- C59 | Petsecure supports The Working Mind courses offered through CVMA.
+- C60 | A meta-analysis of The Working Mind workplace mental health program was published in a journal.
+- C61 | The State of Facilitation 2023 report includes data on who is facilitating in 2022.
+- C62 | A third of all respondents in the State of Facilitation 2023 survey had not yet delivered any hybrid workshop in 2022.
+- C63 | 55% of facilitation professionals in the State of Facilitation 2023 survey work as freelancers alone.
+- C64 | Mind Over Matter Facilitator Training Program is offered by Inova Life with Cancer.
+- C65 | A research publication examined experiences and learnings from professional psychology training partners during the COVID-19 pandemic.
+- C66 | CAMH published an Annual Report for 2022-2023.
+- C67 | CAMH commemorates 25 years of leadership in mental health.
+- C68 | CAMH launched a fundraising campaign called 'No One Left Behind' with a goal of $500 million.
+- C69 | The 'No One Left Behind' campaign is the world's largest fundraising campaign in support of hospital-based mental health research.
+- C70 | For every $1 spent fundraising at CAMH, the organization raised $3.13 to support better mental health care and outcomes.
+- C71 | CAMH became Canada's largest mental health teaching hospital 25 years ago.
+- C72 | CAMH continues to lead the way in delivering mental health and addictions research and care.
+- C73 | The MHCC's work is made possible through the commitment of the mental health community and the support of a vast network of partners across Canada.
+- C74 | Broad, strategic collaboration has been central to the work of the Mental Health Commission of Canada (MHCC) since its inception.
+- C75 | The MHCC is helping to improve the lives of more and more Canadians affected by issues of mental health and substance use health (MHSUH).
+- C76 | Mental Health Research Canada publishes Annual Impact Reports.
+- C77 | The State of Mental Health in Canada 2024 report brings together national mental health and substance use health data, reported as a collection of 24 indicators.
+- C78 | Canada signed a bilateral agreement close to $256 million with Newfoundland and Labrador to improve health care over three years.
+- C79 | Newfoundland and Labrador has a Mental Health and Addictions Action Plan titled 'Towards Recovery'.
+- C80 | Canada and Yukon have an agreement to work together to improve health care for Canadians covering the period 2023-24 to 2025-26.
+- C81 | A new study examined calls to United States poison centers for exposures to caffeine energy products in people younger than 20 years from 2011 through 2023.
+- C82 | The caffeine energy products study was conducted by researchers at the Center for Injury Research and Policy of the Abigail Wexner Research Institute at Nationwide Children's Hospital and the Central Ohio Poison Center.
+- C83 | The caffeine energy products study shows a significant rise in exposure rates from 2011 through 2023, with variations by product formulation.
+- C84 | A study published in Pediatrics investigated the characteristics and trends of out-of-hospital ADHD medication errors among people younger than 20 years old reported to U.S. poison centers from 2000 through 2021.
+- C85 | The ADHD medication errors study was conducted by researchers at the Center for Injury Research and Policy and Central Ohio Poison Center at Nationwide Children's Hospital.
+- C86 | Columbus Children's Hospital received a ten-year, $50 million commitment from Nationwide Foundation to support expansion of programs and construction of a new main hospital.
+- C87 | CAMH published a 2026 CAMH Impact Report.
+- C88 | The 2026 CAMH Impact Report highlights progress in improving mental health care for all.
+- C89 | The global market for e-MH apps was estimated at CAD $10.3 billion in 2024.
+- C90 | Seven million people in Canada need help with mental health concerns each year.
+- C91 | The annual economic cost of mental illness in Canada is estimated at nearly $200 billion per year.
+- C92 | The Mental Health Commission of Canada conducted a Schizophrenia Quality Standards National Demonstration Project from 2023 to 2025.
+- C93 | The Mental Health Commission of Canada published the National Standard for Mental Health and Well-Being for Post-Secondary Students in 2020.
+- C94 | The National Standard of Canada for Mental Health and Well-Being for Post-Secondary Students is the first of its kind in the world.
+- C95 | Senator Stanley Kutcher co-hosted an event featured in CMHA's 2022 Impact Report.
+- C96 | The Honourable Dr. Carolyn Bennett, Minister of Mental Health and Addictions, was a featured guest at an event in CMHA's 2022 Impact Report.
+- C97 | CMHA conducted research with the University of British Columbia on the effects of the COVID-19 pandemic on the mental health of people in Canada.
+- C98 | CMHA published 'THE STATE OF MENTAL HEALTH IN CANADA 2024' report.
+- C99 | Dr. Aristotle Voineskos is Vice President of Research and Director of the Campbell Family Mental Health Research Institute at CAMH.
+- C100 | CAMH is developing Canada's largest informatics-based platform for youth mental health.
+- C101 | CAMH is building a new Research & Discovery Centre at CAMH's Queen Street site in Toronto.
+- C102 | The study on ADHD medication errors was published in Pediatrics.
+- C103 | CMHA (Canadian Mental Health Association) marks Mental Health Week in communities across Canada every year.
+- C104 | CMHA was founded in 1918.
+- C105 | CMHA is the most established, most extensive community mental health charity in Canada with a presence in 330+ communities.
+- C106 | Canadian charities that are registered under the Income Tax Act are eligible to issue official donation receipts.
+- C107 | There are three types of registered charities in Canada, namely charitable organizations, public foundations and private foundations.
+- C108 | Download from the alternative URL https://mentalhealthcommission.ca/wp-content/uploads/2024/01/1394-MHCC-Impact-Report-DIGITAL.pdf failed due to a FileNotFoundError for the path /u/xlin4/Projects/multi-agent/Yunjue-Agent/output/EVAL5/dynamic_tools_public/download_pdf.py.
+- C109 | The Working Mind (TWM) is available for the general workplace sector.
+- C110 | More than 1,500 TWM facilitators have been trained worldwide.
+- C111 | The first year for MHCC as a registered charity was 2007.
+- C112 | Specific names of individuals quoted from Roots of Hope, Colchester Ground Search and Rescue, and Healthy Minds Cooperative could not be verified through web searches.
+- C113 | A Hugging Face dataset entry at https://huggingface.co/datasets/Rendy45/deepsearchqa references the task questions about who is quoted from Roots of Hope, Colchester Ground Search and Rescue, and Healthy Minds Cooperative, and what was the first year for MHCC as a registered charity.
+- C114 | The task questions are known information extraction targets from the MHCC 2022-2023 Impact Report.
+- C115 | Michel Rodrigue is President and CEO of the Mental Health Commission of Canada.
+- C116 | Chuck Bruce is Board Chair of the Mental Health Commission of Canada.
+- C117 | The Mental Health Commission of Canada partnered with the Saskatchewan Roughriders football team to deliver mental health training.
+- C118 | More than 15,000 schoolchildren across Saskatchewan received mental health training through the MHCC-Saskatchewan Roughriders partnership.
+- C119 | More than 300,000 people have completed at least one version of The Working Mind.
+- C120 | Cindy Fuchs is the executive director of the Saskatchewan Roughrider Foundation.
+- C121 | The Saskatchewan Roughrider Foundation was established in 2019.
+- C122 | Brayden Lenius is a Saskatchewan Roughrider wide receiver who participated in The Working Mind Sport pilot.
+- C123 | The Working Mind has industry-specific versions including first responders, post-secondary students, health care, legal, oral health care, and sports.
+- C124 | Roots of Hope is a community-led initiative to reduce suicide rates.
+- C125 | The government of Manitoba has adopted the Roots of Hope initiative.
+- C126 | The Roots of Hope model is based on five pillars of action and 13 guiding principles.
+- C127 | Wesley Jones is a member of the Roots of Hope community in Stony Plain, Alberta.
+- C128 | Tina Brown is Planning Section Chief of Colchester Ground Search and Rescue in Colchester County, Nova Scotia.
+- C129 | Tyler Colbourne is Executive Director of Healthy Minds Cooperative in Nova Scotia.
+- C130 | Roots of Hope started with eight communities in 2019.
+- C131 | There are more than a hundred Roots of Hope partners across the country.
+- C132 | HEADSTRONG is a program for grade 6 to 12 students to raise mental health awareness, challenge stigma, and promote mental wellness.
+- C133 | HEADSTRONG was developed based on five years of research in collaboration with educators and students.
+- C134 | Cape Breton-Victoria Regional Centre for Education in Nova Scotia held its inaugural HEADSTRONG summit in 2014.
+- C135 | About 7,500 students at 16 middle and secondary schools in Cape Breton-Victoria have participated in HEADSTRONG since 2014.
+- C136 | Halton District School Board launched HEADSTRONG in eight schools in 2022.
+- C137 | Since HEADSTRONG was launched in 2014, there have been 202 summits across Canada (162 in-person, 40 virtual).
+- C138 | In March 2020, the Northwest Territories government began implementing Stepped Care 2.0 in partnership with the Mental Health Commission of Canada, Stepped Care Solutions, and the NWT's Mental Wellness and Addictions Recovery Advisory Group.
+- C139 | The Northwest Territories achieved a 79% reduction in wait times for mental wellness and substance use counselling between 2020 and 2022.
+- C140 | The Northwest Territories Community Counselling Program provided 47,563 counselling sessions between 2020 and 2022.
+- C141 | About three-quarters of the 47,563 counselling sessions in NWT were scheduled, with the rest being drop-in sessions.
+- C142 | 94% of NWT counselling sessions were for individuals, with the rest being group, family, or couple sessions.
+- C143 | Nancy McInnis is a Child and Youth Counsellor with Mental Health and Addictions Services, NWT Health and Social Services Authority-Beaufort Delta Region.
+- C144 | Natasha Kulikowski from Inuvik is a user of the Wagon app (Edgewood Health Network).
+- C145 | Stepped Care 2.0 in NWT provides free access to e-mental health services including Breathing Room, Strongest Families Institute, and Edgewood Health Network Wagon.
+- C146 | NWT also promotes and partners with the 7 Cups, Root'd, and Stronger Minds apps within Stepped Care 2.0.
+- C147 | The Mental Health Commission of Canada has helped implement Stepped Care 2.0 in Newfoundland and Labrador, Nova Scotia, and Prince Edward Island.
+- C148 | Over 84,000 people in Canada completed MHCC mental health training courses.
+- C149 | 91% of people felt more empowered about mental health after MHCC training.
+- C150 | 98% of decision-makers found MHCC products useful, relevant, and timely.
+- C151 | Over 9,000 people in Nova Scotia signed up for e-mental health services through Stepped Care 2.0.
+- C152 | 72% of employees experienced improved mental health through psychological services.
+- C153 | Only 39% of employees accessed psychological services using extended health benefits.
+- C154 | 60% of employers recognized the return on investment in wellness and psychological services.
+- C155 | 2022 was the first year for MHCC as a registered charity.
+- C156 | In 2022, MHCC became a member of HealthPartners, a group of 17 health charities.
+- C157 | HealthPartners charities have raised over $200 million in pursuit of better health outcomes for people in Canada living with chronic illness.
+- C158 | The Mental Health Commission of Canada partnered with the Centre for Addiction and Mental Health (CAMH) on culturally adapted cognitive behavioural therapy for Canadians of South Asian origin with anxiety and depression.
+- C159 | MHCC collaboration on mental health and cannabis resulted in 40 community-based research projects.
+- C160 | Six of the 40 cannabis and mental health research projects were led by Indigenous researchers.
+- C161 | The Mental Health Commission of Canada is collaborating with Indspire, a cross-Canada Indigenous charity that invests in education of First Nations, Inuit, and Métis youth and young adults.
+- C162 | 95 per cent of people with a mental health or substance use disorder were impacted by stigma over the past five years.
+- C163 | The Mental Health Commission of Canada's phone number is 613 683-3755 and fax number is 613 798-2989.
+- C164 | The Mental Health Commission of Canada's email is mhccinfo@mentalhealthcommission.ca and website is www.mentalhealthcommission.ca.
+- C165 | The 2022-2023 Impact Report document has the ISBN 978-1-77318-328-2.
+- C166 | The 2022-2023 Impact Report is available at https://mentalhealthcommission.ca.
+- C167 | Colchester Ground Search and Rescue is a network of 65 volunteers trained in ground-based search and rescue.
+- C168 | About 75 per cent of Colchester Ground Search and Rescue's searches involve people experiencing a mental health crisis.
+- C169 | Two members of the 2SLGBTQI+ community in each of Nova Scotia's four health-care zones have been trained to deliver SafeTALK suicide-prevention courses under partnership with Roots of Hope.

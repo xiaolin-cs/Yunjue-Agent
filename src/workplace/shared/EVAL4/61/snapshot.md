@@ -1,0 +1,264 @@
+You are given a task context consisting of an overall objective, previously validated claims, and the current instruction to execute.
+
+Use the validated claims below as already-established evidence. You must treat them as available facts for reasoning and planning. Do not ignore them. Build on them.
+
+# Task Objective
+Which universities in the top 20 of the QS World University Rankings for 2021 were also in the top 10 US University Rankings and the top 10 (world) Arts and Humanities Rankings? Please only use information from the QS 2021 rankings and list the schools in alphabetical order.
+
+# Current Instruction
+**T15** — Examine research trends across different disciplines including COVID-19 and immunology, cancer research, obesity, Brexit, and financial market effects.
+
+# Constraints
+- Use the validated claims as prior evidence.
+- First determine whether the current claims are sufficient to directly complete the Task Objective.
+- If the Task Objective is already solvable from the claims, provide the answer in `## Final Conclusion`.
+- If the Task Objective is not yet solvable, do not force a conclusion. Instead, execute the current instructions and collect the information that may be helpful for solving the Task Objective.
+- Do not ask for user clarification.
+- Keep the reasoning concise but operational.
+- In `## Final Conclusion`, every factual statement must be supported by evidence already listed in `## Key Findings & Evidence`.
+
+## Key Findings & Evidence
+Use the following prior CLAIMS as established evidence. Preserve their identifiers and statuses.
+
+## Reasoning & Plan
+* **Analysis:** 
+  - Task Objective: [Restate the task objective briefly.]
+  - Current Instruction: [Restate the instruction briefly.]
+  - Sufficiency Check: Determine whether the validated claims already contain enough information to fully answer the Task Objective.
+  - Gap Check: If not sufficient, identify exactly what is missing.
+
+* **Plan:** 
+  - If sufficient: explain how you will synthesize the existing claims into the final answer.
+  - If insufficient: propose the next concrete instruction(s) that should be executed to obtain the missing evidence.
+  - Prefer instructions that are atomic, directly verifiable, and dependency-aware.
+  - If insufficient: propose the tool call(s) required to execute the instruction(s) when necessary.
+
+### Prior Claims
+- C1 | University of Oxford ranked 1st in QS World University Rankings for Arts and Humanities 2021 with a score of 98.6.
+- C2 | Harvard University ranked 2nd in QS World University Rankings for Arts and Humanities 2021 with a score of 98.5.
+- C3 | University of Oxford is located in Oxford, United Kingdom.
+- C4 | Harvard University is located in Cambridge.
+- C5 | University of Cambridge appeared in the top rankings for QS World University Rankings by Subject 2021 Arts and Humanities.
+- C6 | University of California, Berkeley (UCB) appeared in the top rankings for QS World University Rankings by Subject 2021 Arts and Humanities.
+- C7 | Yale University appeared in the top rankings for QS World University Rankings by Subject 2021 Arts and Humanities.
+- C8 | Stanford University appeared in the top rankings for QS World University Rankings by Subject 2021 Arts and Humanities.
+- C9 | Royal College of Art ranked 1st in QS World University Rankings by Subject 2021 for Art & Design with a score of 99.6.
+- C10 | Royal College of Art is located in London, United Kingdom.
+- C11 | Parsons School of Design at The New School ranked 3rd in QS World University Rankings by Subject 2021 for Art & Design with a score of 92.7.
+- C12 | University College London (UCL) is among the best global universities for Arts and Humanities.
+- C13 | Harvard University was founded in 1636.
+- C14 | Harvard University is the oldest higher education institution in the United States.
+- C15 | University of Toronto is among the best global universities for Arts and Humanities.
+- C16 | University of Toronto is a public institution founded in 1827.
+- C17 | Yale University was founded in 1701.
+- C18 | Yale University is one of the oldest institutions of higher education in the United States.
+- C19 | University of Edinburgh is among the best global universities for Arts and Humanities.
+- C20 | University of Edinburgh is a public institution founded in 1583.
+- C21 | QS World University Rankings is published annually by Quacquarelli Symonds since 2004.
+- C22 | QS World University Rankings is one of the three most influential international university rankings.
+- C23 | QS World University Rankings places heavy emphasis on reputation surveys, with academic reputation accounting for 30% and employer reputation accounting for 15% of the total score.
+- C24 | QS World University Rankings by Subject 2021 includes a ranking for Arts and Humanities.
+- C25 | Individual Arts and Humanities subject rankings are available for Archaeology.
+- C26 | Several corrections may have been made following the compilation of the first release for the QS World University Rankings by Subject 2021.
+- C27 | A release summary page is available for the QS World University Rankings by Subject 2021.
+- C28 | TopUniversities.com offers a Course Matching Tool.
+- C29 | QS organizes Master's Events in various regions including India, Europe, Asia, Middle East and Africa, North America, and Latin America.
+- C30 | QS publishes QS World University Rankings.
+- C31 | QS publishes QS Sustainability Rankings.
+- C32 | QS publishes QS Best Student Cities rankings.
+- C33 | QS publishes QS Global MBA Rankings.
+- C34 | QS operates the QS Stars Rating System.
+- C35 | QS operates the QS IGAUGE Rating System.
+- C36 | Free site membership on TopUniversities.com provides access to direct university comparisons.
+- C37 | 17 Hungarian institutions are included in the QS Europe Rankings.
+- C38 | Top universities in Hungary are ranked among the best universities in Eastern Europe in the latest QS Europe Rankings.
+- C39 | TopUniversities.com is operated by QS Quacquarelli Symonds Limited.
+- C40 | QS Quacquarelli Symonds Limited was established in 1994.
+- C41 | Harvard University is ranked number 1 in US university rankings.
+- C42 | Stanford University is ranked number 2 in US university rankings.
+- C43 | Stanford University is located in Stanford, United States.
+- C44 | Massachusetts Institute of Technology (MIT) is ranked number 3 in US university rankings.
+- C45 | University of Cambridge appears in Arts and Humanities rankings.
+- C46 | Yale University appears in Arts and Humanities rankings.
+- C47 | Stanford University appears in Arts and Humanities rankings.
+- C48 | The extracted page content does not contain the full ranking tables.
+- C49 | QS published its second annual list of the QS USA University Rankings in 2021.
+- C50 | Princeton University ranked #4 in a university ranking list.
+- C51 | University of Cambridge ranked #5 in a university ranking list.
+- C52 | California Institute of Technology (Caltech) ranked #8 in a university ranking list.
+- C53 | University of Pennsylvania cracked the top 10 list in a US university ranking.
+- C54 | University of Pennsylvania's student-to-faculty ratio contributed to its top spot ranking.
+- C55 | NYU is located in Manhattan.
+- C56 | NYU scored almost perfect ratings in academic reputation.
+- C57 | Columbia University is New York City's Ivy League university.
+- C58 | Columbia University scores a perfect 100 with QS for its ratio of student-to-faculty members.
+- C59 | MIT has been ranked as the best university in the world for nine consecutive years.
+- C60 | University of Chicago ranked #9 in the QS Ranking 2021.
+- C61 | University College London ranked #10 in the QS Ranking 2021.
+- C62 | Nanyang Technological University ranked #13 in the QS Ranking 2021.
+- C63 | University of Pennsylvania ranked #16 in the QS Ranking 2021.
+- C64 | University of Hong Kong ranked #22 in the QS Ranking 2021.
+- C65 | University of Toronto ranked #25 in the QS Ranking 2021.
+- C66 | Johns Hopkins University ranked #25 in the QS Ranking 2021.
+- C67 | New York University ranked #35 in the QS Ranking 2021.
+- C68 | University of Sydney ranked #40 in the QS Ranking 2021.
+- C69 | University of Queensland ranked #46 in the QS Ranking 2021.
+- C70 | The 2021 QS USA Rankings contains more than 350 universities.
+- C71 | New York state is the most represented state in the QS USA Rankings 2021.
+- C72 | California has 38 universities in the QS USA Rankings.
+- C73 | California is the next best-performing state after New York in the QS USA Rankings.
+- C74 | Florida State University ranked =66 in the US College Rankings 2026.
+- C75 | Florida State University ranked 301–350 in a ranking list.
+- C76 | Florida International University ranked =80 in the US College Rankings 2026.
+- C77 | Florida International University ranked 401–500 in a ranking list.
+- C78 | Georgia State University ranked =103 in the US College Rankings 2026.
+- C79 | Texas State University ranked =162 in the US College Rankings 2026.
+- C80 | Adelphi University ranked =166 in the US College Rankings 2026.
+- C81 | Morgan State University ranked =166 in the US College Rankings 2026.
+- C82 | A subprocess execution error occurred with type 'subprocess_execution_error'.
+- C83 | The error traceback originates from line 22 in an unnamed string module.
+- C84 | The error involves pydantic validation in the __init__ method at main.py line 250.
+- C85 | A ValidationError was raised for InputModel with 1 validation error.
+- C86 | The field 'pdf_path' is required but was missing from the input.
+- C87 | The input value provided was a dictionary containing 'url' key with value 'https://www.topu...ubject%202021%20v4.pdf'.
+- C88 | The input type was 'dict'.
+- C89 | The error type is classified as 'missing' in pydantic validation.
+- C90 | The pydantic library version used is from the 2.12 series.
+- C91 | The Python version used is 3.12.
+- C92 | The code is located in a virtual environment at path '/u/xlin4/Projects/multi-agent/Yunjue-Agent/.dynamic_tools_venv'.
+- C93 | Further information about the error is available at https://errors.pydantic.dev/2.12/v/missing.
+- C94 | Massachusetts Institute of Technology ranked 2nd in the Times Higher Education World University Rankings by Subject 2021 for Arts and Humanities.
+- C95 | Columbia University ranked 7th in the QS World University Rankings for Arts and Humanities 2022 with a score of 89.4.
+- C96 | Princeton University ranked 15th in the QS World University Rankings for Arts and Humanities 2022 with a score of 86.5.
+- C97 | Cornell University ranked 36th in the QS World University Rankings for Arts and Humanities 2022 with a score of 81.2.
+- C98 | University College London is a public institution that was founded in 1826.
+- C99 | Nanyang Technological University is located in Singapore.
+- C100 | University of Hong Kong is located in Hong Kong.
+- C101 | University of Sydney is located in Australia.
+- C102 | University of Queensland is located in Australia.
+- C103 | Princeton University is located in the United States.
+- C104 | University of Pennsylvania is located in the United States.
+- C105 | Cornell University is located in the United States.
+- C106 | University of Chicago is located in the USA.
+- C107 | Johns Hopkins University is located in the USA.
+- C108 | University of California, Berkeley is located in the USA.
+- C109 | University of California, Los Angeles is located in the USA.
+- C110 | A subprocess execution error occurred due to a validation error in the InputModel.
+- C111 | The validation error is of type 'missing' for the field 'pdf_path'.
+- C112 | The input value provided was a dictionary containing 'url' with value 'https://www.qs.c...iversity-rankings-2021'.
+- C113 | The InputModel requires a field named 'pdf_path' that was not provided in the input.
+- C114 | ETH Zurich ranked 6th in the QS World University Rankings 2021.
+- C115 | Imperial College London ranked 8th in the QS World University Rankings 2021.
+- C116 | National University of Singapore (NUS) ranked 11th in the QS World University Rankings 2021.
+- C117 | EPFL-Ecole Polytechnique Lausanne ranked 14th in the QS World University Rankings 2021.
+- C118 | Tsinghua University ranked 15th in the QS World University Rankings 2021.
+- C119 | University of Edinburgh ranked 20th in the QS World University Rankings 2021.
+- C120 | The ranking data from positions 4 to 10 in the US university rankings is not fully confirmed from the available snippets.
+- C121 | University of Michigan ranked 21st in the QS World University Rankings 2021.
+- C122 | Peking University ranked 23rd in the QS World University Rankings 2021.
+- C123 | Johns Hopkins University and Duke University shared the 25th position in the QS World University Rankings 2021.
+- C124 | The QS World University Rankings 2021 data needs verification from official QS sources.
+- C125 | The complete Arts and Humanities Top 10 is missing positions 3 through 10 with confirmed rankings.
+- C126 | The University of Cambridge is located in Cambridge, ENG, United Kingdom.
+- C127 | Yale University is ranked 21st in the QS World University Rankings 2026.
+- C128 | Yale University is located in New Haven, CT, United States.
+- C129 | MIT ranked 1st in the QS World University Rankings 2021.
+- C130 | Caltech ranked 4th in the QS World University Rankings 2021.
+- C131 | UCLA appears in the top 10 of the QS USA University Rankings 2021.
+- C132 | MIT is located in Cambridge, United States.
+- C133 | ETH Zurich is located in Switzerland.
+- C134 | Imperial College London is located in the United Kingdom.
+- C135 | National University of Singapore is located in Singapore.
+- C136 | EPFL is located in Switzerland.
+- C137 | Tsinghua University is located in China.
+- C138 | The QS Arts and Humanities Rankings 2021 ranking table data was not accessible via text extraction from the official webpage.
+- C139 | PDF extraction attempts for the Subject 2021 rankings document failed due to tool input format mismatch.
+- C140 | Business Insider published an article about the best US universities according to QS Quacquarelli Symonds in 2021.
+- C141 | Australian National University (ANU) ranked 5th in Anthropology in the QS World University Rankings by Subject 2021.
+- C142 | London School of Economics and Political Science (LSE) ranked 8th in Anthropology in the QS World University Rankings by Subject 2021.
+- C143 | A PDF file named 'subject_2021_rankings.pdf' exists at the file path '/tmp/subject_2021_rankings.pdf'.
+- C144 | The file 'subject_2021_rankings.pdf' has a file size of 14248809 bytes.
+- C145 | The file operation for 'subject_2021_rankings.pdf' was successful.
+- C146 | The QS World University Rankings by Subject 2021 evaluates more than 3,800 individual university programs taken by students at more than 1,440 universities in 85 locations across 51 academic disciplines.
+- C147 | The United States has around a fifth of all ranked programs in the QS World University Rankings by Subject 2021.
+- C148 | Harvard University and Massachusetts Institute of Technology are the top two institutions by number of programs ranked in the QS World University Rankings by Subject 2021.
+- C149 | The United Kingdom, China, Australia, and Germany complete the top five countries by number of institutions ranked in the QS World University Rankings by Subject 2021.
+- C150 | 850 institutions have entries in subject areas they have not previously achieved a ranking in the QS World University Rankings by Subject 2021.
+- C151 | China has seen a record number of Chinese programs attaining a top 50 rank in the QS World University Rankings by Subject 2021.
+- C152 | Russia has a record number of Russian programs attaining top 20 ranks in the QS World University Rankings by Subject 2021.
+- C153 | International research collaboration is particularly high in the UK, Netherlands, Denmark, Australia, France, Hong Kong, Switzerland and Singapore.
+- C154 | Singapore and Hong Kong both see exceptionally strong rates of international research collaboration at above 70 percent.
+- C155 | National University of Singapore, Nanyang Technological University, University of Hong Kong, and The Chinese University of Hong Kong have between them around 20 percent of the share of programs for the top 10 institutions in Asia in the QS World University Rankings by Subject 2021.
+- C156 | According to the QS Global Employer Survey, the most important skills to employers are problem solving, communication, and team work.
+- C157 | Professional experience was the most sought after characteristic of global employers surveyed by QS.
+- C158 | University of Cambridge ranks first in Archaeology with an overall score of 96.2.
+- C159 | Massachusetts Institute of Technology ranks first in Architecture/Built Environment with an overall score of 96.1.
+- C160 | Sapienza - Università di Roma ranks first in Classics & Ancient History with an overall score of 96.9.
+- C161 | Juilliard School ranks first in Performing Arts with an overall score of 95.9.
+- C162 | New York University ranks first in Philosophy with an overall score of 98.3.
+- C163 | University of Notre Dame ranks first in Theology, Divinity & Religious Studies with an overall score of 92.8.
+- C164 | Colorado School of Mines ranks first in Engineering - Mineral & Mining with an overall score of 95.5.
+- C165 | National University of Singapore ranks first in Petroleum Engineering with an overall score of 99.8.
+- C166 | Wageningen University ranks first in Agriculture & Forestry with an overall score of 98.8.
+- C167 | University of Pennsylvania ranks first in Nursing with an overall score of 95.5.
+- C168 | ETH Zurich ranks first in Geology with an overall score of 95.5.
+- C169 | Harvard University and Stanford University are tied for first in Environmental Sciences with an overall score of 96.4.
+- C170 | Nanyang Technological University ranks first in Materials Science with an overall score of 93.7.
+- C171 | University of Amsterdam ranks first in Communication & Media Studies with an overall score of 97.
+- C172 | University of Sussex ranks first in Development Studies with an overall score of 96.3.
+- C173 | UCL Institute of Education | University College London ranks first in Education with an overall score of 95.2.
+- C174 | Ecole hôtelière de Lausanne ranks first in Hospitality & Leisure Management with an overall score of 99.4.
+- C175 | The University of Sheffield ranks first in Library & Information Management with an overall score of 95.4.
+- C176 | Loughborough University ranks first in Sports-related Subjects with an overall score of 96.8.
+- C177 | Approximately 90 percent of those surveyed in the Jisc Learning and teaching reimagined report expected lectures to go online in the 2020/2021 academic year.
+- C178 | Previous surveys before the pandemic found only 10 percent thought lectures would go online.
+- C179 | Roughly 50 percent of respondents in the Jisc report said smaller activities such as seminars and tutorials would or had already gone virtual in 2020/2021.
+- C180 | From February to November 2020, the number of students planning to defer or delay their studies rose by 18 percent to over half (55 percent) according to QS pulse surveys.
+- C181 | According to over 400 QS partners surveyed, 58 percent said they recruited fewer international students because students were unable to travel to the institution's country.
+- C182 | 22 percent of QS partners listed international student recruitment as one of their top three priorities.
+- C183 | 26 percent of QS partners said geographic diversification was their key recruitment priority.
+- C184 | QS moved its first physical event online within three days at the start of the pandemic.
+- C185 | By the end of 2020, QS held nearly 300 events that garnered over 83,000 student registrations and nearly 400 client bookings.
+- C186 | QS virtual fairs gained an average of 650 students per event with over 99,000 registrations in total in 2020.
+- C187 | 78 percent of QS fair student attendees intended to apply to more than two universities they had met at the event.
+- C188 | 93 percent of prospects were contacted by at least two schools after they had registered for a QS event.
+- C189 | QS held 201 Connect events in 2020 with an average of 381 student registrations per event.
+- C190 | QS was awarded a Zoomtopia 'Evolution of the Business Award' for successfully utilizing Zoom for its Spring 2020 Connect events.
+- C191 | The QS USA University Rankings 2021 is an annual ranking of universities across the USA.
+- C192 | IE Business School is ranked first in the QS Online MBA Rankings 2021.
+- C193 | Imperial College Business School is ranked second in the QS Online MBA Rankings 2021.
+- C194 | Warwick Business School is ranked third in the QS Online MBA Rankings 2021.
+- C195 | AGSM @ UNSW is ranked fourth in the QS Online MBA Rankings 2021.
+- C196 | Stanford University is ranked second in the QS Graduate Employability Rankings 2022.
+- C197 | University of California is ranked third in the QS Graduate Employability Rankings 2022.
+- C198 | Zhejiang University is ranked sixth in the 2022 QS World University Rankings Asia.
+- C199 | Fudan University is ranked seventh in the 2022 QS World University Rankings Asia.
+- C200 | Zhejiang University received a score of 99.1 for reputation among employers in the 2022 QS World University Rankings Asia.
+- C201 | Fudan University received a score of 99.1 for reputation among employers in the 2022 QS World University Rankings Asia.
+- C202 | Zhejiang University is located in China.
+- C203 | Fudan University is located in China.
+- C204 | Duke University ranked global rank 20 and US rank 14 in THE World Rankings 2021.
+- C205 | Northwestern University ranked global rank 24 and US rank 16 in THE World Rankings 2021.
+- C206 | Carnegie Mellon University ranked global rank 28 and US rank 18 in THE World Rankings 2021.
+- C207 | University of Washington ranked global rank 29, US rank 19, and US Public rank 4 in THE World Rankings 2021.
+- C208 | University of California, San Diego ranked global rank 33, US rank 20, and US Public rank 5 in THE World Rankings 2021.
+- C209 | Georgia Institute of Technology ranked global rank 38, US rank 21, and US Public rank 6 in THE World Rankings 2021.
+- C210 | University of Texas at Austin ranked global rank 44, US rank 22, and US Public rank 7 in THE World Rankings 2021.
+- C211 | University of Illinois at Urbana-Champaign ranked global rank 48, US rank 23, and US Public rank 8 in THE World Rankings 2021.
+- C212 | University of Wisconsin-Madison ranked global rank 49, US rank 24, and US Public rank 9 in THE World Rankings 2021.
+- C213 | Washington University in St Louis ranked global rank 50 and US rank 25 in THE World Rankings 2021.
+- C214 | University of Southern California ranked global rank 53 and US rank 26 in THE World Rankings 2021.
+- C215 | Boston University ranked global rank 54 and US rank 27 in THE World Rankings 2021.
+- C216 | University of North Carolina at Chapel Hill ranked global rank 56, US rank 28, and US Public rank 10 in THE World Rankings 2021.
+- C217 | Brown University ranked global rank 61 and US rank 29 in THE World Rankings 2021.
+- C218 | University of California, Davis ranked global rank 64, US rank 30, and US Public rank 11 in THE World Rankings 2021.
+- C219 | Ohio State University (Main campus) ranked global rank 80, US rank 32, and US Public rank 13 in THE World Rankings 2021.
+- C220 | Emory University ranked global rank 85 and US rank 33 in THE World Rankings 2021.
+- C221 | University of Minnesota ranked global rank 85, US rank 34, and US Public rank 14 in THE World Rankings 2021.
+- C222 | University of Maryland, College Park ranked global rank 90, US rank 35, and US Public rank 15 in THE World Rankings 2021.
+- C223 | Purdue University West Lafayette ranked global rank 94, US rank 36, and US Public rank 16 in THE World Rankings 2021.
+- C224 | University of California, Irvine ranked global rank 98, US rank 37, and US Public rank 17 in THE World Rankings 2021.
+- C225 | Dartmouth College ranked global rank 101 and US rank 38 in THE World Rankings 2021.
+- C226 | Michigan State University ranked global rank 105, US rank 39, and US Public rank 18 in THE World Rankings 2021.
+- C227 | UCLA ranks 9th in the QS Arts & Humanities Rankings 2021 Top 10.
+- C228 | The confirmed positions in the QS USA Rankings 2021 are: position 1 Harvard University, position 2 Stanford University, position 3 MIT, position 4 Princeton University, position 8 Caltech.

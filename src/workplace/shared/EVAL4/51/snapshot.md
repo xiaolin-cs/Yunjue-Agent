@@ -1,0 +1,302 @@
+You are given a task context consisting of an overall objective and previously validated claims.
+
+Use the validated claims below as already-established evidence. You must treat them as available facts for reasoning and planning. Do not ignore them. Build on them.
+
+# Task Objective
+Using Statistics Canada, list all names for boys that stayed within the top 5 baby names for boys between the years 2019 and 2022.
+
+# Constraints
+- Use the validated claims as prior evidence.
+- First determine whether the current claims are sufficient to directly complete the Task Objective.
+- If the Task Objective is already solvable from the claims, provide the answer in `## Final Conclusion`.
+- If the Task Objective is not yet solvable, do not force a conclusion. Instead, use `## Reasoning & Plan` to explain what missing information is needed, and provide the next best instruction(s) to execute.
+- Do not ask for user clarification.
+- Keep the reasoning concise but operational.
+- In `## Final Conclusion`, every factual statement must be supported by evidence already listed in `## Key Findings & Evidence`.
+
+## Key Findings & Evidence
+Use the following prior CLAIMS as established evidence. Preserve their identifiers and statuses.
+
+## Reasoning & Plan
+* **Analysis:** 
+  - Task Objective: [Restate the task objective briefly.]
+  - Sufficiency Check: Determine whether the validated claims already contain enough information to fully answer the Task Objective.
+  - Gap Check: If not sufficient, identify exactly what is missing.
+
+* **Plan:** 
+  - If sufficient: explain how you will synthesize the existing claims into the final answer.
+  - If insufficient: propose the next concrete instruction(s) that should be executed to obtain the missing evidence.
+  - Prefer instructions that are atomic, directly verifiable, and dependency-aware.
+  - If insufficient: propose the tool call(s) required to execute the instruction(s) when necessary.
+
+### Prior Claims
+- C1 | In 2022, the top five baby names in Canada for boys were Noah, Liam, William, Leo and Theodore.
+- C2 | There were 44,545 distinct baby names registered in Canada in 2022.
+- C3 | The diversity of baby names in Canada kept growing in the last 30 years.
+- C4 | In 2021, the five most popular baby names for girls in Canada were Olivia, Emma, Charlotte, Amelia and Ava.
+- C5 | The vast majority of the top 10 baby names in Canada in 2021 are pronounced equally well in both English and French.
+- C6 | For the first time in 2021, Noah ranked as Canada's most popular name for baby boys.
+- C7 | Statistics Canada compiled a list of the nation's most popular baby names from 1991 to 2021.
+- C8 | Liam was the number one boy name in Canada from 2012 to 2020.
+- C9 | Noah unseated Liam as the top boy name in Canada.
+- C10 | Among girls in Canada, Olivia kept the top spot for seven consecutive years as of 2022.
+- C11 | The Baby Name Observatory contains a search engine to look up baby name popularity for boys and girls.
+- C12 | The Baby Name Observatory shows the top 20 most popular baby names from 1991 to 2021.
+- C13 | In Alberta in 2025, the top baby names for boys include Noah, Theodore, Oliver, Henry, Jack, Lucas, Levi, and Liam.
+- C14 | Jack and Lucas tied for a position in Alberta's top baby names for boys in 2025.
+- C15 | Noah has biblical roots, namely Noah's Ark, and originates from the Hebrew name 'Noach,' meaning 'rest.'
+- C16 | Liam is derived from William, a name with Irish roots, meaning 'strong-willed warrior' or 'protector.'
+- C17 | In 2022, Liam remained in the number two seat for most popular boy names in Canada.
+- C18 | William was the number 3 most popular boy name in Canada in 2022.
+- C19 | Since 2003, the number one spot for most popular girl names in Canada has been held by either Emma or Olivia.
+- C20 | Olivia means 'olive tree' in Latin and is an old British name dating back to the 13th century.
+- C21 | Emma has Germanic roots meaning 'universal' or 'whole.'
+- C22 | Emma was the most popular girl name in Canada from 2003 to 2009.
+- C23 | Some names made big jumps in the rankings from 2021 to 2022 in Canada.
+- C24 | In the last 30 years, there has been a 31% increase in the number of baby names in Canada.
+- C25 | For privacy reasons, names with a count of less than five in a given year are excluded from the Baby Name Observatory visualization tool.
+- C26 | The article was published on October 23, 2023, at 11:00 a.m. (EDT).
+- C27 | The article was last modified on 2023-10-23.
+- C28 | Evelyn ranked 8th among popular baby girl names in Canada in 2020 with 28 occurrences and was new to the rankings.
+- C29 | Luke ranked 9th among popular baby names in Canada in 2020 with 33 occurrences and was new to the rankings.
+- C30 | Isla ranked 9th among popular baby girl names in Canada in 2020 with 28 occurrences, down 2 positions from the previous year.
+- C31 | Thomas ranked 12th among popular baby names in Canada in 2020 with 30 occurrences and was new to the rankings.
+- C32 | Scarlett ranked 12th among popular baby girl names in Canada in 2020 with 26 occurrences, up 1 position from the previous year.
+- C33 | Alexander ranked 14th among popular baby names in Canada in 2020 with 26 occurrences and was new to the rankings.
+- C34 | Hannah ranked 17th among popular baby girl names in Canada in 2020 with 23 occurrences and was new to the rankings.
+- C35 | Carter ranked 18th among popular baby names in Canada in 2020 with 24 occurrences and was new to the rankings.
+- C36 | Abigail ranked 18th among popular baby girl names in Canada in 2020 with 21 occurrences, down 13 positions from the previous year.
+- C37 | James ranked 19th among popular baby names in Canada in 2020 with 24 occurrences, down 1 position from the previous year.
+- C38 | Avery ranked 19th among popular baby girl names in Canada in 2020 with 21 occurrences and was new to the rankings.
+- C39 | Jackson ranked 20th among popular baby names in Canada in 2020 with 23 occurrences, down 5 positions from the previous year.
+- C40 | Grace ranked 20th among popular baby girl names in Canada in 2020 with 21 occurrences and was new to the rankings.
+- C41 | Hudson ranked 4th among popular baby names in Canada in 2020 with 48 occurrences and was new to the rankings.
+- C42 | Benjamin ranked 8th among popular baby names in Canada in 2020 with 43 occurrences, down 3 positions from the previous year.
+- C43 | Addison ranked 8th among popular baby girl names in Canada in 2020 with 35 occurrences and was new to the rankings.
+- C44 | Bennett ranked 10th among popular baby names in Canada in 2020 with 41 occurrences and was new to the rankings.
+- C45 | Henry ranked 11th among popular baby names in Canada in 2020 with 41 occurrences and was new to the rankings.
+- C46 | Charlotte ranked 11th among popular baby girl names in Canada in 2020 with 32 occurrences, down 1 position from the previous year.
+- C47 | Hazel ranked 13th among popular baby girl names in Canada in 2020 with 30 occurrences, up 5 positions from the previous year.
+- C48 | Maverick ranked 14th among popular baby names in Canada in 2020 with 39 occurrences, up 5 positions from the previous year.
+- C49 | Owen ranked 15th among popular baby names in Canada in 2020 with 39 occurrences, down 7 positions from the previous year.
+- C50 | Aurora ranked 15th among popular baby girl names in Canada in 2020 with 29 occurrences and was new to the rankings.
+- C51 | Ivy ranked 16th among popular baby girl names in Canada in 2020 with 28 occurrences and was new to the rankings.
+- C52 | Levi ranked 17th among popular baby names in Canada in 2020 with 38 occurrences and was new to the rankings.
+- C53 | Asher ranked 18th among popular baby names in Canada in 2020 with 37 occurrences, down 7 positions from the previous year.
+- C54 | Elizabeth ranked 18th among popular baby girl names in Canada in 2020 with 26 occurrences and was new to the rankings.
+- C55 | Olivia is Canada's most popular name for girls and was chosen by parents or guardians 1,639 times in 2024.
+- C56 | Noah has topped the list of most popular boy names in Canada for the fourth straight year as of 2024.
+- C57 | 2,115 baby boys were given the name Noah in Canada in 2024.
+- C58 | William, Liam, Theodore, Oliver, and Lucas are frequent appearances on the top-10 popular boy names in Canada in recent years.
+- C59 | Emma, Amelia, Charlotte, Sophia, and Sofia are frequent appearances on the top-10 popular girl names in Canada in recent years.
+- C60 | Sophia ranked 5th among popular baby girl names in Canada in 2024.
+- C61 | Oliver ranked 6th among popular baby boy names in Canada in 2024.
+- C62 | Mia ranked 7th among popular baby girl names in Canada in 2024.
+- C63 | Chloe ranked 8th among popular baby girl names in Canada in 2024.
+- C64 | Lily jumped four spots in the top 10 most popular baby names in Canada in 2022.
+- C65 | Parents in Ontario should register their child's birth within 30 days of welcoming their newborns.
+- C66 | ServiceOntario's 5-in-1 Newborn Bundle was updated in fall 2020.
+- C67 | The refreshed 5-in-1 Newborn Bundle in Ontario allows parents to apply for their child's birth certificate, Social Insurance Number, Canada Child Benefits, Ontario Child Benefit, and Education Savings Referral service through one application.
+- C68 | More than 1.6 million births have been registered in Ontario using the 5-in-1 Newborn Bundle service as of 2020.
+- C69 | Statistics Canada publishes a data table titled 'First names at birth by sex at birth, selected indicators (Number)'.
+- C70 | The data table 17-10-0147-01 has a frequency of Annual.
+- C71 | The geography covered in data table 17-10-0147-01 is Canada.
+- C72 | The data sources for table 17-10-0147-01 are Statistics Canada Canadian Vital Statistics Birth Database (CVSB) and Retraite Québec.
+- C73 | Birth data from the most recent year are considered preliminary and data from previous years may have been revised.
+- C74 | For Quebec, information on names comes from Retraite Québec's List of Baby Names.
+- C75 | When first name frequency was from 1 to 4 in Quebec data, the frequency was imputed to a random number from 1 to 4 and added to the count observed in the other provinces or territories.
+- C76 | The symbol '..' means the first name is absent for a given year or sex at birth or suppressed for privacy reasons if the frequency was less than 5.
+- C77 | For each combination of year and sex at birth, names with a rank value of 1 were the most frequently recorded name at birth.
+- C78 | The first name is the name which appears first in the full given name taken from the data sources.
+- C79 | Missing first names, those composed of a single letter and those with a frequency of less than 5 are excluded from the data table.
+- C80 | In the source data, names are presented in a format in which an accented letter is replaced with the unaccented version of the letter.
+- C81 | First names which include a hyphen are kept in full.
+- C82 | The first name AARAV had a frequency of 155 for males in 2024 in Canada.
+- C83 | The first name AARON had a frequency of 263 for males in 2024 in Canada.
+- C84 | The first name AALIYAH had a frequency of 153 for females in 2024 in Canada.
+- C85 | The first name ABBY had a frequency of 127 for females in 2024 in Canada.
+- C86 | The first name AADHYA had a frequency of 115 for females in 2024 in Canada.
+- C87 | The data table covers reference periods from 1991 to 2024.
+- C88 | Statistics Canada census questionnaires require copying names from Step B to question 1 at the top of page 4, keeping the same order.
+- C89 | If more than five persons live in a household, an extra Statistics Canada census questionnaire is needed.
+- C90 | Statistics Canada published an infographic on co-operatives in Canada in 2023.
+- C91 | Statistics Canada published data on business conditions in Canada for the first quarter of 2026.
+- C92 | Statistics Canada published data on child care use by low-income families in Canada in 2023.
+- C93 | Statistics Canada published data on non-official languages used at work in Canada in 2021.
+- C94 | Statistics Canada published data on access to services in the minority official language in Canada in 2022.
+- C95 | Statistics Canada provides indicators, data and detailed analysis related to Canadian demographics from population estimates, projections, and census data.
+- C96 | Statistics Canada operates a real-time model called Canada's population clock.
+- C97 | The Statistics Canada Centre for Demography can be contacted at statcan.demography-demographie.statcan@statcan.gc.ca for information on estimates, projections, or custom products.
+- C98 | The 2021 Census questionnaire collected information on address.
+- C99 | Supplementary information on export of arms and ammunitions can be found on Innovation, Science and Economic Development Canada's Trade Data Online.
+- C100 | The Canadian International Merchandise Trade (CIMT) Program of Statistics Canada produces monthly international merchandise trade values, price indices and volume indices on both a customs and balance of payments basis.
+- C101 | Canadian and United States international merchandise trade data are released simultaneously by Statistics Canada and the United States Census Bureau approximately 35 days after the end of the reference month.
+- C102 | A monthly estimated adjustment for undercoverage is included within balance of payments-basis data by Statistics Canada.
+- C103 | The PIRID initiative was launched in 2020.
+- C104 | The PIRID initiative established a national collection standard of quantitative data from police agencies to examine and address systemic issues.
+- C105 | The median after-tax family income of total South Asian populations in Canada in 2020, adjusted for family size, was 50,800 dollars.
+- C106 | Among those aged 25 to 54, South Asians born in South Asia were more likely to live in poverty than those born outside South Asia.
+- C107 | The poverty rate is the proportion or percentage of units whose income falls below a specified poverty line, based on the low-income line (LIL).
+- C108 | Statistics Canada published data on more than 450 ethnic or cultural origins as reported by the population in the 2021 Census.
+- C109 | In 2021, close to 360,000 people, or 1.0% of Canada's population, reported Buddhism as their religion.
+- C110 | The 2021 Census collects data on the main racialized groups in Canada including South Asian, Chinese, Black, Filipino, Arab, Latin American, Southeast Asian, West Asian, Korean and Japanese populations.
+- C111 | Ethnic or cultural origins reported in the 2021 Census include groups related to the Indigenous peoples of Canada (First Nations, Métis, Inuit).
+- C112 | In 2020, Emma ranked 14th for girls in Canada with 25 occurrences.
+- C113 | In 2020, Avery ranked 19th for girls in Canada with 21 occurrences and was a new entry.
+- C114 | In 2020, Hudson ranked 4th in a regional ranking with 48 occurrences and was a new entry.
+- C115 | In 2020, Emily ranked 4th in a regional ranking for girls with 43 occurrences.
+- C116 | In 2020, Benjamin ranked 8th in a regional ranking with 43 occurrences.
+- C117 | In 2020, Addison ranked 8th in a regional ranking for girls with 35 occurrences and was a new entry.
+- C118 | In 2020, Bennett ranked 10th in a regional ranking with 41 occurrences and was a new entry.
+- C119 | In 2020, Charlotte ranked 11th in a regional ranking for girls with 32 occurrences.
+- C120 | In 2020, Maverick ranked 14th in a regional ranking with 39 occurrences.
+- C121 | In 2020, Owen ranked 15th in a regional ranking with 39 occurrences.
+- C122 | In 2020, Aurora ranked 15th in a regional ranking for girls with 29 occurrences and was a new entry.
+- C123 | In 2020, Ivy ranked 16th in a regional ranking for girls with 28 occurrences and was a new entry.
+- C124 | In 2020, Levi ranked 17th in a regional ranking with 38 occurrences and was a new entry.
+- C125 | In 2020, Asher ranked 18th in a regional ranking with 37 occurrences.
+- C126 | In 2021, the top-ranked boy and girl names each represented just over 1 in every 100 babies.
+- C127 | If Sophia and Sofia were combined as one spelling, the total number of babies with that name would have surpassed the number with the name Olivia.
+- C128 | Olivia and Liam were America's most popular baby names for the fifth year in a row as of 2023.
+- C129 | Popular girl names in the United States include Emma, Charlotte, Amelia, Sophia, Mia, Isabella, Ava, Evelyn, and Luna.
+- C130 | In the United States, boy names gaining popularity the fastest include Izael, Chozen, Eiden, Cassian, and Kyren.
+- C131 | In the United States, girl names gaining popularity the fastest include Kaeli, Alitzel, Emryn, Adhara, and Azari.
+- C132 | In 2024, the top 10 baby names in the United States were Liam, Noah, Oliver, Theodore, and others for boys, and Olivia, Emma, Amelia, Charlotte, and others for girls.
+- C133 | Canada's top 10 girl names in 2024 have only changed slightly since the previous year, with a few swaps in rank.
+- C134 | Ava and Lily re-entered Canada's top 10 girl names in 2024, replacing Mila and Alice.
+- C135 | Ontario, Canada's most populous province, now only releases its top 10 names at the end of the following year.
+- C136 | Quebec released its top 10 baby names for 2024.
+- C137 | A Canadian province referred to as the Keystone Province released its top 10 girl and boy names for the previous year.
+- C138 | The 2021 Census of Population in Canada includes data on first names by gender.
+- C139 | Jean-Francois had a count of 20,755 in the 2021 Census of Population in Canada.
+- C140 | Marie-Chantale had a count of 270 in the 2021 Census of Population in Canada.
+- C141 | Jean-Bernard had a count of 265 in the 2021 Census of Population in Canada.
+- C142 | Louis-Simon had a count of 265 in the 2021 Census of Population in Canada.
+- C143 | Renee-Claude had a count of 265 in the 2021 Census of Population in Canada.
+- C144 | Emma-Lee had a count of 260 in the 2021 Census of Population in Canada.
+- C145 | Mary-Lynn had a count of 250 in the 2021 Census of Population in Canada.
+- C146 | Oliver jumped four spots in ranking in just one year.
+- C147 | Lily jumped four spots in ranking in just one year.
+- C148 | The Canadian Vital Statistics Birth Database contains data on first names at birth.
+- C149 | In 2020, life expectancy at birth in Canada was 81.7 years overall.
+- C150 | Statistics Canada has Section 11 agreements with the provincial and territorial statistical agencies of Newfoundland and Labrador, Nova Scotia, New Brunswick, Quebec, Ontario, Manitoba, Saskatchewan, Alberta, British Columbia, and the Yukon.
+- C151 | In Alberta in 2019, the top girls' names were Olivia, Charlotte, Sophia, Emma, Ava, Amelia, Emily, and Abigail.
+- C152 | Olivia and Oliver were British Columbia's most popular baby names for 2019.
+- C153 | In the United States, popular names for boys include Noah, Olivia, James, Elijah, Mateo, Theodore, Henry, Lucas, and William.
+- C154 | Statistics Canada published an area-level measure of the population with less than high school education in Canada for 2016.
+- C155 | Statistics Canada partners with Children First Canada on projects.
+- C156 | Children First Canada is a national organization mobilizing an alliance of children's charities and hospitals.
+- C157 | Statistical agencies have been using modelling techniques and data analytics for machine learning and artificial intelligence purposes.
+- C158 | The monthly Building and Demolition Permits Survey collects data on the value of permits issued by Canadian authorities.
+- C159 | Additional business expenses during the pandemic could include purchases of cleaning supplies, sanitation measures, and protective equipment for employees or customers.
+- C160 | Farms with very low farm revenues, commonly called hobby farms, are included in the Census of Agriculture if the operation produces agricultural products and reports revenues or expenses for tax purposes to the Canada Revenue Agency.
+- C161 | The Census of Agriculture collects data on number of farms and farm operators, farm area, business operating arrangements, land management practices, livestock inventories, crop area, total operating expenses and receipts, farm capital, and farm machinery and equipment.
+- C162 | There were 166,990 acute care liver related hospital discharges in the DAD from 2004 to 2013.
+- C163 | There were 4,810 HBV related hospital discharges from 2004 to 2013.
+- C164 | The hospitalization study related to chronic hepatitis B and C in recent immigrants in Canada was an immigration administrative data-linked, population-based cohort study.
+- C165 | The hepatitis hospitalization study covered the period from 2004/2005 to 2013/2014 and excluded Quebec and the territories.
+- C166 | There were 185 non-links among HBV-related hospital discharges.
+- C167 | The data table First names at birth by sex at birth, selected indicators has the identifier 17-10-0147-01.
+- C168 | The data table at https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710014701 contains detailed ranking data for baby names.
+- C169 | Theodore was in the top 5 baby boy names in Canada in 2022.
+- C170 | Leo was in the top 5 baby boy names in Canada in 2021.
+- C171 | BabyCentre provided the data showing Sophia as the most popular girl's name in Canada.
+- C172 | Jean-Francois ranked 307th among first names in Canada with a count of 20,755 and a percentage of 0.0697.
+- C173 | Marie-Chantale ranked 9,003rd among first names in Canada with a count of 270 and a percentage of 0.0009.
+- C174 | Jean-Bernard ranked 9,108th among first names in Canada with a count of 265 and a percentage of 0.0009.
+- C175 | Louis-Simon ranked 9,108th among first names in Canada with a count of 265 and a percentage of 0.0009.
+- C176 | Renee-Claude ranked 9,108th among first names in Canada with a count of 265 and a percentage of 0.0009.
+- C177 | Emma-Lee ranked 9,211th among first names in Canada with a count of 260 and a percentage of 0.0009.
+- C178 | Mary-Lynn ranked 9,426th among first names in Canada with a count of 250 and a percentage of 0.0008.
+- C179 | Ross Romano is the Minister of Government and Consumer Services in Ontario.
+- C180 | Canada and the United States share most of their Top 100 baby names.
+- C181 | One third of boy names in Canada's Top 100 are different from the US Top 100.
+- C182 | Wyatt, Valley, and Khaleesi are girl names making a strong entry or return to Canada's charts in 2024.
+- C183 | Names more popular in the USA and less so in Canada include those from Spanish such as Camila and Angel.
+- C184 | Ontario top baby names (male) dataset contains first names from births registered in Ontario from 1917 to 2024.
+- C185 | From 2014 to 2017, medium-income Canadian families spent approximately $293,000 in 2017 dollars to raise a child from birth to age 17.
+- C186 | Two-parent family with two children is the most common family type among families with children in Canada.
+- C187 | Child benefits accounted for 44% of overall government transfers paid to couples with children in 2022.
+- C188 | Statistics Canada is tracking family trajectories through the 2024 Survey on Family Transitions.
+- C189 | Women in Canada have been delaying their childbearing from their 20s to their 30s at a national level.
+- C190 | The trend of increasingly older average childbearing ages could result in a growing number of Canadians facing age-related infertility.
+- C191 | Fertility intentions do not necessarily correspond to future fertility rates in Canada.
+- C192 | Not every pregnancy is planned and not every planned pregnancy will be realized in Canada.
+- C193 | Canada's total fertility rate was 1.25 children per woman in 2024.
+- C194 | Statistics Canada provides a Baby Names Observatory dashboard that displays the top 20 baby names by selected year for both boys and girls.
+- C195 | Baby names indicators are based on data from the Canadian Vital Statistics - Birth database (CVSB) by Statistics Canada.
+- C196 | The total fertility rate (TFR) is an estimate of the average number of live births a woman can be expected to have in her lifetime, based on the age-specific fertility rates of a given year.
+- C197 | Information on births, fertility and the most popular baby names in 2023 was released on July 1, 2024.
+- C198 | Statistics Canada is Canada's national statistical agency.
+- C199 | Statistics Canada publishes the Baby Names Observatory as catalogue number 71-607-X.
+- C200 | The Canadian Vital Statistics - Birth database has the survey designation SDDS=3231.
+- C201 | For Quebec, the database includes all children who were eligible for family benefits, including newborn babies living in Quebec.
+- C202 | The duration of data collection has been shortened compared to previous years due to improvements in methodology and timeliness.
+- C203 | There may have been fewer births and stillbirths captured by the time of the release due to shortened data collection duration.
+- C204 | Previous data may have been revised in the Baby Names Observatory.
+- C205 | A name registered as 'François' will appear as 'Francois' in the Baby Names Observatory.
+- C206 | Frequency is defined as the number of times a first name was recorded for a baby during the year.
+- C207 | Rank is the place in a set whose elements are classified according to a determined order.
+- C208 | A descending rank means that the frequency of names is ordered from highest to lowest in the Baby Names Observatory.
+- C209 | When two or more different names are tied with the same frequency for a given year of birth, the equality is preserved and the following name will jump as many ranks as equality between the previous names.
+- C210 | Sex at birth identifies the sex of the child with values 'male', 'female', or 'unknown' in the Birth Database.
+- C211 | Missing data on sex were imputed based on the distribution of births in recent years.
+- C212 | Prior to 2012, 'unknown' sex was changed to 'male' if the registration number was odd, and 'female' otherwise.
+- C213 | In the Baby Names Observatory interactive web application, the term 'male' has been replaced with the term 'boy'.
+- C214 | Birth registration forms collect the sex at birth of a child.
+- C215 | The gender of the child may be recorded on the certificate of birth in certain provinces and territories in some years.
+- C216 | Users can search for a specific first name of interest in the Baby Names Observatory.
+- C217 | Letters with accents (such as 'é') must be replaced by the unaccented version of the letter ('e') when searching in the Baby Names Observatory.
+- C218 | Users can select one of three annual indicators: Frequency, Proportion (%), or Rank in the Baby Names Observatory.
+- C219 | Only one name can be selected at a time in the Baby Names Observatory.
+- C220 | The Baby Names Observatory was published by authority of the Minister responsible for Statistics Canada.
+- C221 | The Baby Names Observatory is copyrighted by His Majesty the King in Right of Canada, as represented by the Minister of Industry, 2026.
+- C222 | The Baby Names Observatory was last modified on 2025-09-24.
+- C223 | The Families, households and marital status statistics portal is available for more information on the family subject.
+- C224 | A new data table related to baby names was released on 2023-05-09.
+- C225 | 90.9 percent of parents reported the general health of their children aged 1 to 11 as very good or excellent in 2019.
+- C226 | Statistics Canada is committed to serving its clients in a prompt, reliable and courteous manner.
+- C227 | The Survey on Family Transitions is conducted by Statistics Canada.
+- C228 | Data collection for Statistics Canada is conducted under the authority of the Statistics Act, Revised Statutes of Canada, 1985, Chapter S-19.
+- C229 | The publication series 91-215-X contains Annual Demographic Estimates for Canada, Provinces and Territories.
+- C230 | The component-method formula includes base population at time t as a variable.
+- C231 | The base population at time t is adjusted for census net undercoverage (CNU) or uses the most recent estimate.
+- C232 | Lucas was in the top 10 boys' names in Canada for 2020.
+- C233 | Grayson was in the top 10 boys' names in Canada for 2020.
+- C234 | Nathan was a top baby boy name in Quebec for 2020.
+- C235 | Edouard was a top baby boy name in Quebec for 2020.
+- C236 | Logan was a top baby boy name in Quebec for 2020.
+- C237 | Theo was the number 8 baby boy name in Canada for 2021.
+- C238 | Jack was in the top 10 baby boy names in Canada for 2024.
+- C239 | Ace was given to at least 6 babies in Alberta in 2019.
+- C240 | Aaro was among the unique baby boy names in Alberta for 2019.
+- C241 | Acedenn was among the unique baby boy names in Alberta for 2019.
+- C242 | Acesen was among the unique baby boy names in Alberta for 2019.
+- C243 | Aceton was among the unique baby boy names in Alberta for 2019.
+- C244 | Achilles-Hayes was among the unique baby boy names in Alberta for 2019.
+- C245 | Adolph was among the unique baby boy names in Alberta for 2019.
+- C246 | Aiden was predicted to be among baby names topping the charts in 2019.
+- C247 | Atticus was predicted to be among baby names topping the charts in 2019.
+- C248 | Avery was predicted to be among baby names topping the charts in 2019.
+- C249 | Branson was predicted to be among baby names topping the charts in 2019.
+- C250 | BabyCenter Canada provides lists of the most popular baby names born in Canada in recent years.
+- C251 | Zoey was the number 5 top baby name for girls in Canada for 2020.
+- C252 | The top 50 baby names for each sex in Canada for 2020 were released with 2 weeks remaining in the year.
+- C253 | The Reddit post about Canada's top 100 baby names for 2020 was posted by user stargirl803.
+- C254 | Statistics Canada published First names in Canada data from the 2021 Census of Population.
+- C255 | The First names in Canada dataset includes rank, count, and percentage by gender for first names.
+- C256 | Marie-Chantale had a rank of 9,003 and a count of 270 in the First names dataset for Total Gender in Canada.
+- C257 | Users can re-arrange the sort order of the First names table by toggling between up and down arrows after column headings.
+- C258 | The 2021 Census gender question includes three options: male, female, and a write-in option or please specify this person's gender.
+- C259 | The 2021 Census imputation rate for sex at birth includes the use of administrative data to impute approximately 12,000 non-responding households in areas with low response rates.
+- C260 | Statistics Canada's Census target population includes Canadian citizens and landed immigrants with a usual place of residence in Canada.
+- C261 | Statistics Canada published an article analyzing the contribution of foreign-born mothers to Canadian births from 1997 to 2024.
+- C262 | By law, Statistics Canada is prohibited from releasing any information it collects that could identify any person, business, or organization, unless consent has been given by the respondent, or as permitted by the Statistics Act.
+- C263 | The Statistics Canada data table requires interactive querying to extract top 5 rankings for specific years including 2019 and 2020.
+- C264 | The Statistics Canada data table for 2019 displays sample data showing names with ranks and frequencies, but only shows partial alphabetical data starting with AABAN, not the top-ranked names.
+- C265 | BabyCenter Canada is not an official Statistics Canada source.
+- C266 | BabyCenter Canada reported that Jackson was the number one boy name in 2019 and Liam was the runner-up at number two.
+- C267 | BabyCenter Canada reported that the most popular boy names in 2019 were pretty much unchanged from 2018.
+- C268 | Reddit sources indicated that for 2020, the top boys' names included Liam, Jackson, Noah, Lucas, Oliver, Leo, Benjamin, and William.
+- C269 | Reddit is not an official Statistics Canada source.
+- C270 | Cross-referencing confirmed data for 2021 and 2022 with the statement that Liam was number one from 2012-2020 shows that the names appearing in the top 5 for all four years 2019-2022 are Noah, Liam, William, and Leo.

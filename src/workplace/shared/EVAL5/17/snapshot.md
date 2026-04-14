@@ -1,0 +1,212 @@
+You are given a task context consisting of an overall objective and previously validated claims.
+
+Use the validated claims below as already-established evidence. You must treat them as available facts for reasoning and planning. Do not ignore them. Build on them.
+
+# Task Objective
+Find the names of the four members of the US women's 3X3 basketball team at the 2020 Olympics. Find out what their final college team was and who the head coach of their final college team was during the 2022/2023 season, as well as the name of the team player with the highest average points per game for that season and the team player with the highest average rebounds per game for that season. Provide a bulleted list with the name of the 3X3 team member, the name of their final college, the name of the coach in the 2022/2023 season, the name of the team player with the highest average points in the 2022/2023 season, and the name of the team player with the highest average rebounds in the 2022/2023 season in a comma separated list for each bullet point. Order the bullet list in alphabetical order by the player's first name. Do not list any other information.
+
+# Constraints
+- Use the validated claims as prior evidence.
+- First determine whether the current claims are sufficient to directly complete the Task Objective.
+- If the Task Objective is already solvable from the claims, provide the answer in `## Final Conclusion`.
+- If the Task Objective is not yet solvable, do not force a conclusion. Instead, use `## Reasoning & Plan` to explain what missing information is needed, and provide the next best instruction(s) to execute.
+- Do not ask for user clarification.
+- Keep the reasoning concise but operational.
+- In `## Final Conclusion`, every factual statement must be supported by evidence already listed in `## Key Findings & Evidence`.
+
+## Key Findings & Evidence
+Use the following prior CLAIMS as established evidence. Preserve their identifiers and statuses.
+
+## Reasoning & Plan
+* **Analysis:** 
+  - Task Objective: [Restate the task objective briefly.]
+  - Sufficiency Check: Determine whether the validated claims already contain enough information to fully answer the Task Objective.
+  - Gap Check: If not sufficient, identify exactly what is missing.
+
+* **Plan:** 
+  - If sufficient: explain how you will synthesize the existing claims into the final answer.
+  - If insufficient: propose the next concrete instruction(s) that should be executed to obtain the missing evidence.
+  - Prefer instructions that are atomic, directly verifiable, and dependency-aware.
+  - If insufficient: propose the tool call(s) required to execute the instruction(s) when necessary.
+
+### Prior Claims
+- C1 | The task requires finding the names of the four members of the US women's 3X3 basketball team at the 2020 Olympics.
+- C2 | The task requires finding what the final college team was for each US women's 3X3 basketball team member from the 2020 Olympics.
+- C3 | The task requires finding who the head coach was for each player's final college team during the 2022/2023 season.
+- C4 | The task requires finding the name of the team player with the highest average points per game for the 2022/2023 season for each college team.
+- C5 | The output format requires a bulleted list ordered alphabetically by the player's first name.
+- C6 | Each bullet point should contain the 3X3 team member name, final college name, coach name in 2022/2023 season, team player with highest average points in 2022/2023 season, and team player with highest average rebounds in 2022/2023 season in a comma separated list.
+- C7 | Stefanie Dolson was on the 2020 USA Basketball Women's 3x3 Olympic Qualifying Team roster.
+- C8 | Stefanie Dolson is 6 feet 5 inches tall and weighs 210 pounds.
+- C9 | Allisha Gray was on the 2020 USA Basketball Women's 3x3 Olympic Qualifying Team roster.
+- C10 | Allisha Gray is 6 feet 0 inches tall.
+- C11 | Kelsey Plum was on the 2020 USA Basketball Women's 3x3 Olympic Qualifying Team roster.
+- C12 | Kelsey Plum is 5 feet 8 inches tall and weighs 145 pounds.
+- C13 | Katie Lou Samuelson was on the 2020 USA Basketball Women's 3x3 Olympic Qualifying Team roster.
+- C14 | Katie Lou Samuelson is 6 feet 3 inches tall and weighs 165 pounds.
+- C15 | Napheesa Collier was a member of the 2020 USA Basketball Women's National Team.
+- C16 | Napheesa Collier won gold medals with USA Basketball.
+- C17 | Stefanie Dolson won gold medals with USA Basketball.
+- C18 | Kelsey Plum won gold medals with USA Basketball.
+- C19 | The USA Basketball Women's 3x3 Olympic Qualifying Team roster was announced on February 2020.
+- C20 | The 2020 FIBA 3x3 Olympic Qualifying Tournament was scheduled for March 18-22 in Bengaluru, India.
+- C21 | The top three finishing men's and women's teams at the 2020 FIBA 3x3 Olympic Qualifying Tournament would earn berths into the 2020 Tokyo Olympic Games.
+- C22 | The 2020 Tokyo Olympics featured 3x3 basketball for the first time.
+- C23 | Eight men's and eight women's teams competed for gold in 3x3 basketball at the 2020 Tokyo Olympics from July 25-29.
+- C24 | Twenty men's and twenty women's teams competed for three Olympic qualifying berths in the March 18-22 FIBA 3x3 Olympic Qualifying Tournaments.
+- C25 | The eighth and final Olympic 3x3 spot was awarded based on FIBA's universality clause.
+- C26 | FIBA's universality clause is designed to offer an Olympic 3x3 berth to one country in the men's and the women's tournament who did not have a team at the 2012 or 2016 Olympic basketball tournaments.
+- C27 | Ana Maria Filip was on the France women's 3x3 basketball team at the 2020 Summer Olympics.
+- C28 | Laëtitia Guapo was on the France women's 3x3 basketball team at the 2020 Summer Olympics.
+- C29 | Marie-Ève Paget was on the France women's 3x3 basketball team at the 2020 Summer Olympics.
+- C30 | Evgeniia Frolkina was on the ROC women's 3x3 basketball team at the 2020 Summer Olympics.
+- C31 | Yulia Kozik was on the ROC women's 3x3 basketball team at the 2020 Summer Olympics.
+- C32 | Wan Jiyuan was on the China women's 3x3 basketball team at the 2020 Summer Olympics.
+- C33 | Wang Lili was on the China women's 3x3 basketball team at the 2020 Summer Olympics.
+- C34 | Yang Shuyu was on the China women's 3x3 basketball team at the 2020 Summer Olympics.
+- C35 | Jackie Young was on the 2020 U.S. Olympic 3x3 Women's Basketball Team.
+- C36 | Shakira Austin was named to the USA Basketball 3x3 Women's National Team roster.
+- C37 | Veronica Burton was named to the USA Basketball 3x3 Women's National Team roster.
+- C38 | Naz Hillmon was named to the USA Basketball 3x3 Women's National Team roster.
+- C39 | Cameron Brink was on the U.S. Olympic Women's 3x3 Basketball Team for the Paris 2024 Olympic Games.
+- C40 | Cameron Brink, Cierra Burdick, and Hailey Van Lith won gold at the 2023 FIBA 3x3 World Cup.
+- C41 | Cierra Burdick won the World Championship in 2014.
+- C42 | Cierra Burdick holds multiple World Cup titles.
+- C43 | Team USA won gold in women's 3x3 basketball at the Tokyo Olympics in 2020.
+- C44 | Azerbaijan competed in 3x3 basketball at the Paris 2024 Olympic Games.
+- C45 | Australia competed in 3x3 basketball at the Paris 2024 Olympic Games.
+- C46 | Germany competed in 3x3 basketball at the Paris 2024 Olympic Games.
+- C47 | Spain competed in 3x3 basketball at the Paris 2024 Olympic Games.
+- C48 | Canada competed in 3x3 basketball at the Paris 2024 Olympic Games.
+- C49 | Ariel Atkins was a member of the U.S. Olympic Women's Basketball Team.
+- C50 | Sue Bird was a member of the U.S. Olympic Women's Basketball Team.
+- C51 | Skylar Diggins-Smith was a member of the U.S. Olympic Women's Basketball Team.
+- C52 | Chelsea Gray was a member of the U.S. Olympic Women's Basketball Team.
+- C53 | Brittney Griner was a member of the U.S. Olympic Women's Basketball Team.
+- C54 | Stefanie Dolson played for the Chicago Sky.
+- C55 | Allisha Gray played for the Dallas Wings.
+- C56 | 3x3 basketball competition at the 2020 Olympics took place July 25-29 in Tokyo.
+- C57 | The United States women's 3x3 team had a 9-0 record and finished first in 2012.
+- C58 | Napheesa Collier played for the Minnesota Lynx.
+- C59 | Napheesa Collier is from O'Fallon, Missouri.
+- C60 | Cierra Burdick is on the current USA 3x3 Women's National Team.
+- C61 | Cierra Burdick plays the forward position.
+- C62 | Dearica Hamby plays the forward position.
+- C63 | Rhyne Howard plays the guard position.
+- C64 | Hailey Van Lith is on the current USA 3x3 Women's National Team.
+- C65 | Cierra Burdick won gold at the 2023 FIBA 3x3 World Cup.
+- C66 | Hailey Van Lith won gold at the 2023 FIBA 3x3 World Cup.
+- C67 | Cameron Brink won gold at the 2023 FIBA 3x3 World Cup.
+- C68 | Morgan Maly is on the 2025 USA 3x3 Women's National Team.
+- C69 | Sarah Strong is on the 2025 USA 3x3 Women's National Team.
+- C70 | Mikaylah Williams is on the 2025 USA 3x3 Women's National Team.
+- C71 | Sahara Williams is on the 2025 USA 3x3 Women's National Team.
+- C72 | The 2025 FIBA 3x3 World Cup will take place June 23-29.
+- C73 | Jackie Young graduated from Princeton Community High School.
+- C74 | Jackie Young played college basketball for the Notre Dame Fighting Irish.
+- C75 | Jackie Young reached two NCAA finals during her college career.
+- C76 | Jackie Young won one NCAA championship in 2018.
+- C77 | Notre Dame played UConn in a Final Four matchup.
+- C78 | Marina Mabrey was a point guard for Notre Dame.
+- C79 | Arike Ogunbowale put Notre Dame up for good with a second left in overtime against UConn.
+- C80 | Jackie Young scored 39 points in a Final Four semifinal game.
+- C81 | Muffet McGraw was the coach of Notre Dame women's basketball.
+- C82 | Jackie Young could be the best player to ever play for Notre Dame Fighting Irish.
+- C83 | Jackie Young's position is guard.
+- C84 | Jackie Young's height is 6 feet 0 inches.
+- C85 | Jackie Young's weight is 165 pounds.
+- C86 | Jackie Young's age is 28.
+- C87 | Jackie Young's hometown is Princeton, Indiana.
+- C88 | Jackie Young earned a career high 12 assists against Syracuse.
+- C89 | Jackie Young had 10 points and 8 rebounds in the game against Syracuse on February 25.
+- C90 | Syracuse was ranked No. 17 when Notre Dame played them.
+- C91 | Jackie Young was named to the Vancouver Showcase All-Tournament Team.
+- C92 | Jackie Young was named espnW Player of the Week.
+- C93 | Jackie Young averaged 20.7 points, 6.0 rebounds and 3.3 assists in the Vancouver Showcase.
+- C94 | Notre Dame defeated Gonzaga in the Vancouver Showcase.
+- C95 | Notre Dame defeated No. 9 Oregon State in the Vancouver Showcase.
+- C96 | Jackie Young recorded a career high 20 points versus Valparaiso on December 4.
+- C97 | Jackie Young shot .583 from the field in an unspecified period.
+- C98 | Notre Dame defeated Purdue in the second round of the NCAA tournament.
+- C99 | Arike Ogunbowale hit a buzzer-beating shot against UConn in the 2018 Final Four.
+- C100 | Notre Dame played Mississippi State in the 2018 national championship game.
+- C101 | Notre Dame recruited Jackie Young in the same light as Skylar Diggins and Jewell Loyd.
+- C102 | Niele Ivey said Notre Dame thought of Jackie Young as a cornerstone of a championship team during recruiting.
+- C103 | Notre Dame Women's Basketball had an 8-1 overall record in conference games as of January 27, 2023.
+- C104 | Olivia Miles played 9 games with 9 starts for Notre Dame Women's Basketball in conference games as of January 27, 2023.
+- C105 | Olivia Miles averaged 15.0 points per game in conference games as of January 27, 2023.
+- C106 | Sonia Citron played 9 games with 9 starts for Notre Dame Women's Basketball in conference games as of January 27, 2023.
+- C107 | Sonia Citron averaged 12.1 points per game in conference games as of January 27, 2023.
+- C108 | Maddy Westbeld played 9 games with 9 starts for Notre Dame Women's Basketball in conference games as of January 27, 2023.
+- C109 | Maddy Westbeld averaged 10.2 points per game in conference games as of January 27, 2023.
+- C110 | Lauren Ebo played 9 games with 1 start for Notre Dame Women's Basketball in conference games as of January 27, 2023.
+- C111 | Lauren Ebo averaged 9.0 points per game in conference games as of January 27, 2023.
+- C112 | KK Bransford played 9 games with 0 starts for Notre Dame Women's Basketball in conference games as of January 27, 2023.
+- C113 | KK Bransford averaged 8.7 points per game in conference games as of January 27, 2023.
+- C114 | Dara Mabrey played 8 games with 8 starts for Notre Dame Women's Basketball in conference games as of January 27, 2023.
+- C115 | Dara Mabrey averaged 6.1 points per game in conference games as of January 27, 2023.
+- C116 | Kylee Watson played 9 games with 9 starts for Notre Dame Women's Basketball in conference games as of January 27, 2023.
+- C117 | Kylee Watson averaged 4.2 points per game in conference games as of January 27, 2023.
+- C118 | Cassandre Prosper played 8 games with 0 starts for Notre Dame Women's Basketball in conference games as of January 27, 2023.
+- C119 | Cassandre Prosper averaged 3.5 points per game in conference games as of January 27, 2023.
+- C120 | Notre Dame Women's Basketball defeated Miami 66-63 on December 29, 2022.
+- C121 | Niele Ivey was the head coach of Notre Dame Women's Basketball during the 2022-23 season.
+- C122 | Hannah Hidalgo dropped 28 points in a win against Miami.
+- C123 | The attendance at the Notre Dame versus Virginia game on January 22, 2023 was 6442.
+- C124 | Maddy Westbeld scored 25 points against Wake Forest on January 12, 2023.
+- C125 | Sonia Citron scored 20 points against Virginia on January 22, 2023.
+- C126 | Lauren Ebo recorded 18 rebounds against Mississippi State on March 19, 2023.
+- C127 | Lauren Ebo plays the position of Forward-Center.
+- C128 | Lauren Ebo is 6-4 (193cm) tall.
+- C129 | Lauren Ebo's hometown is Washington, DC.
+- C130 | Lauren Ebo attended Penn State (Women).
+- C131 | Lauren Ebo attended Texas (Women).
+- C132 | Lauren Ebo attended Notre Dame (Women).
+- C133 | Lauren Ebo posted a season-best 14 points vs Drake on December 18 in the 2022-23 season.
+- C134 | Lauren Ebo started in 17 games in the 2022-23 season.
+- C135 | Lauren Ebo tied her career high with 12 rebounds and added eight points at Northwestern on January 19.
+- C136 | Lauren Ebo logged her third career double-double with 12 points and 10 rebounds.
+- C137 | Lauren Ebo recorded 233 points as a senior captain.
+- C138 | Lauren Ebo missed significant time in the middle of the ACC schedule during the 2022-23 season.
+- C139 | Lauren Ebo was born on June 7, 2000.
+- C140 | Lauren Ebo is a Nigerian-American basketball player.
+- C141 | Lauren Ebo plays for Joventut Badalona.
+- C142 | Lauren Ebo plays in Liga ACB.
+- C143 | Stefanie Dolson's final college team was UConn (University of Connecticut).
+- C144 | Stefanie Dolson played center for the UConn women's basketball team.
+- C145 | Stefanie Dolson won back-to-back national championships in 2013 and 2014 at UConn.
+- C146 | Allisha Gray's final college team was South Carolina (University of South Carolina).
+- C147 | Allisha Gray was listed as number 10 on the South Carolina Gamecocks women's basketball 2016-17 NCAA champions roster.
+- C148 | Kelsey Plum's final college team was Washington (University of Washington).
+- C149 | Kelsey Plum became the first player in Pac-12 history, female or male, to score 3,000 career points.
+- C150 | UConn women's basketball head coach during the 2022-2023 season was Geno Auriemma.
+- C151 | Geno Auriemma is a Hall of Fame head coach.
+- C152 | The 2022-2023 season was Geno Auriemma's 38th season at UConn.
+- C153 | UConn's leading scorer in the 2022-2023 season was Aaliyah Edwards with 16.6 points per game.
+- C154 | Aaliyah Edwards played 37 games in the 2022-2023 season at UConn.
+- C155 | Aaliyah Edwards had a field goal percentage of .589 in the 2022-2023 season at UConn.
+- C156 | UConn's leading rebounder in the 2022-2023 season was Aaliyah Edwards with 9.0 rebounds per game.
+- C157 | South Carolina women's basketball head coach during the 2022-2023 season was Dawn Staley.
+- C158 | South Carolina had a record of 36-1 in the 2022-2023 season.
+- C159 | South Carolina finished 1st in SEC WBB in the 2022-2023 season.
+- C160 | South Carolina's leading scorer in the 2022-2023 season was Zia Cooke with 15.4 points per game.
+- C161 | Zia Cooke played guard position at South Carolina in the 2022-2023 season.
+- C162 | Zia Cooke played 37 games in the 2022-2023 season at South Carolina.
+- C163 | South Carolina's leading rebounder in the 2022-2023 season was Aliyah Boston with 9.8 rebounds per game.
+- C164 | Aliyah Boston played forward position at South Carolina in the 2022-2023 season.
+- C165 | Aliyah Boston played 37 games in the 2022-2023 season at South Carolina.
+- C166 | Washington women's basketball head coach during the 2022-2023 season was Tina Langley.
+- C167 | Washington had a record of 19-15 in the 2022-2023 season.
+- C168 | Washington finished 8th in Pac-12 WBB in the 2022-2023 season.
+- C169 | Washington's leading scorer in the 2022-2023 season was Dalayah Daniels with 11.3 points per game.
+- C170 | Dalayah Daniels played forward position at Washington in the 2022-2023 season.
+- C171 | Notre Dame women's basketball head coach during the 2022-2023 season was Niele Ivey.
+- C172 | Notre Dame had a record of 27-6 in the 2022-2023 season.
+- C173 | Notre Dame finished 1st in ACC WBB in the 2022-2023 season.
+- C174 | Notre Dame's leading scorer in the 2022-2023 season was Sonia Citron with 14.7 points per game for the full season.
+- C175 | Sonia Citron played guard position at Notre Dame in the 2022-2023 season.
+- C176 | Sonia Citron played 33 games in the 2022-2023 season at Notre Dame.
+- C177 | Notre Dame's leading rebounder in the 2022-2023 season was Olivia Miles with 7.3 rebounds per game for the full season.
+- C178 | Olivia Miles played guard position at Notre Dame in the 2022-2023 season.
+- C179 | Olivia Miles played 28 games in the 2022-2023 season at Notre Dame.
+- C180 | Lauren Ebo played forward-center position at Notre Dame in the 2022-2023 season.

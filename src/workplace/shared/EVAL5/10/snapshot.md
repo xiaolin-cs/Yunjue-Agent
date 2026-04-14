@@ -1,0 +1,259 @@
+You are given a task context consisting of an overall objective and previously validated claims.
+
+Use the validated claims below as already-established evidence. You must treat them as available facts for reasoning and planning. Do not ignore them. Build on them.
+
+# Task Objective
+I'm researching extreme weather in the United States. Between 2017 and 2021 (inclusive), which year saw flood-related fatalities in over 20 states, with over 100 total deaths (with all states combined)? This includes both flash flooding and river flooding. Use National Weather Service and NOAA data.
+
+# Constraints
+- Use the validated claims as prior evidence.
+- First determine whether the current claims are sufficient to directly complete the Task Objective.
+- If the Task Objective is already solvable from the claims, provide the answer in `## Final Conclusion`.
+- If the Task Objective is not yet solvable, do not force a conclusion. Instead, use `## Reasoning & Plan` to explain what missing information is needed, and provide the next best instruction(s) to execute.
+- Do not ask for user clarification.
+- Keep the reasoning concise but operational.
+- In `## Final Conclusion`, every factual statement must be supported by evidence already listed in `## Key Findings & Evidence`.
+
+## Key Findings & Evidence
+Use the following prior CLAIMS as established evidence. Preserve their identifiers and statuses.
+
+## Reasoning & Plan
+* **Analysis:** 
+  - Task Objective: [Restate the task objective briefly.]
+  - Sufficiency Check: Determine whether the validated claims already contain enough information to fully answer the Task Objective.
+  - Gap Check: If not sufficient, identify exactly what is missing.
+
+* **Plan:** 
+  - If sufficient: explain how you will synthesize the existing claims into the final answer.
+  - If insufficient: propose the next concrete instruction(s) that should be executed to obtain the missing evidence.
+  - Prefer instructions that are atomic, directly verifiable, and dependency-aware.
+  - If insufficient: propose the tool call(s) required to execute the instruction(s) when necessary.
+
+### Prior Claims
+- C1 | The research task requires finding flood-related fatalities data between 2017 and 2021 inclusive.
+- C2 | The target year must have flood-related fatalities in over 20 states.
+- C3 | Flash flooding fatalities should be included in the count.
+- C4 | River flooding fatalities should be included in the count.
+- C5 | National Weather Service data should be used as a source for flood fatality statistics.
+- C6 | The location named 'United' is in the region of Louisiana, United States of America.
+- C7 | The coordinates for United, Louisiana are latitude 29.7797 and longitude -91.7461.
+- C8 | The timezone for United, Louisiana is America/Chicago.
+- C9 | The local time in United, Louisiana was 2026-04-13 13:14.
+- C10 | The temperature in United, Louisiana was 27.2 degrees Celsius (81.0 degrees Fahrenheit) at 2026-04-13 13:00.
+- C11 | The wind speed in United, Louisiana was 13.4 mph (21.6 kph) at 2026-04-13 13:00.
+- C12 | The atmospheric pressure in United, Louisiana was 1024.0 mb (30.24 in) at 2026-04-13 13:00.
+- C13 | There was 0.0 mm (0.0 in) of precipitation in United, Louisiana at 2026-04-13 13:00.
+- C14 | The UV index in United, Louisiana was 9.5 at 2026-04-13 13:00.
+- C15 | The visibility in United, Louisiana was 16.0 km (9.0 miles) at 2026-04-13 13:00.
+- C16 | The National Weather Service maintains records of flood damages and flood fatalities for every year since 1903.
+- C17 | Flood damages are compiled by NWS Weather Forecast Offices.
+- C18 | The Billion-Dollar Weather and Climate Disasters dataset covers the period 1980-2024.
+- C19 | The Billion-Dollar Disasters dataset landing page has the identifier gov.noaa.nodc:0209268.
+- C20 | The peer-reviewed article 'U.S. Billion-dollar Weather and Climate Disasters: Data Sources, Trends, Accuracy and Biases' was published by Smith and Katz in 2013.
+- C21 | The Billion-Dollar Weather and Climate Disasters dataset is maintained by NOAA National Centers for Environmental Information (NCEI).
+- C22 | The Billion-Dollar Weather and Climate Disasters dataset has the DOI 10.25921/stkw-7w73.
+- C23 | From 2014 through 2023, 772 people died from weather events in Texas.
+- C24 | Floods and winter weather (including extreme conditions) are among the weather events causing deaths and injuries in Texas from 2014 through 2023.
+- C25 | Information on US Flood Fatality Statistics can be found from the official NCEI Storm Events Database.
+- C26 | The decision to discontinue updates to the Billion Dollar Weather and Climate Disasters product is due to evolving priorities, statutory mandates, and staffing changes.
+- C27 | The number and cost of weather and climate disasters increased over time in the United States due to increased exposure, vulnerability, and changes in the frequency of some types of extremes.
+- C28 | In 2012, NCEI (then known as National Climatic Data Center) reviewed its methodology for developing Billion-dollar Disasters.
+- C29 | The Central and Southern Tornado Outbreak in April 2024 was a severe storm event that occurred from April 26, 2024 to April 28, 2024.
+- C30 | The Central and Southern Tornado Outbreak in April 2024 produced more than 140 tornadoes.
+- C31 | The Central and Southern Tornado Outbreak in April 2024 affected Nebraska, Iowa, Kansas, Missouri, Oklahoma and Texas.
+- C32 | The Southern Tornadoes and Southeast Severe Weather event in May 2021 occurred from May 2, 2021 to May 4, 2021.
+- C33 | The Southern Tornadoes and Southeast Severe Weather event in May 2021 affected Mississippi, Texas, Arkansas, Alabama, Georgia, South Carolina, North Carolina, and Tennessee.
+- C34 | The Southern Tornadoes and Southeast Severe Weather event in May 2021 involved tornadoes and severe storms with widespread high wind and large hail.
+- C35 | The Central, Southern and Eastern Severe Weather event in April 2020 occurred from April 27, 2020 to April 30, 2020.
+- C36 | The Central, Southern and Eastern Severe Weather event in April 2020 produced primarily large hail and high winds.
+- C37 | The URL fetch attempt was blocked by anti-bot protection.
+- C38 | The blocking mechanism detected minimal text structure in the response.
+- C39 | The response contained 174 bytes of data.
+- C40 | In 2018, there were 80 total flood fatalities in the United States.
+- C41 | In 2018, Texas had 12 flood fatalities, the highest among all U.S. states.
+- C42 | In 2018, North Carolina had 11 flood fatalities.
+- C43 | In 2018, Indiana had 2 flood fatalities.
+- C44 | In 2018, Puerto Rico had 2 flood fatalities.
+- C45 | In 2018, Michigan had 1 flood fatality.
+- C46 | In 2018, Florida had property damage of 9,909.30 million dollars from hazardous weather.
+- C47 | Heat was the most deadly form of weather in the United States in 2018.
+- C48 | Tornadoes and hurricanes were deadly in 2018 but were far surpassed by heat, flooding, and riptides for number of deaths in the United States.
+- C49 | The National Weather Service chart on weather fatalities from 2018 showed 7 deaths for hurricanes.
+- C50 | Kenneth James is the National Weather Service Storm Data Program Manager.
+- C51 | Flooding caused 921 deaths in the United States over the past decade.
+- C52 | Alabama had several weather-related deaths in 2018, most caused by rip currents.
+- C53 | A total of 840 flood-related fatalities occurred in Texas between 1959 and 2019.
+- C54 | Flash floods caused a majority of flood-related fatalities in Texas between 1959 and 2019.
+- C55 | The NWS Office of Climate, Water and Weather Services compiled the Summary of U.S. Natural Hazard Statistics for 2018.
+- C56 | Storm Data comprises statistics from NWS forecast offices in the 50 states, Puerto Rico, Guam, and the Virgin Islands.
+- C57 | The coordinates for United, Pennsylvania are latitude 40.2183 and longitude -79.4881.
+- C58 | The timezone for United, Pennsylvania is America/New_York.
+- C59 | The weather condition in United, Pennsylvania was partly cloudy on 2026-04-13 at 14:15.
+- C60 | The wind speed in United, Pennsylvania was 17.4 mph (28.1 kph) on 2026-04-13 at 14:15.
+- C61 | The humidity in United, Pennsylvania was 48% on 2026-04-13 at 14:15.
+- C62 | The UV index in United, Pennsylvania was 6.4 on 2026-04-13 at 14:15.
+- C63 | There were 136 total flood fatalities in the United States in 2017.
+- C64 | Of the 2017 flood fatalities, 45 were female, 75 were male, and 16 were of unknown gender.
+- C65 | Males accounted for 55.15% of 2017 flood fatalities in the United States.
+- C66 | Arkansas had 5 flood fatalities in 2017.
+- C67 | Arizona had 11 flood fatalities in 2017.
+- C68 | California had 4 flood fatalities in 2017.
+- C69 | Florida had 3 flood fatalities in 2017.
+- C70 | Hawaii had 1 flood fatality in 2017.
+- C71 | Illinois had 1 flood fatality in 2017.
+- C72 | Kansas had 1 flood fatality in 2017.
+- C73 | Kentucky had 1 flood fatality in 2017.
+- C74 | In 2017, 52 flood fatalities were categorized as IW (in water) location type, representing 38.24% of total flood fatalities.
+- C75 | The National Weather Service preliminarily reported a total of 1062 direct flood fatalities.
+- C76 | A total of 2,770 flash flood/river fatalities have been recorded by the U.S. Natural Hazard Statistics.
+- C77 | The national 30-year average for flood deaths varies dramatically with weather conditions from year to year.
+- C78 | Since 1980, the U.S. has sustained 219 weather and climate disasters where the overall damage costs reached or exceeded $1 billion (as of December 2017).
+- C79 | The 2017 billion-dollar disaster events included three tropical cyclones, eight severe storms, two inland floods, a crop freeze, drought and wildfire.
+- C80 | Hurricanes are historically the most damaging and costly weather events to affect the United States.
+- C81 | Severe storms have caused the highest number of billion-dollar disaster events (91).
+- C82 | The average cost of a severe storm billion-dollar disaster event is $2.3 billion (CPI-adjusted).
+- C83 | The official NCEI Storm Events Database contains information on U.S. Flood Fatality Statistics.
+- C84 | U.S. Natural Hazard Statistics are available for years 1995 through 2024.
+- C85 | State summaries of weather-related fatalities and injuries are available for years 1995 through 2024.
+- C86 | Cold weather fatality and injury statistics are available for years 1995 through 2024.
+- C87 | Flood fatality and injury statistics are available for years 1995 through 2024.
+- C88 | Heat fatality and injury statistics are available for years 1995 through 2024.
+- C89 | Lightning fatality and injury statistics are available for years 1995 through 2024.
+- C90 | Tornado fatality and injury statistics are available for years 1995 through 2024.
+- C91 | Tropical Cyclone fatality and injury statistics are available for years 1995 through 2024.
+- C92 | Wind fatality and injury statistics are available for years 1995 through 2024.
+- C93 | Winter Storm fatality and injury statistics are available for years 1995 through 2024.
+- C94 | An 80-Year List of Severe Weather Fatalities is available.
+- C95 | Preliminary Hazardous Weather Statistics for 2023 are available online.
+- C96 | U.S. Natural Hazard Statistics are compiled from information contained in Storm Data.
+- C97 | Public data access with event-specific information is made available by the NOAA National Centers for Environmental Information using the Storm Events Database.
+- C98 | Fatalities, injuries, and damage estimates under Hurricane/Tropical Cyclone events are attributed only to the wind.
+- C99 | Tropical Cyclone Reports are issued by the National Weather Service at www.hurricanes.gov/data/tcr/index.php.
+- C100 | The Centers for Disease Control and Prevention is the official government source of cause of death in the United States, including weather-related fatalities.
+- C101 | The National Weather Service is part of the National Oceanic and Atmospheric Administration.
+- C102 | In 2021, 0 flood fatalities were categorized as boating-related.
+- C103 | In 2021, Alabama had 8 total flood fatalities.
+- C104 | In 2021, Connecticut had 1 total flood fatality.
+- C105 | In 2021, Missouri had 2 total flood fatalities.
+- C106 | In 2021, Tennessee had 29 total flood fatalities.
+- C107 | In 2021, Utah had 1 total flood fatality.
+- C108 | Vehicle-related flood deaths accounted for 41.78 percent of all flood fatalities in 2021.
+- C109 | Other-category flood deaths accounted for 26.71 percent of all flood fatalities in 2021.
+- C110 | Permanent home-related flood deaths accounted for 19.86 percent of all flood fatalities in 2021.
+- C111 | Tennessee led the U.S. in vehicle-related flood deaths in 2021.
+- C112 | New Jersey led the U.S. in vehicle-related flood deaths in 2021.
+- C113 | Deaths related to flooding hit a five-year high in 2021.
+- C114 | 2021 marked the third-highest year for flood fatalities since 2010.
+- C115 | 145 people died because of flooding in 2021 according to National Weather Service data.
+- C116 | 2021 flood-related deaths were up 145 percent from the 59 flood-related deaths reported in 2020.
+- C117 | New Jersey had 28 flood-related deaths reported in 2021.
+- C118 | A majority of flood-related deaths stem from people who drive into floodwaters according to the NWS.
+- C119 | On the morning of 21 August 2021, extreme rainfall spurred a flood wave on Trace Creek that ravaged Waverly, Tennessee, causing 19 fatalities.
+- C120 | A PDF document titled 'A History of Significant Weather Events in Southern California' is available at weather.gov.
+- C121 | The Southern California weather history document contains sections on heavy rain, flooding, flash flooding, mud slides, debris flows, and landslides.
+- C122 | The Southern California weather history document contains sections on heavy snow and rare snow at low elevations.
+- C123 | The Southern California weather history document contains sections on severe thunderstorms including large hail, strong thunderstorm winds, and killer lightning.
+- C124 | The Southern California weather history document contains sections on tornadoes, funnel clouds, waterspouts, and damaging dust devils.
+- C125 | The Southern California weather history document contains sections on high surf, stormy seas, tsunamis, coastal flooding and erosion.
+- C126 | Various reports from missions indicate significant flooding along the Los Angeles, Santa Ana and San Diego Rivers during years 1770, 1772, 1780, 1810, 1815, 1821, 1822, 1825, 1839, 1840, 1841, and 1842.
+- C127 | Significant flooding along the Los Angeles, Santa Ana and San Diego Rivers often changed the entire courses of the rivers.
+- C128 | 2.36 inches of rain fell in San Diego on March 24, 1906.
+- C129 | March 24, 1906 was the wettest calendar day in March on record in San Diego.
+- C130 | NWS Joint Regional Service Assessment covered events from December 10-11, 2021.
+- C131 | ARX is the Weather Forecast Office identifier for La Crosse, Wisconsin.
+- C132 | DMX is the Weather Forecast Office identifier for Des Moines, Iowa.
+- C133 | EAX is the Weather Forecast Office identifier for Kansas City, Missouri.
+- C134 | ILX is the Weather Forecast Office identifier for Lincoln, Illinois.
+- C135 | JKL is the Weather Forecast Office identifier for Jackson, Kentucky.
+- C136 | LMK is the Weather Forecast Office identifier for Louisville, Kentucky.
+- C137 | LSX is the Weather Forecast Office identifier for St. Louis, Missouri.
+- C138 | LZK is the Weather Forecast Office identifier for Little Rock, Arkansas.
+- C139 | MEG is the Weather Forecast Office identifier for Memphis, Tennessee.
+- C140 | OAX is the Weather Forecast Office identifier for Omaha, Nebraska.
+- C141 | OHX is the Weather Forecast Office identifier for Nashville, Tennessee.
+- C142 | PAH is the Weather Forecast Office identifier for Paducah, Kentucky.
+- C143 | SGF is the Weather Forecast Office identifier for Springfield, Missouri.
+- C144 | A document titled 'Using the 4-Panel Technique from NWS Central Region to Improve' is available at weather.gov.
+- C145 | The 4-Panel Technique document includes time-series data showing 1-hr QPE, GFFG, ARI, and CREST values.
+- C146 | WFO BOX issued a base warning at 2117Z according to the 4-Panel Technique example.
+- C147 | Mississippi Fall Severe Weather Preparedness packet was created for Fall 2020.
+- C148 | A February 23, 2019 EF3 tornado caused damage in Columbus, Mississippi in Lowndes County.
+- C149 | Flooding occurred on the Tennessee-Tombigbee Waterway in Lowndes County on February 24, 2019.
+- C150 | Snow covered the University of Mississippi campus on December 9, 2018.
+- C151 | Leakesville, Mississippi has a NOAA Weather Radio frequency of 162.425.
+- C152 | Gulfport, Mississippi has a NOAA Weather Radio frequency of 162.400.
+- C153 | Oxford, Mississippi has a NOAA Weather Radio frequency of 162.550.
+- C154 | Wireless Emergency Alerts expanded warning information on Monday, October 19, 2020.
+- C155 | For flash flooding, a long, skinny CAPE profile with less than 1000 J/kg is a good indicator that the environment is primed for heavy rainfall.
+- C156 | Gary Chock from Martin and Chock at 1132 Bishop Street, Suite 1550, Honolulu, Hawaii 96813 was on the FEMA P-646 Third Edition Project Review Panel.
+- C157 | John Hooper from Magnusson Klemencic Associates at 1301 Fifth Avenue, Suite 3200, Seattle, Washington 98101 was on the FEMA P-646 Third Edition Project Review Panel.
+- C158 | Laura Kong from NOAA International Tsunami Information Center at 1845 Wasp Boulevard, Building 176, Honolulu, Hawaii 96818 was on the FEMA P-646 Third Edition Project Review Panel.
+- C159 | An F1 tornado occurred southwest of Dacono in Weld County on June 15, 1997 at 1421 MST.
+- C160 | The F1 tornado southwest of Dacono in Weld County caused 50K in property damage.
+- C161 | Flash flooding occurred in Holyoke, Phillips County from 1100 MST on June 14 to 0200 MST on June 15, 1997.
+- C162 | 0.75 inch hail occurred in Hereford, Weld County on June 18, 1997 at 1456 MST.
+- C163 | Thunderstorm wind with gusts to 52 mph occurred 19 miles ENE of Grover, Weld County on June 18, 1997 at 1525 MST.
+- C164 | Lightning struck an oil storage facility in Elbert County causing two tanks to explode into flames.
+- C165 | An NWS storm survey determined an EF-0 tornado first touched down on Green Tree Rd in Chesapeake on March 31, 2017.
+- C166 | Three tornadoes were confirmed from March 31, 2017.
+- C167 | Monthly and annual statistics and summaries of tornado and lightning events resulting in deaths, injuries, and damage are compiled by cooperative efforts.
+- C168 | In 2017, Hawaii had 1 flood fatality.
+- C169 | In 2017, Kansas had 1 flood fatality.
+- C170 | Both 2016 and 2017 had U.S. hurricane impacts exceeding 10 billion dollars.
+- C171 | An EF-1 tornado touched down near Phillipsburg, Missouri on May 27, 2017 at 2:50 PM CDT.
+- C172 | The Phillipsburg, Missouri tornado on May 27, 2017 had estimated peak winds of 90 MPH.
+- C173 | The Central and Eastern Tornado Outbreak and Severe Weather event in June 2024 caused 2.4 billion dollars in damages and 2 deaths.
+- C174 | Damaging hail, high wind, and tornadoes impacted Missouri, Iowa, Kansas, Nebraska, Minnesota, Ohio, Michigan, and Pennsylvania on June 12-14, 2024.
+- C175 | In April 2024, an outbreak producing more than 140 tornadoes developed across Nebraska, Iowa, Kansas, Missouri, Oklahoma, and Texas.
+- C176 | Hurricane Florence caused the worst flooding recorded in the Carolinas prior to 2018.
+- C177 | The location 'Gov.' is in the Veraguas region of Panama.
+- C178 | The coordinates for Gov., Veraguas, Panama are latitude 7.56 and longitude -81.1872.
+- C179 | The local time in Gov., Panama on 2026-04-13 was 13:23.
+- C180 | The temperature in Gov., Panama was 33.7°C (92.6°F) at 13:15 on 2026-04-13.
+- C181 | The weather condition in Gov., Panama was sunny on 2026-04-13 at 13:15.
+- C182 | The wind speed in Gov., Panama was 10.7 mph (17.3 kph) on 2026-04-13 at 13:15.
+- C183 | The atmospheric pressure in Gov., Panama was 1009.0 mb (29.8 in) on 2026-04-13 at 13:15.
+- C184 | The precipitation in Gov., Panama was 0.0 mm (0.0 in) on 2026-04-13 at 13:15.
+- C185 | The humidity in Gov., Panama was 44% on 2026-04-13 at 13:15.
+- C186 | The cloud coverage in Gov., Panama was 10% on 2026-04-13 at 13:15.
+- C187 | The UV index in Gov., Panama was 11.6 on 2026-04-13 at 13:15.
+- C188 | The visibility in Gov., Panama was 10.0 km (6.0 miles) on 2026-04-13 at 13:15.
+- C189 | NWS La Crosse announced changes to flood stage categories for Upper Iowa River at Bluffton (BLFI4), effective 4/1/26.
+- C190 | According to NWS statistics for the 10-year average of 2009–2018, floods caused the second-highest number of weather-related fatalities in the US, surpassed only by heat waves.
+- C191 | Borden and Cutter listed flooding as the fourth deadliest weather-related disaster behind heat/drought, severe weather, and winter weather.
+- C192 | For the third consecutive year in 2017, every state across the contiguous U.S. and Alaska had an above-average annual temperature.
+- C193 | The U.S. Climate Extremes Index (USCEI) for 2017 was the second highest value in the 108-year period record at more than double the average.
+- C194 | The weather and climate disasters in 2017 caused 362 direct fatalities among these events.
+- C195 | The December 2017 average temperature for the contiguous U.S. was 34.8°F, 2.1°F above average.
+- C196 | The April 2024 tornado outbreak caused widespread damage to homes, businesses, vehicles, agriculture and other infrastructure.
+- C197 | Tennessee had 29 total flood fatalities in 2021.
+- C198 | New York had 17 total flood fatalities in 2021.
+- C199 | Alabama had 8 total flood fatalities in 2021.
+- C200 | Texas had 8 total flood fatalities in 2021.
+- C201 | New Mexico had 6 total flood fatalities in 2021.
+- C202 | North Carolina had 6 total flood fatalities in 2021.
+- C203 | Louisiana had 5 total flood fatalities in 2021.
+- C204 | Pennsylvania had 5 total flood fatalities in 2021.
+- C205 | Colorado had 4 total flood fatalities in 2021.
+- C206 | Mississippi had 3 total flood fatalities in 2021.
+- C207 | Connecticut had 1 total flood fatality in 2021.
+- C208 | Indiana had 2 total flood fatalities in 2021.
+- C209 | Maryland had 1 total flood fatality in 2021.
+- C210 | Missouri had 2 total flood fatalities in 2021.
+- C211 | Utah had 1 total flood fatality in 2021.
+- C212 | Virginia had 1 total flood fatality in 2021.
+- C213 | Washington had 2 total flood fatalities in 2021.
+- C214 | 2017 had 180 deaths in floods in the United States.
+- C215 | 2017 flood deaths occurred in fewer than 20 states based on partial NWS data.
+- C216 | 2017 flood fatalities data showed 8 states listed in partial NWS table: AR, AZ, CA, FL, HI, IL, KS, KY.
+- C217 | 2018 flood fatalities occurred in 22 states: AZ, CA, CO, HI, IA, IN, KS, KY, MD, MI, MN, MO, NC, OH, OK, PA, PR, SC, TN, TX, VA, WI, WV.
+- C218 | 2019 flood fatalities did not exceed 20 states.
+- C219 | Direct PDF retrieval from NWS weather.gov was blocked by anti-bot protection for all years 2017-2021.
+- C220 | Complete state-by-state breakdown for 2017 could not be fully retrieved due to PDF access limitations and incomplete search result snippets.
+- C221 | The file 'flood17.pdf' exists and was successfully accessed.
+- C222 | In 2017, Arizona had 11 flood fatalities.
+- C223 | In 2017, Nevada had 1 flood fatality.
+- C224 | In 2017, Oklahoma had 1 flood fatality.
+- C225 | In 2017, Wyoming had 1 flood fatality.
+- C226 | In 2017 Missouri flood fatalities, 8 occurred in vehicles or towed trailers.
+- C227 | The 2017 flood fatality report was generated on October 1, 2018 at 10:57:47 AM.

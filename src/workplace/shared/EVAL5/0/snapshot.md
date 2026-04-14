@@ -1,0 +1,291 @@
+You are given a task context consisting of an overall objective, previously validated claims, and the current instruction to execute.
+
+Use the validated claims below as already-established evidence. You must treat them as available facts for reasoning and planning. Do not ignore them. Build on them.
+
+# Task Objective
+Consider the OECD countries whose total population was composed of at least 20% of foreign-born populations as of 2023 (according to the Observatory of Migration at the university of Oxford). Amongst them, which country saw their overall criminality score increase by at least +0.2 point between 2021 and 2023 and their resilience score decrease by more than 0.3 between these same dates (according to the Organised Crime Index)?
+
+# Current Instruction
+**T10** — Calculate criminality score change (2023 minus 2021) for Canada, New Zealand, Australia, Switzerland, and Luxembourg
+
+# Constraints
+- Use the validated claims as prior evidence.
+- First determine whether the current claims are sufficient to directly complete the Task Objective.
+- If the Task Objective is already solvable from the claims, provide the answer in `## Final Conclusion`.
+- If the Task Objective is not yet solvable, do not force a conclusion. Instead, execute the current instructions and collect the information that may be helpful for solving the Task Objective.
+- Do not ask for user clarification.
+- Keep the reasoning concise but operational.
+- In `## Final Conclusion`, every factual statement must be supported by evidence already listed in `## Key Findings & Evidence`.
+
+## Key Findings & Evidence
+Use the following prior CLAIMS as established evidence. Preserve their identifiers and statuses.
+
+## Reasoning & Plan
+* **Analysis:** 
+  - Task Objective: [Restate the task objective briefly.]
+  - Current Instruction: [Restate the instruction briefly.]
+  - Sufficiency Check: Determine whether the validated claims already contain enough information to fully answer the Task Objective.
+  - Gap Check: If not sufficient, identify exactly what is missing.
+
+* **Plan:** 
+  - If sufficient: explain how you will synthesize the existing claims into the final answer.
+  - If insufficient: propose the next concrete instruction(s) that should be executed to obtain the missing evidence.
+  - Prefer instructions that are atomic, directly verifiable, and dependency-aware.
+  - If insufficient: propose the tool call(s) required to execute the instruction(s) when necessary.
+
+### Prior Claims
+- C1 | The task requires identifying OECD countries with at least 20% foreign-born population as of 2023 according to the Observatory of Migration at the University of Oxford.
+- C2 | The Observatory of Migration at the University of Oxford is the source for 2023 foreign-born population data.
+- C3 | The task requires filtering for countries whose overall criminality score increased by at least 0.2 points between 2021 and 2023.
+- C4 | The task requires filtering for countries whose resilience score decreased by more than 0.3 points between 2021 and 2023.
+- C5 | The Organised Crime Index is the source for criminality score and resilience score data.
+- C6 | The criminality score and resilience score measurements are from 2021 and 2023.
+- C7 | The threshold for foreign-born population is at least 20% of total population.
+- C8 | The threshold for criminality score increase is at least plus 0.2 points.
+- C9 | The threshold for resilience score decrease is more than 0.3 points.
+- C10 | The analysis requires cross-referencing OECD country membership status.
+- C11 | The image_text_query tool should be used to extract data from Observatory of Migration and Organised Crime Index sources.
+- C12 | The data from Observatory of Migration and Organised Crime Index may be in image, chart, or table format.
+- C13 | All three criteria must be met simultaneously: foreign-born population threshold, criminality score increase, and resilience score decrease.
+- C14 | Net migration to the UK remained unusually high in 2023.
+- C15 | Visa data indicate further declines in UK net migration may come in 2024.
+- C16 | A sharp drop in visa grants occurred early in 2024.
+- C17 | An increase in student emigration from the UK occurred in 2023.
+- C18 | Non-EU student immigration to the UK fell by 40,000 in 2023 compared to 2022.
+- C19 | Changes in non-EU student flows took 82,000 off the overall UK net migration figure in 2023 compared to 2022.
+- C20 | Work visas granted to non-EU citizens are the largest contributor to UK net migration in 2023.
+- C21 | The big fall in UK care visas is not a result of the ban on dependants.
+- C22 | Permanent migration to OECD countries hit a new record in 2023.
+- C23 | 6.5 million migrants arrived in OECD countries in 2023.
+- C24 | OECD countries are home to 54 million foreign-born individuals.
+- C25 | The foreign-born population in OECD countries increased by 20% over the past period.
+- C26 | The OECD is an international organization of 38 countries.
+- C27 | The OECD promotes policies to improve global economic and social well-being.
+- C28 | The U.S. and UK have a similarly-sized foreign-born population as a percentage of total population.
+- C29 | Mexico, Japan, and Poland are highly ethnically homogenous.
+- C30 | The 2022 OECD permanent migration figure does not include Ukrainian refugees.
+- C31 | Dr Ben Brindle is a researcher at the Migration Observatory at the University of Oxford.
+- C32 | In 2023, the OECD area recorded 6.5 million new permanent-type immigrants, setting a historic new record.
+- C33 | Humanitarian migration in the OECD area increased by 20% in 2023.
+- C34 | On average across the OECD, the gap in employment rates between immigrant and native-born mothers is 20 percentage points.
+- C35 | Immigrant mothers face lower employment rates compared to their native-born peers in OECD countries.
+- C36 | Non-EU immigration to the UK stood at 670,000 in the year ending June 2025.
+- C37 | In the year ending June 2025, net emigration of British citizens from the UK was estimated at 109,000.
+- C38 | In 2021, 38% of non-British children living in England and Wales were born in the UK.
+- C39 | The performance gap between children of migrants and children of UK-born parents is significantly smaller in the UK and Ireland than in most other EU-14 countries.
+- C40 | The share of children with one UK-born and one foreign-born parent in England and Wales has remained relatively stable over time at around 13%.
+- C41 | Since 2022, EU net migration to the UK has been negative, with 70,000 more people leaving than arriving in the year ending June 2025.
+- C42 | EU citizens contributed between 59% and 77% of estimated net migration to the UK in the year ending March 2015, depending on the data source used.
+- C43 | Myanmar ranks first in criminality with a score of 8.08 in the 2025 Global Organized Crime Index.
+- C44 | Colombia ranks second in criminality with a score of 7.82 in the 2025 Global Organized Crime Index.
+- C45 | Paraguay ranks fourth (tied) in criminality with a score of 7.48 in the 2025 Global Organized Crime Index.
+- C46 | Tuvalu ranks last (193rd) in criminality with a score of 1.53 in the 2025 Global Organized Crime Index.
+- C47 | Myanmar has a resilience score of 1.46 in the 2025 Global Organized Crime Index.
+- C48 | Haiti's criminality score increased by 0.60 points between 2023 and 2025.
+- C49 | The Global Organized Crime Index is funded in part by a grant from the United States Department of State.
+- C50 | ENACT is funded by the European Union and implemented by the Institute for Security Studies and INTERPOL, in affiliation with the Global Initiative Against Transnational Organized Crime.
+- C51 | The Global Organized Crime Index evaluates 15 criminal markets including human trafficking, human smuggling, arms trafficking, drug trade, and cyber-dependent crimes.
+- C52 | Colombia has a resilience score of 5.46 in the 2025 Global Organized Crime Index.
+- C53 | Democratic Republic of Congo ranks sixth in criminality with a score of 7.47 in the 2025 Global Organized Crime Index.
+- C54 | South Africa ranks seventh in criminality with a score of 7.43 in the 2025 Global Organized Crime Index.
+- C55 | Nigeria ranks eighth in criminality with a score of 7.32 in the 2025 Global Organized Crime Index.
+- C56 | Lebanon ranks ninth in criminality with a score of 7.30 in the 2025 Global Organized Crime Index.
+- C57 | Türkiye ranks tenth in criminality with a score of 7.20 in the 2025 Global Organized Crime Index.
+- C58 | The Global Organized Crime Index 2023 shows how transnational organized crime changes and develops at a macro level.
+- C59 | The Global Organized Crime Index allows users to focus on particular regions or countries and specific markets.
+- C60 | The cyber-dependent crimes market ranked as the 12th most pervasive market out of 15 markets.
+- C61 | The illicit trade in counterfeit goods ranked sixth of the criminal markets.
+- C62 | The illicit trade in counterfeit goods has a score of 4.98 out of 10.
+- C63 | Environmental crimes was the lowest scoring criminal market grouping globally, excluding the standalone cyber-dependent crimes market.
+- C64 | State-embedded actors continued to dominate the criminal landscape as the primary conduit for organized crime worldwide.
+- C65 | State-embedded actors have an average score of 5.95.
+- C66 | Europe shows the greatest continental increase in criminality between 2021 and 2023.
+- C67 | Europe's resilience has grown only marginally between 2021 and 2023.
+- C68 | Africa saw the smallest continental increase in criminality between 2021 and 2023.
+- C69 | All criminal actor types strengthened their presence on the African continent in a post-COVID environment.
+- C70 | 83% of the world's population lives in conditions of high criminality according to the Global Organized Crime Index 2023.
+- C71 | Each dimension in the Global Organized Crime Index is scored on a 1–10 scale.
+- C72 | Higher resilience scores indicate stronger resilience in the Global Organized Crime Index.
+- C73 | The Index interactive website allows users to sort and compare scores for criminal markets, criminal actor types, and resilience indicators.
+- C74 | The criminality score in the heatmap uses a scale of 1 to 10.
+- C75 | New Zealand remains in the global low criminality-high resilience quadrant.
+- C76 | Criminality in New Zealand is affecting Pacific nations.
+- C77 | Australia and New Zealand are among the most lucrative consumer markets in the world for drugs.
+- C78 | Pacific Island countries have become transit hubs for narcotics originating in South-Eastern Asia and Latin America.
+- C79 | Fauna crimes are the highest scoring criminal market in Oceania.
+- C80 | Financial crimes are among the three highest scoring criminal markets in Oceania.
+- C81 | Human trafficking is among the three highest scoring criminal markets in Oceania.
+- C82 | Fauna crimes in Oceania largely consist of illegal, unreported, and unregulated fishing.
+- C83 | ENACT is funded by the European Union.
+- C84 | Austria functions as both a transit and destination country for human trafficking, with victims mainly exploited for sexual and labour purposes.
+- C85 | The majority of human trafficking victims in Austria originate from Eastern Europe, West Africa and East Asia, with notable numbers from Bulgaria, Romania, Hungary and Slovakia.
+- C86 | Nigerian and Chinese victims are commonly exploited in massage parlors and brothels in Austria.
+- C87 | Some Nigerian victims enter Austria as asylum seekers.
+- C88 | Labour trafficking in Austria affects men and women from Eastern Europe, Southeast Asia and China, particularly in the hospitality, construction, agricultural and domestic service sectors.
+- C89 | Seasonal migrant workers in Austria are especially vulnerable during harvest seasons.
+- C90 | Children, particularly Romani girls, and persons with physical and intellectual disabilities are exploited for forced begging and petty crime in Austria.
+- C91 | Cases of trafficking for forced begging in Austria have declined in recent years.
+- C92 | Online recruitment for exploitation in Austria is rising, accelerated by the Covid-19 pandemic.
+- C93 | Small mafia-style groups and biker gangs play a key role in human trafficking in Austria, often luring victims with fraudulent employment offers or false promises of romantic relationships.
+- C94 | Austria remains a significant hub for human smuggling, mainly along the Balkan Route.
+- C95 | Most individuals smuggled through Austria are smuggled from Türkiye and the broader Western Asia region.
+- C96 | Many smugglers in Austria originate from Syria, Romania, Iraq, Türkiye and Afghanistan.
+- C97 | Smugglers in Austria often charge thousands of euros per person for passage into Europe.
+- C98 | Austria's proximity to Hungary, which has a lax approach to border enforcement, worsens the smuggling problem.
+- C99 | Extortion and protection racketeering remain relatively rare in Austria.
+- C100 | Recent cases involving extreme violence, particularly among young perpetrators, suggest an alarming trend of organized extortion independent of traditional criminal organizations in Austria.
+- C101 | Vienna is a hotspot for extortion in Austria, with restaurants, retail businesses and food service establishments being common targets.
+- C102 | Austria has a notable firearms and ammunition manufacturing industry.
+- C103 | Illicit arms trafficking is not a significant issue in Austria.
+- C104 | Stockpiles of weapons from the former Yugoslavia and the Ukraine conflict have been noted as potential sources of illicit arms in Austria.
+- C105 | Large-scale seizures of illicit arms in Austria have implicated outlaw motorcycle gangs and far-right extremist groups.
+- C106 | Significant shipments of counterfeit goods in Austria originate from China, Vietnam, Türkiye and Iran.
+- C107 | The Austrian customs service has reported a dramatic increase in seizures of counterfeit goods in recent years.
+- C108 | The most commonly trafficked counterfeit items in Austria include clothing, footwear and accessories.
+- C109 | The flow of counterfeit medicinal products, particularly weight-loss drugs, has increased substantially in Austria.
+- C110 | A notable scandal involving fake Ozempic originated from Austria.
+- C111 | The illicit trade of excise consumer goods, particularly tobacco and nicotine products, remains limited in Austria.
+- C112 | Legal tobacco prices in Austria are relatively low, reducing domestic demand for smuggled products.
+- C113 | Austria is a known transit point for untaxed tobacco shipments, particularly from Slovakia and Hungary en route to the UK and Germany.
+- C114 | In recent years, a significant number of untaxed cigarettes were seized in Austria, with international criminal networks coordinating logistics.
+- C115 | Flora crimes are not a widespread issue in Austria.
+- C116 | Some cases of illegal logging and timber smuggling have been reported in Austria, often linked to trans-shipments.
+- C117 | Incidents of illegal imports and exports involving endangered species and animal parts used in traditional medicine products have been reported in Austria, including ivory, alligator heads and caviar.
+- C118 | Reports indicate an increasing volume of illicitly traded caviar in Austria, usually smuggled by travelers from Russia and former Soviet states.
+- C119 | Non-renewable resource crimes are not prevalent in Austria.
+- C120 | Sporadic cases of gold smuggling have been documented in Austria.
+- C121 | There are concerns about Austria's reliance on Russian oil imports and the potential involvement of illicit actors in this trade.
+- C122 | Criminal groups from the Western Balkans dominate the heroin trade in Austria.
+- C123 | Street-level distribution of heroin in Austria is often managed by Afghan and African actors alongside ethnic Serbs.
+- C124 | Domestic heroin consumption in Austria is limited.
+- C125 | Cocaine consumption and trafficking in Austria have increased with increasing availability and falling prices, particularly among young professionals.
+- C126 | Cocaine supply routes in Austria originate in Spain and the Netherlands.
+- C127 | Waste-water analyses have identified Vorarlberg and Tyrol as major cocaine consumption hubs in Austria.
+- C128 | Cannabis remains the most commonly used illicit drug in Austria.
+- C129 | Domestic production supplies part of the cannabis market in Austria.
+- C130 | Hashish in Austria is largely imported from Morocco via Spain and France.
+- C131 | Authorities in Austria are struggling to combat online drug sales via social media and encrypted messaging platforms.
+- C132 | The possession and consumption of small quantities of cannabis are generally tolerated by Austrian law enforcement.
+- C133 | Decriminalization for personal use of cannabis has led to an increase in the number of cannabis shops across Austria.
+- C134 | Synthetic drug trafficking in Austria remains stable.
+- C135 | Austria serves as a transit country for MDMA and amphetamine-based drugs originating from the Netherlands and Belgium.
+- C136 | Local production of synthetic drugs in Austria is minimal, with few laboratories being discovered.
+- C137 | Methamphetamine use in Austria is concentrated in Upper Austria.
+- C138 | Austria has seen a significant number of reported cybercrime incidents in recent years.
+- C139 | Hacking and ransomware attacks are widespread in Austria.
+- C140 | Cryptocurrencies are frequently used to commit cybercrimes in Austria.
+- C141 | Cybercriminals have gained access to the Austrian government's citizen registry and sold stolen data online.
+- C142 | High-profile cyberattacks in 2024 targeted Austrian government institutions, financial entities and corporations, some of them executed by pro-Russian hacker groups.
+- C143 | Financial crime has become a growing concern in Austria, with investment fraud, social welfare fraud, tax fraud and embezzlement of public funds among the significant threats.
+- C144 | Cyber-enabled fraud appears to be the most prevalent financial crime in Austria and has grown consistently over several years.
+- C145 | Austrian authorities have ramped up countermeasures, including using AI tools to combat fraud.
+- C146 | Austrian authorities have not sufficiently curtailed the rise in financial crimes and continue to face ongoing scrutiny over their reportedly slow response to financial crime.
+- C147 | Mafia-style groups in Austria have seen a resurgence since 2023.
+- C148 | Outlaw motorcycle gangs such as the Hells Angels and Bandidos have expanded their presence in Austria, engaging in the drug trade, firearms trafficking and aspects of the sex industry.
+- C149 | The Hells Angels, historically the dominant outlaw motorcycle gang in Austria, remain powerful.
+- C150 | The growing presence of the Bandidos has led to increased scrutiny from Austrian authorities, with security agencies monitoring potential turf wars.
+- C151 | Austria's mafia-style groups are less visible than counterparts in other European countries.
+- C152 | The influence of mafia-style groups within criminal markets in Austria is growing, particularly in illicit economies such as drug trafficking and protection racketeering.
+- C153 | Loosely organized criminal networks in Austria are under-researched, making it difficult to assess comprehensively their structure, scope and activities.
+- C154 | Small local criminal networks have been identified in the drug market in Austria, particularly the cannabis trade.
+- C155 | Corruption remains a significant issue in Austria.
+- C156 | High-profile investigations and cases that came to light in recent years underscored concerns about collusion between political elites and illicit financial actors in Austria.
+- C157 | Public sector corruption in Austria is perceived as a systemic issue.
+- C158 | Media reports estimate that Austria has lost billions of euros to corruption.
+- C159 | The issue of foreign criminality in Austria is often politicized, with conservative and far-right parties amplifying concerns over asylum seekers and migrant-linked crime.
+- C160 | Young, single men awaiting asylum decisions in Austria are over-represented in crime statistics.
+- C161 | Afghan networks have been involved in violent territorial disputes with Chechen groups in Austria.
+- C162 | Turkish criminal actors have been implicated in human trafficking, smuggling, the counterfeit goods trade and illegal wildlife trafficking in Austria.
+- C163 | Romanian groups mainly engage in human smuggling and trafficking alongside German nationals in Austria.
+- C164 | Nigerian and Chinese groups are involved in drug trafficking, counterfeit goods trade and sexual exploitation in Austria.
+- C165 | Chechen criminal groups are engaged in arms trafficking, drug distribution and illegal gambling in Austria.
+- C166 | Italian mafias such as the Camorra, Cosa Nostra and 'Ndrangheta are involved in drug trafficking, money laundering and financial crimes in Austria.
+- C167 | Reports indicate that the 'Ndrangheta has been expanding its presence in Austria in recent years, using the country as a base for laundering proceeds from illicit activities.
+- C168 | Political narratives around 'no-go areas', particularly in Vienna's Favoriten district, remain highly charged.
+- C169 | Private-sector actors' involvement in organized crime in Austria is poorly documented.
+- C170 | Corruption and illicit financial activities within the private sector remain a problem in Austria.
+- C171 | Industries such as gambling in Austria have been linked to allegations of abuse of office and other offences.
+- C172 | Money laundering through private businesses in Austria requires greater scrutiny.
+- C173 | The Austrian Ministry of Finance has identified significant fraud schemes within cleaning businesses and professional gambling establishments.
+- C174 | The sex industry in Austria, despite being decriminalized, remains largely controlled by organized crime groups.
+- C175 | Austria's Federal Criminal Office reported that nearly half of all identified money laundering cases had no clear link to a predicate crime.
+- C176 | Austria maintains a coherent and effective system of governance, characterized by strong political institutions and adherence to democratic principles.
+- C177 | Austria's political stability remains intact, despite a 2021 political scandal that led to the resignation of the then prime minister and several senior ministers.
+- C178 | Public trust in political leadership in Austria remains affected by past crises, which have inflamed anger over cronyism and the appointment of unqualified officials.
+- C179 | Investigations into corruption and economic crime in Austria are ongoing.
+- C180 | Some senior figures in Austria remain in positions of power, obstructing inquiries.
+- C181 | Government transparency in Austria is relatively high compared to global standards but lags behind other EU countries.
+- C182 | In 2024, the Austrian government passed a bill aimed at abolishing official secrecy and establishing a Freedom of Information Act.
+- C183 | The 2024 Freedom of Information Act in Austria has been criticized for lacking an independent oversight body and effective enforcement mechanisms.
+- C184 | Political figures from major parties in Austria have faced corruption allegations.
+- C185 | Gaps in anti-corruption measures persist in Austria.
+- C186 | Austria's lack of regulations on lobbying and conflicts of interest has been identified as a significant concern.
+- C187 | Austria is a party to major transnational organized crime conventions.
+- C188 | Austria actively engages in extradition, mutual legal assistance and joint investigation teams.
+- C189 | Austria participates in the EU's EMPACT platform, with a focus on combating human trafficking.
+- C190 | Austria hosts key international organizations, including the UN Office on Drugs and Crime (UNODC) and the International Centre for Migration Policy Development (ICMPD).
+- C191 | Austria has enhanced security cooperation with non-EU states, including Morocco and Türkiye.
+- C192 | Austria has supported Ukraine's law enforcement reform through joint EU projects.
+- C193 | Austria's criminal code criminalizes a broad range of offences, including human trafficking, smuggling and money laundering.
+- C194 | Some regulatory weaknesses remain in Austria, particularly in anti-corruption enforcement and arms trafficking laws.
+- C195 | International instruments in Austria are mostly implemented effectively.
+- C196 | The drafting of government bills in Austria can be slow and is often hindered by political disagreements and a reluctance to confront corruption, collusion and government transparency.
+- C197 | Austria has adopted several reforms to enhance whistleblower protection and anti-corruption measures.
+- C198 | Austria's judiciary is generally independent and enjoys public confidence.
+- C199 | The appointment of judges by the executive rather than an independent body in Austria has raised concerns over political influence and the separation of powers.
+- C200 | Efforts to establish an independent prosecutor's office in Austria have been delayed by political disagreements.
+- C201 | Prison conditions in Austria have improved, with the addition of new facilities addressing previous concerns over inadequate infrastructure.
+- C202 | Staffing shortages persist in Austrian prisons.
+- C203 | There are persistent reports of violence in Austrian prisons.
+- C204 | Most inmates in Austrian prisons reported experiencing some form of violence during incarceration.
+- C205 | Law enforcement in Austria is well-resourced and professional, with specialized units addressing organized crime, human trafficking and cybercrime.
+- C206 | Austria has increased funding for law enforcement, with new recruits and expanded investigative units.
+- C207 | In 2024, Austria launched a national security centre focused on countering cybercrime, extremism and human smuggling.
+- C208 | Instances of abuse of power or police brutality in Austria are very rare.
+- C209 | Austria has enhanced border security measures, increasing checks at the Czech border and extending Schengen border controls to combat irregular migration and organized crime.
+- C210 | In 2024, Austria implemented new cybersecurity measures, including the establishment of a national action plan against deepfakes and enhanced cybercrime detection frameworks for law enforcement.
+- C211 | Austria has robust anti-money laundering laws and institutions for detecting and preventing financial crimes.
+- C212 | Concerns remain about Austria's banking secrecy laws, which have historically facilitated financial crimes.
+- C213 | Reports indicate an increase in the use of shell companies for fraudulent activities in Austria.
+- C214 | Austria's economic regulatory environment is strong.
+- C215 | Bureaucratic hurdles have slowed growth in Austria.
+- C216 | Concerns over online trade fraud, particularly involving Far East vendors using Austrian-registered shell companies, have increased.
+- C217 | Cash transactions remain prevalent in Austria, with over two-thirds of purchases made in cash.
+- C218 | Efforts to establish joint customs zones with neighbouring countries, such as the Austria–Slovenia–Italy corridor, are aimed at enhancing trade efficiency while ensuring regulatory compliance.
+- C219 | Austria provides extensive support services for victims and witnesses of crime, including specialized legal assistance, shelters and trauma-informed testimony procedures.
+- C220 | The Austrian government has increased funding for NGOs that help victims of human trafficking.
+- C221 | Victim identification in Austria remains inadequate, particularly of trafficking victims.
+- C222 | Reports indicate that victim compensation in Austria remains inadequate.
+- C223 | EU institutions are calling for stronger financial restitution mechanisms for victims in Austria.
+- C224 | Prevention efforts in Austria are multifaceted, with national strategies targeting organized crime through educational campaigns, community initiatives and re-integration programmes for offenders.
+- C225 | The Austrian government's anti-asylum campaign, launched to deter irregular migration, has sparked controversy.
+- C226 | Critics question the effectiveness and ethical ramifications of Austria's anti-asylum campaign.
+- C227 | Austria continues to strengthen crime prevention efforts through international cooperation, hosting major conferences on human trafficking and transnational crime.
+- C228 | Awareness campaigns addressing issues such as sexual violence and drug-facilitated assault have gained traction in Austria, supported by law enforcement and victim advocacy groups.
+- C229 | Austria's civil society sector is strong, with a vast network of NGOs operating in the country.
+- C230 | NGOs in Austria have freedom to operate.
+- C231 | Concerns have been raised about NGOs' dependence on state funding in Austria, which may deter advocacy on politically sensitive issues.
+- C232 | Media independence in Austria remains at risk, with allegations of government interference in public broadcasting and financial support favouring tabloid media.
+- C233 | Libel laws in Austria continue to be used by political figures to silence critical reporting.
+- C234 | The Austrian government has been given a deadline to reform public broadcasting appointment processes.
+- C235 | Austria's criminality score is 4.30 in 2025.
+- C236 | Austria's resilience score is 7.54 in 2025.
+- C237 | Austria's capital is Vienna.
+- C238 | Austria's population is 9,178,482.
+- C239 | Austria's gross domestic product is USD 521,269 million.
+- C240 | Austria's area is 83,879 km².
+- C241 | Iceland has a foreign-born population of 20% according to Observatory of Migration data from 2022 or latest available.
+- C242 | Sweden has a foreign-born population of 20% according to Observatory of Migration data from 2022 or latest available.
+- C243 | Ireland has a foreign-born population of 20% according to Observatory of Migration data from 2022 or latest available.
+- C244 | Austria has a foreign-born population of 21% according to Observatory of Migration data from 2022 or latest available.
+- C245 | Canada has a foreign-born population of 22% according to Observatory of Migration data from 2022 or latest available.
+- C246 | New Zealand has a foreign-born population of 27% according to Observatory of Migration data from 2022 or latest available.
+- C247 | Switzerland has a foreign-born population of 31% according to Observatory of Migration data from 2022 or latest available.
+- C248 | Luxembourg has a foreign-born population of 50% according to Observatory of Migration data from 2022 or latest available.
+- C249 | Iceland had a criminality score of 3.39 in 2021 according to the Organised Crime Index.
+- C250 | Sweden had a criminality score of 4.56 in 2021 according to the Organised Crime Index.
+- C251 | Nine OECD countries have at least 20% foreign-born population: Iceland, Sweden, Ireland, Austria, Canada, New Zealand, Australia, Switzerland, and Luxembourg.
+- C252 | None of the four examined countries (Iceland, Sweden, Ireland, Austria) meet all three task criteria simultaneously.
+- C253 | Data for 2021 and 2023 criminality and resilience scores for Canada are needed to complete the task analysis.
+- C254 | Luxembourg had a Criminality score of 2.36 in 2021 according to the Organised Crime Index.
+- C255 | New Zealand is the only country that meets both criteria of having ≥20% foreign-born population and meeting both Organised Crime Index thresholds (criminality increase ≥+0.2 and resilience decrease >-0.3) between 2021 and 2023.

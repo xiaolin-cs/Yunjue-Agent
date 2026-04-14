@@ -1,0 +1,289 @@
+You are given a task context consisting of an overall objective and previously validated claims.
+
+Use the validated claims below as already-established evidence. You must treat them as available facts for reasoning and planning. Do not ignore them. Build on them.
+
+# Task Objective
+Based on information located on data.nysed.gov, consider ny state graduation rate data for high school students as of August 2023. Consider subgroups that had a total enrollment under 2000 students. Which of these subgroups also had a dropout percentage of 3 percent or more and a graduation rate over 40 percent? List the subgroups in order of least amount total enrolled students to highest.
+
+# Constraints
+- Use the validated claims as prior evidence.
+- First determine whether the current claims are sufficient to directly complete the Task Objective.
+- If the Task Objective is already solvable from the claims, provide the answer in `## Final Conclusion`.
+- If the Task Objective is not yet solvable, do not force a conclusion. Instead, use `## Reasoning & Plan` to explain what missing information is needed, and provide the next best instruction(s) to execute.
+- Do not ask for user clarification.
+- Keep the reasoning concise but operational.
+- In `## Final Conclusion`, every factual statement must be supported by evidence already listed in `## Key Findings & Evidence`.
+
+## Key Findings & Evidence
+Use the following prior CLAIMS as established evidence. Preserve their identifiers and statuses.
+
+## Reasoning & Plan
+* **Analysis:** 
+  - Task Objective: [Restate the task objective briefly.]
+  - Sufficiency Check: Determine whether the validated claims already contain enough information to fully answer the Task Objective.
+  - Gap Check: If not sufficient, identify exactly what is missing.
+
+* **Plan:** 
+  - If sufficient: explain how you will synthesize the existing claims into the final answer.
+  - If insufficient: propose the next concrete instruction(s) that should be executed to obtain the missing evidence.
+  - Prefer instructions that are atomic, directly verifiable, and dependency-aware.
+  - If insufficient: propose the tool call(s) required to execute the instruction(s) when necessary.
+
+### Prior Claims
+- C1 | NY State graduation rate data for high school students exists on data.nysed.gov as of August 2023.
+- C2 | The target dataset contains subgroup-level graduation rate data for high school students.
+- C3 | The target dataset includes a field for total enrollment by subgroup.
+- C4 | The analysis requires filtering subgroups with total enrollment under 2000 students.
+- C5 | The final output must list subgroups ordered from least total enrolled students to highest total enrolled students.
+- C6 | The search_datasets tool can be used to find NY State graduation rate datasets on data.nysed.gov portal for August 2023.
+- C7 | The extract_text_content tool can be used to navigate portal pages to locate the specific dataset URL or download link.
+- C8 | The download_file tool can be used to download the graduation rate dataset file in CSV or Excel format to local storage.
+- C9 | The read_structured_file tool can be used to load the downloaded dataset into structured format for analysis.
+- C10 | The execute_python tool can be used to filter subgroups by enrollment less than 2000, dropout greater than or equal to 3 percent, graduation rate greater than 40 percent, and then sort by enrollment.
+- C11 | The data.nysed.gov portal is the authoritative source for NY State education datasets.
+- C12 | August 2023 is the reference time period for the graduation rate data.
+- C13 | The dataset likely contains demographic or categorical subgroups of high school students.
+- C14 | The threshold of 2000 students for total enrollment is an upper bound exclusion criterion.
+- C15 | The threshold of 3 percent for dropout percentage is a lower bound inclusion criterion.
+- C16 | The API endpoint https://data.nysed.gov/api/catalog/v1 returned a 404 Not Found error when queried with parameters for graduation rate high school 2023.
+- C17 | The search_datasets.py tool raised an HTTPError exception with status code 404.
+- C18 | The attempted query was for 'graduation rate high school 2023' with a limit of 20 datasets.
+- C19 | The NYSED data site returned an HTML error page instead of JSON data from the API endpoint.
+- C20 | The error page indicates the requested URL path /api/catalog/v1 cannot be found on data.nysed.gov.
+- C21 | The NYSED data site provides navigation to counties, BOCES, districts, schools, and higher education institutions.
+- C22 | The NYSED data site offers a downloads section accessible at /downloads.php.
+- C23 | The data.nysed.gov site includes search functionality for finding institutions by name.
+- C24 | The NYSED data site is maintained by the New York State Education Department.
+- C25 | The API catalog endpoint v1 may not be the correct or current API path for accessing NYSED datasets.
+- C26 | The New York State Education Department (NYSED) provides downloadable databases on data.nysed.gov for various school years from 1999-2000 through 2024-25.
+- C27 | The 2024-25 Report Card Database is 363.94 megabytes in size.
+- C28 | The 2024-25 Report Card Database contains accountability statuses and indicator data including performance, attendance, graduation rate, participation rate, and progress.
+- C29 | The 2024-25 Report Card Database contains assessment results for elementary- and intermediate-level ELA, Math, and Science, Annual Regents, Total Cohort Regents, NYSESLAT, and NYSAA.
+- C30 | The 2024-25 Enrollment Database contains school, district, county, and statewide enrollment by grade, race/ethnicity, gender, and other groups.
+- C31 | The 2024-25 Graduation Rate Database contains annual graduation and dropout data for the state, county, Need to Resource Capacity group, district, public school, and charter school.
+- C32 | The 2024-25 Graduation Rate Database includes data for the current four-year cohort (June and August graduates), five-year June and August, and six-year June and August cohorts.
+- C33 | The 2024-25 Student Digital Resources Database contains parent survey information collected by school districts concerning the availability of student digital resources in students' homes.
+- C34 | The 2023-24 Report Card Database includes postsecondary enrollment rate data.
+- C35 | The 2023-24 English Language Learners Database is 0.97 megabytes in size.
+- C36 | The 2023-24 English Language Learners Database contains English Language Learner (ELL) enrollment data, home language rankings, and graduation and dropout data for all districts and charter schools.
+- C37 | The 2023-24 Student and Educator Database contains free and reduced-price lunch, average class size, student attendance and suspensions, staff counts, teacher attendance, and teacher turnover data.
+- C38 | Advanced Placement (AP) and International Baccalaureate (IB) Data databases are available for school years 2018-19, 2019-20, 2020-21, 2021-22, 2022-23, and 2023-24.
+- C39 | The 2023-24 Advanced Placement (AP) and International Baccalaureate (IB) Data database is 18.1 megabytes in size.
+- C40 | The AP and IB databases contain counts of AP and IB assessments by student subgroup and performance level, AP and IB course counts, and an AP and IB course researcher file by student subgroup.
+- C41 | NYSED provides 3-8 Assessment Databases for select years including 2013-14, 2014-15, 2015-16, 2016-17, 2017-18, 2018-19, and 2020-21.
+- C42 | The 2020-21 3-8 Assessment Database is 60.87 megabytes in size.
+- C43 | The 3-8 Assessment Databases contain assessment data for grades 3-8 on ELA and Math at the state, county, Need to Resource Capacity group, district, and school level broken down by various subgroups.
+- C44 | No new assessment data was released for the 2019-20 Report Card.
+- C45 | Teacher Evaluation Databases are available for school years 2012-13, 2013-14, 2014-15, and 2015-16.
+- C46 | The 2015-16 Teacher Evaluation Database is 85.71 megabytes in size.
+- C47 | Graduation Rate Databases are available for all school years from 2003-04 through 2024-25.
+- C48 | Pathways Databases are available for school years 2017-18 through 2024-25.
+- C49 | Student Digital Resources Databases are available for school years 2020-21, 2021-22, 2022-23, 2023-24, and 2024-25.
+- C50 | Excel workbooks containing Grades 3-8 ELA, Math, and Science refusals data are available for 2021-22, 2022-23, 2023-24, and 2024-25.
+- C51 | The refusals workbooks contain district, charter, and statewide counts of students in select subgroups and the percent of students who were reported with a Refusal code.
+- C52 | The website provides links to the NYSED Homepage, EngageNY, FOIL, and Twitter.
+- C53 | The website provides links to NYSED offices including Information and Reporting Services, Special Education, Higher Education, and Teacher and Principal Evaluation.
+- C54 | The document was created on April 13, 2026, at 5:41 am EST.
+- C55 | The copyright holder for the website is the New York State Education Department.
+- C56 | A file exists at the path '/u/xlin4/Projects/multi-agent/Yunjue-Agent/gradrate_2023.zip'.
+- C57 | The file 'gradrate_2023.zip' has a size of 12894933 bytes.
+- C58 | The file operation for 'gradrate_2023.zip' completed successfully.
+- C59 | The zip file gradrate_2023.zip was extracted to the directory /u/xlin4/Projects/multi-agent/Yunjue-Agent/gradrate_2023
+- C60 | The extraction process produced 3 files total
+- C61 | The file 2023GradRatemdbReadMe.pdf has a size of 204763 bytes
+- C62 | The file GRAD_RATE_AND_OUTCOMES_2023.accdb is located at /u/xlin4/Projects/multi-agent/Yunjue-Agent/gradrate_2023/GRAD_RATE_AND_OUTCOMES_2023.accdb
+- C63 | The extracted directory contains no subdirectories
+- C64 | The zipfile module is located at /u/xlin4/.local/share/uv/python/cpython-3.12.12-linux-x86_64-gnu/lib/python3.12/zipfile/__init__.py
+- C65 | The dataset contains graduation rate and outcomes data for 2023
+- C66 | The dataset is available in both Microsoft Access database format (.accdb) and older Access format (.mdb)
+- C67 | A README file in PDF format is included with the graduation rate dataset
+- C68 | The subprocess module is located at '/u/xlin4/.local/share/uv/python/cpython-3.12.12-linux-x86_64-gnu/lib/python3.12/subprocess.py'.
+- C69 | The pandas module is located at '/u/xlin4/Projects/multi-agent/Yunjue-Agent/.dynamic_tools_venv/lib/python3.12/site-packages/pandas/__init__.py'.
+- C70 | The MDB file path is '/u/xlin4/Projects/multi-agent/Yunjue-Agent/gradrate_2023/GRAD_RATE_AND_OUTCOMES_2023.mdb'.
+- C71 | The 'mdb-tables' command is not found in the system path, resulting in error '[Errno 2] No such file or directory: 'mdb-tables''.
+- C72 | The pyodbc library is not available in the execution environment.
+- C73 | An alternative method was attempted after the initial error listing tables.
+- C74 | The document describes data contained in GRAD_RATE_AND_OUTCOMES_2023.mdb and .csv files.
+- C75 | GRAD_RATE_AND_OUTCOMES_2023.mdb reports outcomes of designated subgroups by total public school, county, Needs-to-Resource-Capacity (N/RC) group, district, and public schools.
+- C76 | The Department does not publish data for groups with fewer than five students to ensure student confidentiality.
+- C77 | Suppressed data are indicated with a dash symbol (-).
+- C78 | LEA_BEDS is a 12-digit Basic Educational Data System (BEDS) code that uniquely identifies an entity such as a school or district.
+- C79 | In the LEA_BEDS code, digits 1-2 indicate the county of location.
+- C80 | NRC_CODE is a Need to Resource Capacity Category code that measures a district's ability to meet the needs of its students with local resources.
+- C81 | NRC_CODE 1 represents New York City.
+- C82 | The need/resource capacity index is the ratio of estimated poverty percentage (in standard score form) to Combined Wealth Ratio (in standard score form).
+- C83 | A district with both estimated poverty and Combined Wealth Ratio equal to the State average would have a need/resource capacity index of 1.0.
+- C84 | High N/RC Large City Districts include Buffalo, Rochester, Syracuse, and Yonkers.
+- C85 | High N/RC Urban-Suburban Districts are all districts at or above the 70th percentile (1.1835) that have at least 100 students per square mile or an enrollment greater than 2,500 and more than 50 students per square mile.
+- C86 | Average N/RC Districts are all districts between the 20th percentile (0.770) and 70th percentile (1.1835) on the need/resource capacity index.
+- C87 | The GRAD_RATE_AND_OUTCOMES_2023 table contains a field named REPORT_SCHOOL_YEAR of type Text with size 255, describing the school year in which data was collected.
+- C88 | The GRAD_RATE_AND_OUTCOMES_2023 table contains a field named AGGREGATION_INDEX of type Number with size 1, which is a numeric index assigned to assist in aggregating data at Statewide (0), Need/Resource Category (1), County (2), District (3), and School (4) levels.
+- C89 | The GRAD_RATE_AND_OUTCOMES_2023 table contains a field named ENTITY_INACTIVE_DATE of type Text with size 255, which contains the date an LEA was made inactive when it is no longer active.
+- C90 | The GRAD_RATE_AND_OUTCOMES_2023 table contains a field named LEA_BEDS of type Text with size 12, storing the 12-digit code for public schools statewide, by county, by N/RC group, for public school districts, public schools, and charter schools.
+- C91 | The GRAD_RATE_AND_OUTCOMES_2023 table contains a field named NYC_IND of type Text with size 1, which is an index indicating whether the LEA is in New York City (0/1).
+- C92 | MEMBERSHIP_CODE 6 represents 6-year outcome, June.
+- C93 | The GRAD_RATE_AND_OUTCOMES_2023 table contains a field named ENROLL_CNT of type Number with size 255, representing the count of students in the cohort based on the last enrollment record as of June 30, 2023, with a First Date of Entry into Grade 9 during the 2019-20 school year.
+- C94 | The GRAD_RATE_AND_OUTCOMES_2023 table contains a field named NON_DIPLOMA_CREDENTIAL_CNT of type Number with size 255, representing the number of students in the cohort who earned a non-diploma commencement credential (CDOS credential or Skills & Achievement certificate).
+- C95 | The PDF file path is /u/xlin4/Projects/multi-agent/Yunjue-Agent/gradrate_2023/2023GradRatemdbReadMe.pdf.
+- C96 | The PDF has 6 pages.
+- C97 | The document was last updated on 3/1/2024.
+- C98 | Estimated Poverty Percentage is a weighted average of the 2006-07 and 2007-08 kindergarten through grade 6 free-and-reduced-price-lunch percentage and the percentage of children aged 5 to 17 in poverty according to the 2000 Decennial Census.
+- C99 | Combined Wealth Ratio is the ratio of district wealth per pupil to State average wealth per pupil, used in the 2007-08 Governor's proposal.
+- C100 | The mdb-export tool is not available in the execution environment.
+- C101 | The pyaccessparser library is not available in the execution environment.
+- C102 | The meza library is not available in the execution environment.
+- C103 | No CSV files were found in the directory /u/xlin4/Projects/multi-agent/Yunjue-Agent/gradrate_2023.
+- C104 | The os module is available as a frozen module in the execution environment.
+- C105 | An alternative data access method is needed to read the MDB file because standard MDB export tools are unavailable.
+- C106 | The execution attempted to use pure Python MDB tools as a fallback approach.
+- C107 | The sys module is a built-in Python module.
+- C108 | The sqlite3 module is located at '/u/xlin4/.local/share/uv/python/cpython-3.12.12-linux-x86_64-gnu/lib/python3.12/sqlite3/__init__.py'.
+- C109 | The sqlite3 module is available in the current Python environment.
+- C110 | MDB tools are unavailable in the current environment.
+- C111 | NYSED provides data in CSV format according to the README referenced as C74.
+- C112 | CSV download links should be searched for on the NYSED downloads page at data.nysed.gov.
+- C113 | The web page fetch failed due to anti-bot protection with HTTP 403 status code.
+- C114 | The blocked response contained HTML content of 30948 bytes.
+- C115 | The system attempted to install the mdbtools system package.
+- C116 | The apt-get package manager is not available in the system PATH.
+- C117 | The which command for apt-get returned exit code 1, indicating apt-get was not found.
+- C118 | The pandas_access Python module is not available in the current environment.
+- C119 | The system is attempting an alternative approach using comtypes or win32com modules.
+- C120 | The Python environment is located at /u/xlin4/Projects/multi-agent/Yunjue-Agent/.venv/bin.
+- C121 | The system PATH includes NVIDIA HPC SDK version 25.3 with CUDA 12.8.
+- C122 | The system has Cray PE MPICH version 8.1.32 installed.
+- C123 | The system is running on a Linux x86_64 architecture.
+- C124 | The extracted zip file contains three files: 2023GradRatemdbReadMe.pdf, GRAD_RATE_AND_OUTCOMES_2023.accdb, and GRAD_RATE_AND_OUTCOMES_2023.mdb.
+- C125 | The GRAD_RATE_AND_OUTCOMES_2023 table contains the field ENROLL_CNT representing enrollment count.
+- C126 | MEMBERSHIP_CODE value 11 indicates a 4-year August cohort in the graduation rate database.
+- C127 | Multiple attempts to read the MDB file failed due to missing MDB reading tools including mdb-tables, pyodbc, pypyodbc, pandas_access, and mdb-export.
+- C128 | An attempt to access CSV files directly from https://data.nysed.gov/files/gradrate/22-23/ was blocked by anti-bot protection with HTTP 403 error.
+- C129 | The README document indicates that graduation rate data is available in both .mdb and .csv formats.
+- C130 | The database structure is documented in the file 2023GradRatemdbReadMe.pdf.
+- C131 | A subprocess execution error occurred when attempting to run a Python script.
+- C132 | The error type is 'subprocess_execution_error'.
+- C133 | The Python script being executed is located at '/u/xlin4/Projects/multi-agent/Yunjue-Agent/output/EVAL4/private_dynamic_tools/dynamic_tools_59/read_access_database.py'.
+- C134 | The error occurred at line 44 in the 'read_access_database.py' file within the 'run' function.
+- C135 | The script attempted to import the 'pyodbc' module.
+- C136 | The import of 'pyodbc' failed with an ImportError.
+- C137 | The specific ImportError message is 'libodbc.so.2: cannot open shared object file: No such file or directory'.
+- C138 | The 'pyodbc' module depends on the 'libodbc.so.2' shared library.
+- C139 | The error traceback originated from line 23 in '<string>'.
+- C140 | The command 'which mdb-export' returned exit code 1, indicating mdb-export was not found in the system PATH.
+- C141 | The mdb-export tool is not present in the PATH directories including /u/xlin4/Projects/multi-agent/Yunjue-Agent/.venv/bin, /u/xlin4/.nvm/versions/node/v18.20.8/bin, and various other system directories.
+- C142 | The system PATH includes directories from virtual environment, node version manager, anaconda, cursor-server, NVIDIA HPC SDK, Cray PE, and various system directories.
+- C143 | The error field in the result is null, indicating no Python exception occurred during execution.
+- C144 | A download attempt for the URL https://web.archive.org/web/20240101000000/https://data.nysed.gov/files/gradrate/22-23/GRAD_RATE_AND_OUTCOMES_2023.csv failed after 3 attempts.
+- C145 | The last error encountered was an HTTP 404 Client Error with status NOT FOUND on attempt 3 of 3.
+- C146 | The target resource is a graduation rate and outcomes data file for the 2022-2023 period from New York State Education Department.
+- C147 | The Web Archive snapshot timestamp for the requested URL was January 1, 2024 at 00:00:00.
+- C148 | The MDB file GRAD_RATE_AND_OUTCOMES_2023.mdb has a size of 131203072 bytes
+- C149 | The msaccessdb module is not available in the environment
+- C150 | The pyexcel module is not available in the environment
+- C151 | The comtypes module is not available in the environment
+- C152 | The csv module is available in the environment
+- C153 | The json module is available in the environment
+- C154 | The xml module is available in the environment
+- C155 | The pandas module is available in the environment
+- C156 | The environment is running on Linux operating system
+- C157 | The target file path was GRAD_RATE_AND_OUTCOMES_2023.csv located in the directory /files/gradrate/22-23/ on the domain data.nysed.gov.
+- C158 | The file size for the attempted download is null, indicating no file data was retrieved.
+- C159 | The success status of the download operation is false.
+- C160 | The error is a FileNotFoundError with errno 2 indicating 'No such file or directory'.
+- C161 | The file 'read_access_database.py' is located in the 'dynamic_tools_59' directory.
+- C162 | The project path includes user directory 'xlin4' and project name 'Yunjue-Agent'.
+- C163 | The error occurred during the get_data phase of the importlib bootstrap external module loading process.
+- C164 | The task objective is to identify NY State high school student subgroups as of August 2023 with total enrollment less than 2000, dropout percentage greater than or equal to 3%, and graduation rate greater than 40%, listed ordered by enrollment from least to highest.
+- C165 | The 2022-23 NY State graduation rate database is the correct dataset for August 2023 data.
+- C166 | The graduation rate database file gradrate_2023.zip was successfully downloaded.
+- C167 | The gradrate_2023.zip file was extracted with 3 files.
+- C168 | The MDB file size is 131,203,072 bytes.
+- C169 | Required fields in the database include ENROLL_CNT (enrollment count), GRAD_PCT (graduation percent), DROPOUT_PCT (dropout percent), SUBGROUP_NAME, and MEMBERSHIP_CODE.
+- C170 | The table structure is documented in the README file.
+- C171 | Confidentiality rules include suppression indicators in the database.
+- C172 | Multiple MDB tools (mdb-tables, mdb-export, mdb-schema, mdb-ver) are missing from the system.
+- C173 | The meza Python library is unavailable in the system environment.
+- C174 | The pyodbc library import fails with ImportError due to missing libodbc.so.2 file.
+- C175 | CSV format download from the Wayback Machine resulted in HTTP 404 error.
+- C176 | Direct CSV download from NYSED website resulted in HTTP 404 error.
+- C177 | Anti-bot protection blocked CSV access attempts from the NYSED website.
+- C178 | The read_access_database tool failed with FileNotFoundError due to missing read_access_database.py file.
+- C179 | The read_access_database tool is non-functional.
+- C180 | Standard Python data processing modules (csv, json, xml, pandas) are available in the environment.
+- C181 | Standard Python modules cannot read MDB or ACCDB files.
+- C182 | All Python libraries for MDB access are unavailable or non-functional.
+- C183 | CSV format files do not exist at expected download URLs.
+- C184 | No actual data records have been successfully extracted from the database files.
+- C185 | The task cannot be completed without accessing the actual data from the database.
+- C186 | All standard and alternative database access methods have failed.
+- C187 | Without access to actual data records from the GRAD_RATE_AND_OUTCOMES_2023 table, it is impossible to filter subgroups by the specified criteria.
+- C188 | The task cannot be completed due to insurmountable technical barriers preventing data access.
+- C189 | Graduation rate data are reported for a 9th grade cohort as of the 4th year of high school in August.
+- C190 | The graduation rate data filter function provides the ability to display graduation rate data of high school as of the 4th year June, the 5th year June and August, and the 6th year June and August.
+- C191 | Data is reported by educational institutions to the State Education Department throughout the school year and available for verification by districts until the close of the state data warehouse in August.
+- C192 | In 2022, the American Indian or Alaska Native cohort in New York State had 1,607 total students in the 9th grade cohort.
+- C193 | Academy School graduation rate data for 2023 shows a 4-year outcome as of August 2023.
+- C194 | Academy School reported 0 American Indian or Alaska Native students in the 2023 9th grade cohort.
+- C195 | Hamilton County graduation rate data for 2023 shows a 4-year outcome as of August 2023.
+- C196 | The New York State Education Department's Office of Information and Reporting Services collects and reports graduation data for approximately 200,000 students every year.
+- C197 | Total cohort graduation rate is calculated for 4-year June, 4-year August, 5-year and 6-year cohorts.
+- C198 | Annual graduates are reported in the Outcomes section of the New York State Report Cards on data.nysed.gov under School Data by selecting School Report Card.
+- C199 | Students included in annual graduate counts are those who earned a Regents or local diploma in the reporting year.
+- C200 | Queens HS Sciences York College enrollment data is reported for the 2022-23 school year.
+- C201 | Enrollment data are collected as part of NYSED's Student Information Repository System (SIRS).
+- C202 | When the Total Students count equals the count in the English Language Learner Students, Students with Disabilities, and/or Economically Disadvantaged Students category, the enrollment data are suppressed.
+- C203 | The New York State Education Department Office of Information and Reporting Services can be contacted at (518) 474-5355 for the New York State Library.
+- C204 | Higher Education enrollment data includes Fall admissions applicant, acceptance, and enrollment data for first-time full-time and part-time freshmen study by race/ethnicity in institutions in New York State.
+- C205 | The Institutional Activity report includes Academic Year activity levels for all student types including high school students, first-time undergraduates, all undergraduates, graduate level students and first-professional students.
+- C206 | Higher education reports include counts of students by County of permanent residence in New York State, Out-of-State, Foreign or Unknown for full-time and part-time students.
+- C207 | New York State's 4-year graduation rate as of August 2023 for all students was 86%.
+- C208 | The total enrollment for the 2019 4-year August cohort in New York State was 199,694 students.
+- C209 | 172,502 students in New York State graduated from the 2019 4-year August cohort.
+- C210 | 36% of all students in New York State's 2019 4-year August cohort received a Regents diploma with advanced designation.
+- C211 | Female students in New York State had an 89% graduation rate in the 2019 4-year August cohort.
+- C212 | Non-binary students in New York State had an 88% graduation rate in the 2019 4-year August cohort.
+- C213 | General education students in New York State had a 90% graduation rate in the 2019 4-year August cohort.
+- C214 | Students with disabilities in New York State had a 68% graduation rate in the 2019 4-year August cohort.
+- C215 | 35,064 students with disabilities were enrolled in New York State's 2019 4-year August cohort.
+- C216 | American Indian or Alaska Native students in New York State had an 81% graduation rate in the 2019 4-year August cohort.
+- C217 | Asian or Native Hawaiian/Other Pacific Islander students in New York State had a 93% graduation rate in the 2019 4-year August cohort.
+- C218 | Black or African American students in New York State had an 81% graduation rate in the 2019 4-year August cohort.
+- C219 | Hispanic or Latino students in New York State had an 81% graduation rate in the 2019 4-year August cohort.
+- C220 | White students in New York State had a 91% graduation rate in the 2019 4-year August cohort.
+- C221 | Multiracial students in New York State had an 84% graduation rate in the 2019 4-year August cohort.
+- C222 | Economically disadvantaged students in New York State had an 82% graduation rate in the 2019 4-year August cohort.
+- C223 | English language learners in New York State had a 57% graduation rate in the 2019 4-year August cohort.
+- C224 | Students in foster care in New York State had a 51% graduation rate in the 2019 4-year August cohort.
+- C225 | Homeless students in New York State had a 69% graduation rate in the 2019 4-year August cohort.
+- C226 | Migrant students in New York State had a 36% graduation rate in the 2019 4-year August cohort.
+- C227 | 110 migrant students were enrolled in New York State's 2019 4-year August cohort.
+- C228 | Students with a parent in the armed forces in New York State had a 92% graduation rate in the 2019 4-year August cohort.
+- C229 | District superintendents certify data is accurate in September.
+- C230 | 96,350 female students were enrolled in New York State's 2019 4-year August cohort.
+- C231 | 164,630 general education students were enrolled in New York State's 2019 4-year August cohort.
+- C232 | 32,978 Black or African American students were enrolled in New York State's 2019 4-year August cohort.
+- C233 | 56,173 Hispanic or Latino students were enrolled in New York State's 2019 4-year August cohort.
+- C234 | 84,310 White students were enrolled in New York State's 2019 4-year August cohort.
+- C235 | The dropout rate for female students in New York State's 2019 4-year August cohort was 4%.
+- C236 | The dropout rate for English language learners in New York State's 2019 4-year August cohort was 18%.
+- C237 | The total number of students enrolled across all students is 199,694.
+- C238 | The overall graduation rate for all students is 86%.
+- C239 | The overall dropout rate for all students is 5%.
+- C240 | Female students have a graduation rate of 89%.
+- C241 | Non-binary students have a total enrollment of 127.
+- C242 | General Education Students have a graduation rate of 90%.
+- C243 | Students with Disabilities have a graduation rate of 68%.
+- C244 | American Indian or Alaska Native students have a total enrollment of 1,470.
+- C245 | Black or African American students have a graduation rate of 81%.
+- C246 | Hispanic or Latino students have a graduation rate of 81%.
+- C247 | White students have a graduation rate of 91%.
+- C248 | Multiracial students have a graduation rate of 84%.
+- C249 | Economically Disadvantaged students have a graduation rate of 82%.
+- C250 | English Language Learner students have a graduation rate of 57%.
+- C251 | Students in Foster Care have a total enrollment of 623.
+- C252 | Homeless students have a graduation rate of 69%.
+- C253 | Migrant students have a total enrollment of 110.
+- C254 | There are 24 total subgroups parsed in the dataset.
+- C255 | Three subgroups match the filter criteria of enrollment less than 2000, dropout rate greater than or equal to 3%, and graduation rate greater than 40%.
+- C256 | Non-binary is the smallest subgroup among filtered results with 127 enrolled students.
+- C257 | In Foster Care is the second smallest subgroup among filtered results with 623 enrolled students.

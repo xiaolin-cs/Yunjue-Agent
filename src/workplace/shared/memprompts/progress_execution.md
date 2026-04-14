@@ -31,6 +31,7 @@ Use the following prior CLAIMS as established evidence. Preserve their identifie
   - If sufficient: explain how you will synthesize the existing claims into the final answer.
   - If insufficient: propose the next concrete instruction(s) that should be executed to obtain the missing evidence.
   - Prefer instructions that are atomic, directly verifiable, and dependency-aware.
+  - If insufficient: propose the tool call(s) required to execute the instruction(s) when necessary.
 
 ### Prior Claims
 {{#CLAIMS}}

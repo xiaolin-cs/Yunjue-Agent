@@ -1,0 +1,338 @@
+You are given a task context consisting of an overall objective and previously validated claims.
+
+Use the validated claims below as already-established evidence. You must treat them as available facts for reasoning and planning. Do not ignore them. Build on them.
+
+# Task Objective
+Of the countries that were part of the top 10 countries with the lowest GPI scores in both 2022 and 2023 (according to Vision of Humanity), which countries had a reported gun homicide rate of less than 0.20 per 100,000 population in both 2022 and 2023 (according to World Population Review)? Only provide the country names.
+
+# Constraints
+- Use the validated claims as prior evidence.
+- First determine whether the current claims are sufficient to directly complete the Task Objective.
+- If the Task Objective is already solvable from the claims, provide the answer in `## Final Conclusion`.
+- If the Task Objective is not yet solvable, do not force a conclusion. Instead, use `## Reasoning & Plan` to explain what missing information is needed, and provide the next best instruction(s) to execute.
+- Do not ask for user clarification.
+- Keep the reasoning concise but operational.
+- In `## Final Conclusion`, every factual statement must be supported by evidence already listed in `## Key Findings & Evidence`.
+
+## Key Findings & Evidence
+Use the following prior CLAIMS as established evidence. Preserve their identifiers and statuses.
+
+## Reasoning & Plan
+* **Analysis:** 
+  - Task Objective: [Restate the task objective briefly.]
+  - Sufficiency Check: Determine whether the validated claims already contain enough information to fully answer the Task Objective.
+  - Gap Check: If not sufficient, identify exactly what is missing.
+
+* **Plan:** 
+  - If sufficient: explain how you will synthesize the existing claims into the final answer.
+  - If insufficient: propose the next concrete instruction(s) that should be executed to obtain the missing evidence.
+  - Prefer instructions that are atomic, directly verifiable, and dependency-aware.
+  - If insufficient: propose the tool call(s) required to execute the instruction(s) when necessary.
+
+### Prior Claims
+- C1 | Iceland ranked 1st in the 2023 Global Peace Index with a score of 1.124.
+- C2 | Denmark ranked 2nd in the 2023 Global Peace Index with a score of 1.31.
+- C3 | Ireland ranked 3rd in the 2023 Global Peace Index with a score of 1.312.
+- C4 | New Zealand ranked 4th in the 2023 Global Peace Index with a score of 1.313.
+- C5 | Austria ranked 5th in the 2023 Global Peace Index with a score of 1.316.
+- C6 | Singapore ranked 6th in the 2023 Global Peace Index with a score of 1.332.
+- C7 | Portugal ranked 7th in the 2023 Global Peace Index with a score of 1.333.
+- C8 | Slovenia ranked 8th in the 2023 Global Peace Index with a score of 1.334.
+- C9 | Japan ranked 9th in the 2023 Global Peace Index with a score of 1.336.
+- C10 | Switzerland ranked 10th in the 2023 Global Peace Index with a score of 1.339.
+- C11 | Canada ranked 11th in the 2023 Global Peace Index with a score of 1.35.
+- C12 | Czechia ranked 12th in the 2023 Global Peace Index with a score of 1.379.
+- C13 | Finland ranked 13th in the 2023 Global Peace Index with a score of 1.399.
+- C14 | Croatia ranked 14th in the 2023 Global Peace Index with a score of 1.45.
+- C15 | Germany ranked 15th in the 2023 Global Peace Index with a score of 1.456.
+- C16 | Netherlands ranked 16th in the 2023 Global Peace Index with a score of 1.49.
+- C17 | Bhutan ranked 17th in the 2023 Global Peace Index with a score of 1.496.
+- C18 | Hungary ranked 18th in the 2023 Global Peace Index with a score of 1.508.
+- C19 | Malaysia ranked 19th in the 2023 Global Peace Index with a score of 1.513.
+- C20 | Belgium ranked 20th in the 2023 Global Peace Index with a score of 1.523.
+- C21 | Switzerland holds the 4th rank in the militarisation domain in the 2023 Global Peace Index.
+- C22 | New Zealand is the most peaceful country in the Asia-Pacific region in 2023.
+- C23 | The 2023 Global Peace Index is the 17th edition of the annual index.
+- C24 | The Global Peace Index is produced by the Institute for Economics and Peace.
+- C25 | The average level of global peacefulness deteriorated for the ninth consecutive year in 2023.
+- C26 | 84 countries recorded an improvement in peace in the 2023 Global Peace Index.
+- C27 | The total number of conflict-related deaths increased by 96 per cent in 2023.
+- C28 | Russia's invasion of Ukraine and its consequences were the main drivers of the deterioration in global peacefulness in 2023.
+- C29 | 79 countries witnessed increased levels of conflict in 2023, including Ethiopia, Myanmar, Ukraine, Israel, and South Africa.
+- C30 | Mali recorded the largest deterioration in sub-Saharan Africa with conflict-related deaths increasing by 154% in 2023.
+- C31 | Violence against civilians in Mali rose by 570% in 2023.
+- C32 | Coastal West Africa is at its most peaceful level since reporting began in 2008.
+- C33 | Europe is the most peaceful region in the world in 2023.
+- C34 | Military expenditure in Europe deteriorated in 2023 because of the Ukraine war.
+- C35 | Neighbouring Country Relations in Europe deteriorated in 2023 because of the Ukraine war.
+- C36 | The 2023 Global Peace Index ranks 163 countries based on societal safety, ongoing conflict, and militarisation.
+- C37 | The Global Peace Index covers 99.7 per cent of the world's population.
+- C38 | The Global Peace Index launches in June each year.
+- C39 | Many measures of militarisation have improved over the past fifteen years according to the 2023 Global Peace Index.
+- C40 | Iceland, Ireland, New Zealand, Austria, and Switzerland are the top 5 most peaceful countries in the world in 2025.
+- C41 | Russia is the least peaceful country in the world for the first time in the 2025 Global Peace Index.
+- C42 | South America was the only region to record an improvement in peacefulness in 2025.
+- C43 | New data shows a higher number of conflict deaths in Ethiopia than Ukraine in 2024, eclipsing the previous global peak during the Syrian war.
+- C44 | Austria ranks particularly well for political stability, low crime rates, quality of life, and respect for civil liberties.
+- C45 | Qatar ranked 21st in the 2023 Global Peace Index with a score of 1.524.
+- C46 | Australia ranked 22nd in the 2023 Global Peace Index with a score of 1.525.
+- C47 | Mauritius ranked 23rd in the 2023 Global Peace Index with a score of 1.546.
+- C48 | Norway ranked 24th in the 2023 Global Peace Index with a score of 1.55.
+- C49 | Estonia ranked 25th in the 2023 Global Peace Index with a score of 1.563.
+- C50 | Slovakia ranked 26th in the 2023 Global Peace Index with a score of 1.578.
+- C51 | Latvia ranked 27th in the 2023 Global Peace Index with a score of 1.582.
+- C52 | Sweden ranked 28th in the 2023 Global Peace Index with a score of 1.625.
+- C53 | Poland ranked 29th in the 2023 Global Peace Index with a score of 1.634.
+- C54 | Bulgaria ranked 30th in the 2023 Global Peace Index with a score of 1.643.
+- C55 | Romania ranked 31st in the 2023 Global Peace Index with a score of 1.649.
+- C56 | Spain ranked 32nd in the 2023 Global Peace Index with a score of 1.649.
+- C57 | Taiwan ranked 33rd in the 2023 Global Peace Index with a score of 1.649.
+- C58 | Italy ranked 34th in the 2023 Global Peace Index with a score of 1.662.
+- C59 | Kuwait ranked 35th in the 2023 Global Peace Index with a score of 1.669.
+- C60 | United Kingdom ranked 37th in the 2023 Global Peace Index with a score of 1.693.
+- C61 | North Macedonia ranked 38th in the 2023 Global Peace Index with a score of 1.713.
+- C62 | Costa Rica ranked 39th in the 2023 Global Peace Index with a score of 1.731.
+- C63 | Albania ranked 40th in the 2023 Global Peace Index with a score of 1.745.
+- C64 | Vietnam ranked 41st in the 2023 Global Peace Index with a score of 1.745.
+- C65 | Botswana ranked 42nd in the 2023 Global Peace Index with a score of 1.762.
+- C66 | South Korea ranked 43rd in the 2023 Global Peace Index with a score of 1.763.
+- C67 | Mongolia ranked 44th in the 2023 Global Peace Index with a score of 1.765.
+- C68 | Montenegro ranked 45th in the 2023 Global Peace Index with a score of 1.772.
+- C69 | Laos ranked 46th in the 2023 Global Peace Index with a score of 1.779.
+- C70 | Sierra Leone ranked 47th in the 2023 Global Peace Index with a score of 1.792.
+- C71 | Oman ranked 48th in the 2023 Global Peace Index with a score of 1.794.
+- C72 | Timor-Leste ranked 49th in the 2023 Global Peace Index with a score of 1.796.
+- C73 | Uruguay ranked 50th in the 2023 Global Peace Index with a score of 1.798.
+- C74 | Ghana ranked 51st in the 2023 Global Peace Index with a score of 1.799.
+- C75 | Senegal ranked 52nd in the 2023 Global Peace Index with a score of 1.827.
+- C76 | Indonesia ranked 53rd in the 2023 Global Peace Index with a score of 1.829.
+- C77 | Argentina ranked 54th in the 2023 Global Peace Index with a score of 1.837.
+- C78 | Madagascar ranked 55th in the 2023 Global Peace Index with a score of 1.846.
+- C79 | Namibia ranked 56th in the 2023 Global Peace Index with a score of 1.859.
+- C80 | Moldova ranked 57th in the 2023 Global Peace Index with a score of 1.873.
+- C81 | Chile ranked 58th in the 2023 Global Peace Index with a score of 1.874.
+- C82 | The Gambia ranked 59th in the 2023 Global Peace Index with a score of 1.888.
+- C83 | Greece ranked 60th in the 2023 Global Peace Index with a score of 1.89.
+- C84 | The web page fetch failed due to anti-bot protection.
+- C85 | The anti-bot protection detection was based on structural characteristics: minimal_text and no_content_elements.
+- C86 | The blocked page contained 174 bytes of data.
+- C87 | The fetched page contained 174 bytes of data.
+- C88 | Nearly 71% of gun deaths worldwide were homicides in 2019.
+- C89 | 8% of gun deaths worldwide were unintentional firearms-related accidents in 2019.
+- C90 | 65.9% of gun-related deaths worldwide in 2019 occurred in just six countries: Brazil, the United States, Venezuela, Mexico, India, and Colombia.
+- C91 | The highest number of homicide deaths occurred among people aged 20-24 years old.
+- C92 | The highest number of gun-enabled suicides happened among those aged 55-59.
+- C93 | Nearly 47,000 people died of gun-related injuries in the United States in 2023.
+- C94 | In 2023, 58% of all gun-related deaths in the United States were suicides (27,300).
+- C95 | In 2023, the District of Columbia had a gun-related death rate of 30.6 per 100,000 people.
+- C96 | In 2023, Mississippi had a gun-related death rate of 29.4 per 100,000 people.
+- C97 | The United States gun death rate was 10.6 per 100,000 people in 2016.
+- C98 | An estimated 478,000 intentional homicides occurred worldwide in 2021.
+- C99 | In 2021, intentional homicides averaged 52 killings every hour worldwide.
+- C100 | The global homicide rate was 5.8 per 100,000 persons in 2021.
+- C101 | Firearms accounted for 48% of homicides committed with a known mechanism worldwide.
+- C102 | The Americas has the highest homicide rate in the world.
+- C103 | Organized crime is responsible for at least half of all homicides in the Americas.
+- C104 | Men account for 81% of the victims of intentional homicide globally.
+- C105 | Women account for the victims in 54% of killings in the home.
+- C106 | Gun suicides reached a record level in the United States in 2023.
+- C107 | Jamaica recorded the highest firearm homicide rate of the studied countries worldwide in 2023, with 41.9 deaths per 100,000 population.
+- C108 | In 2019, the average global rate of gun homicide stood at just under 3 per 100,000 people.
+- C109 | El Salvador had a gun death rate of 42.3 per 100,000 residents.
+- C110 | Singapore had a gun death rate of roughly 1 in about five million.
+- C111 | The United States gun homicide rate is 26 times that of other high-income countries.
+- C112 | United States Surgeon General Vivek Murthy officially declared firearm violence a public health crisis on June 25, 2024.
+- C113 | Nearly all United States states have a higher firearm mortality rate than most other countries.
+- C114 | More than a third of all detected homicides are classified as 'unknown' in terms of homicide typology.
+- C115 | Four out of every ten killings of women and girls do not have information on the victim-perpetrator relationship.
+- C116 | The Sustainable Development Goals set a target to significantly reduce all forms of violence and related deaths by 2030.
+- C117 | Venezuela has a gun death rate of 44.14 per 100,000 residents in 2021.
+- C118 | Mexico has a gun death rate of 24.23 per 100,000 residents in 2021.
+- C119 | United States Virgin Islands has a gun death rate of 23.69 per 100,000 residents in 2021.
+- C120 | Bahamas has a gun death rate of 22.19 per 100,000 residents in 2021.
+- C121 | Honduras has a gun death rate of 20.68 per 100,000 residents in 2021.
+- C122 | Colombia has a gun death rate of 20.29 per 100,000 residents in 2021.
+- C123 | Guatemala has a gun death rate of 20.20 per 100,000 residents in 2021.
+- C124 | Puerto Rico has a gun death rate of 19.16 per 100,000 residents in 2021.
+- C125 | Brazil has a gun death rate of 19.15 per 100,000 residents in 2021.
+- C126 | Gun violence rates are related to rates of violent crime, but do not necessarily move in parallel.
+- C127 | Gun violence is particularly prevalent in many South American and Central American countries due to either civil unrest or drug cartels.
+- C128 | Gun violence is considered an epidemic in the United States.
+- C129 | The United States leads the world in mass shootings.
+- C130 | Nearly two out of every three gun deaths in the United States is a suicide.
+- C131 | Guatemala owns the world's highest rate of unintentional/accidental gun deaths.
+- C132 | Trinidad and Tobago has a gun death rate of 17.93 per 100,000 residents in 2021.
+- C133 | Greenland has a gun death rate of 17.21 per 100,000 residents in 2021.
+- C134 | South Korea has a gun death rate of 0.03 per 100,000 residents in 2021.
+- C135 | China has a gun death rate of 0.02 per 100,000 residents in 2021.
+- C136 | The rate of gun deaths per country is heavily influenced by the rate of civilian gun ownership per country.
+- C137 | Per 100k rates are age-standardized.
+- C138 | Age-standardization is a process that takes into account the relative age of a country's population when computing the frequency of deaths.
+- C139 | Suicides and unintentional gun deaths are typically not classified as violent gun deaths.
+- C140 | The per-100k data for countries with smaller populations can be disproportionately impacted by small variations in the number of gun deaths from one year to the next.
+- C141 | Canada has a gun death rate of 2.43 per 100,000 residents in 2021.
+- C142 | France has a gun death rate of 2.84 per 100,000 residents in 2021.
+- C143 | Germany has a gun death rate of 1.09 per 100,000 residents in 2021.
+- C144 | Australia has a gun death rate of 0.87 per 100,000 residents in 2021.
+- C145 | Japan has a gun death rate of 0.16 per 100,000 residents in 2021.
+- C146 | Iceland reported no firearm homicides in 2023.
+- C147 | The United Nations Office on Drugs and Crime Intentional Homicide data are sourced from either criminal justice or public health systems.
+- C148 | The population data used to calculate homicide rates is sourced from the World Population Prospects, Population Division, United Nations Department of Economic and Social Affairs.
+- C149 | World Population Review provides gun homicide rate data for Iceland, New Zealand, Ireland, Denmark, Austria, Portugal, Slovenia, Singapore, and Japan for 2022-2023.
+- C150 | Our World in Data provides homicide rate from firearms data for 2023.
+- C151 | Wikipedia maintains a list of countries by firearm-related homicide rates per 100,000 population by year.
+- C152 | The data in the Wikipedia page is sourced from the United Nations Office on Drugs and Crime (UNODC).
+- C153 | Egypt has a firearm-related homicide rate of 2.062 per 100,000 people in 2011.
+- C154 | India has a firearm-related homicide rate of 0.297 per 100,000 people in 2012.
+- C155 | Ecuador has a firearm-related homicide rate of 22.565 per 100,000 people in 2022.
+- C156 | Saint Lucia has a firearm-related homicide rate of 30.580 per 100,000 people in 2022.
+- C157 | Belize has a firearm-related homicide rate of 22.454 per 100,000 people in 2022.
+- C158 | Saint Vincent and the Grenadines has a firearm-related homicide rate of 20.128 per 100,000 people in 2021.
+- C159 | The United Kingdom has a firearm-related homicide rate of 0.047 per 100,000 people in 2021.
+- C160 | Spain has a firearm-related homicide rate of 0.105 per 100,000 people in 2022.
+- C161 | Italy has a firearm-related homicide rate of 0.202 per 100,000 people in 2022.
+- C162 | Sweden has a firearm-related homicide rate of 0.597 per 100,000 people in 2022.
+- C163 | Netherlands has a firearm-related homicide rate of 0.216 per 100,000 people in 2022.
+- C164 | Hong Kong has a firearm-related homicide rate of 0 per 100,000 people in 2022.
+- C165 | Uruguay has a firearm-related homicide rate of 6.807 per 100,000 people in 2022.
+- C166 | Chile has a firearm-related homicide rate of 3.637 per 100,000 people in 2022.
+- C167 | Argentina has a firearm-related homicide rate of 2.305 per 100,000 people in 2022.
+- C168 | The Wikipedia page lists homicide figures that may include justifiable homicides along with criminal homicides, depending upon jurisdiction and reporting standards.
+- C169 | The Wikipedia page data does not include accidental deaths or justifiable deaths by means other than firearms.
+- C170 | Two countries in the UNODC dataset are missing from the main table: Egypt (2.062 rate in 2011) and India (0.297 rate in 2012).
+- C171 | Denmark has a gun homicide rate of less than 0.20 per 100,000 people in 2023 according to World Population Review.
+- C172 | New Zealand has a gun homicide rate of less than 0.20 per 100,000 people in 2023 according to World Population Review.
+- C173 | Austria has a gun homicide rate of less than 0.20 per 100,000 people in 2023 according to World Population Review.
+- C174 | Portugal has a gun homicide rate of less than 0.20 per 100,000 people in 2023 according to World Population Review.
+- C175 | Slovenia has a gun homicide rate of less than 0.20 per 100,000 people in 2023 according to World Population Review.
+- C176 | Czech Republic has a gun homicide rate of less than 0.20 per 100,000 people in 2023 according to World Population Review.
+- C177 | Switzerland has a gun homicide rate of less than 0.20 per 100,000 people in 2023 according to World Population Review.
+- C178 | Finland has a gun homicide rate of less than 0.20 per 100,000 people in 2023 according to World Population Review.
+- C179 | There were an estimated 250,227 gun-related deaths worldwide in 2019.
+- C180 | Central America and the Caribbean have the highest murder rates globally.
+- C181 | El Salvador has a murder rate notably higher than the global average.
+- C182 | Honduras has a murder rate notably higher than the global average.
+- C183 | Jamaica has a murder rate notably higher than the global average.
+- C184 | Japan has a low murder rate due to effective law enforcement, strict weapon regulations, and severe punishment for crimes.
+- C185 | Haiti had a murder rate of 41.1 per 100,000 people in 2023.
+- C186 | Jamaica had a murder rate of 49.3 per 100,000 people in 2023.
+- C187 | Factors contributing to lower murder rates include the wealth of a nation, the effectiveness of law enforcement, the availability of weapons, and the severity of punishment for committing murder.
+- C188 | In the United States, one policeman is consistently shot per day.
+- C189 | Greenland had 56,186 people in 2016.
+- C190 | The Human Freedom Index measures personal and economic freedom in 165 countries.
+- C191 | Switzerland topped the Human Freedom Index in 2021 at 9.01.
+- C192 | New Zealand ranked second in the Human Freedom Index in 2021.
+- C193 | Denmark ranked third in the Human Freedom Index in 2021.
+- C194 | The global average Human Freedom Index score was 7.12 in 2021.
+- C195 | South Sudan has 72 deaths per day.
+- C196 | South Sudan has a population of 12,436,000.
+- C197 | Ischaemic heart disease is the world's leading cause of death.
+- C198 | Stroke is the leading cause of death in China.
+- C199 | Neonatal disorders is the leading cause of death in Nigeria.
+- C200 | The median household income worldwide was $9,733 (PPP, Current Int$) as of 2013 according to Gallup data.
+- C201 | Republic of the Congo has a median income of $892 as of 2020.
+- C202 | South Sudan has a median income of $793 as of 2020.
+- C203 | Countries with the lowest median income in 2013 included Liberia, Burundi, Mali, Benin, Togo, Sierra Leone, and Madagascar.
+- C204 | China leads in international (PCT) patent applications with around 1,619,268 applications filed in 2023.
+- C205 | The United States ranks second in international (PCT) patent applications in 2023.
+- C206 | Japan ranks third in international (PCT) patent applications in 2023.
+- C207 | South Korea has 246,245 total patent grants in 2024.
+- C208 | China accredited about 798,347 patents in 2023.
+- C209 | Japanese patent applications showed a 1.2% drop from the previous year in 2021.
+- C210 | 201,420 patents were granted in Japan in 2023.
+- C211 | Armenia is home to the highest number of the Armenian population.
+- C212 | Russia has a large population of Armenians.
+- C213 | Over 168,000 members of the Armenian population currently live in Georgia.
+- C214 | Puerto Rico is believed to have only seven Armenian residents.
+- C215 | Around 37 people from Armenia live in Croatia.
+- C216 | Countries with small populations of Armenians include Kazakhstan, Belarus, the Netherlands, Bulgaria, Hungary, Poland, Latvia, Cyprus, Estonia, Romania, Lithuania, Moldova, Transnistria, Kyrgyzstan, Tajikistan, and Norway.
+- C217 | Czech Republic improved across the 'Militarisation' and 'Safety and Security' domains in the 2022 Global Peace Index.
+- C218 | A country dropped two spots from the previous year and ranks 7th among the 163 countries in the 2022 Global Peace Index rankings.
+- C219 | Portugal remains one of the most peaceful countries in the world in the 2022 Global Peace Index.
+- C220 | Overall peacefulness in Austria improved by 0.018% in the 2022 Global Peace Index.
+- C221 | Singapore is one of Asia's most peaceful countries due to its extremely low crime rate, strict law enforcement, and high political stability.
+- C222 | Switzerland's neutral foreign policy, strong democratic institutions, and high levels of societal safety help Switzerland remain one of the world's most peaceful nations.
+- C223 | Common attributes of the world's safest countries include high levels of wealth, social welfare, education, effective criminal justice systems, and positive government-citizen relationships.
+- C224 | Japan consistently receives high marks for low crime rates, minimal internal conflict, and virtually nonexistent political unrest in the Global Peace Index.
+- C225 | Iceland appeared in both the 2022 and 2023 top 10 Global Peace Index rankings.
+- C226 | Denmark appeared in both the 2022 and 2023 top 10 Global Peace Index rankings.
+- C227 | Portugal appeared in both the 2022 and 2023 top 10 Global Peace Index rankings.
+- C228 | Slovenia appeared in both the 2022 and 2023 top 10 Global Peace Index rankings.
+- C229 | Japan appeared in both the 2022 and 2023 top 10 Global Peace Index rankings.
+- C230 | Nine countries appeared in both the 2022 and 2023 top 10 Global Peace Index rankings.
+- C231 | Croatia had a gun homicide rate of 0.18 per 100,000 according to United Nations 2023 data.
+- C232 | World Population Review does not provide complete 2022 and 2023 gun homicide rates for all nine countries that overlap in both Global Peace Index top 10 lists.
+- C233 | The nine countries that appeared in both 2022 and 2023 top 10 Global Peace Index rankings are Iceland, Denmark, Ireland, New Zealand, Austria, Singapore, Portugal, Slovenia, and Japan.
+- C234 | Iceland is among the top 5 safest countries in terms of gun homicide rate.
+- C235 | New Zealand is among countries with low gun homicide rates.
+- C236 | Austria is among countries with low gun homicide rates.
+- C237 | Slovenia is among countries with low gun homicide rates.
+- C238 | The overwhelming majority of gun-related deaths in Brazil are homicides, typically a symptom of Brazil's rampant drug trade.
+- C239 | El Salvador, Honduras, and Jamaica have murder rates notably higher than the global average.
+- C240 | Ecuador had a murder rate of 45.7 per 100k in 2023.
+- C241 | Haiti, Ecuador, and Jamaica posted murder rates up to 8 times higher than the global average in 2023.
+- C242 | Over 342,439 people died from firearms in the U.S.
+- C243 | Montana has the highest gun ownership rate in the U.S., with 66.3% of adults owning a gun.
+- C244 | Massachusetts has a gun ownership rate of 14.7%.
+- C245 | New Jersey has a gun ownership rate of 14.7%.
+- C246 | Rhode Island has a gun ownership rate of 14.8%.
+- C247 | Hawaii has a gun ownership rate of 14.9%.
+- C248 | New York has a gun ownership rate of 19.9%.
+- C249 | Tijuana Mexico is the most violent city in the world according to the Citizen Council for Public Security and Criminal Justice data.
+- C250 | Tijuana is 15 miles south of San Diego on the U.S.-Mexico border.
+- C251 | Ciudad Victoria in Mexico has a homicide rate of 86.01 per 100k.
+- C252 | Cancun in Mexico has a homicide rate of 64.47 per 100k.
+- C253 | Culiacan in Mexico has a homicide rate of 60.52 per 100k.
+- C254 | Tepic in Mexico has a homicide rate of 44.89 per 100k.
+- C255 | Seventeen of the most violent cities are in Brazil.
+- C256 | St. Louis, Missouri has the highest murder rate of any US city of 69.4 murders per 100,000 people.
+- C257 | New York City has a population of 8.39 million people.
+- C258 | New York City had 300 murders in 2017.
+- C259 | The Las Vegas murder rate is 31.4.
+- C260 | 58 people were killed in the 2017 mass shooting at a country music festival in Las Vegas.
+- C261 | Suicides account for the highest number of gun-related deaths by state in the United States of America.
+- C262 | Alaska has a gun death rate of 24.4 per 100k.
+- C263 | Wyoming has a gun death rate of 22.3 per 100k.
+- C264 | New Mexico has a gun death rate of 22.3 per 100k.
+- C265 | Alaska, Mississippi, Wyoming, New Mexico, and Alabama are the five states with the highest gun death rates in the U.S.
+- C266 | Wyoming has a gun ownership rate of 64.5%.
+- C267 | The task objective is to identify which countries from the top 10 lowest GPI scores in both 2022 AND 2023 had gun homicide rates less than 0.20 per 100,000 in both 2022 AND 2023 according to World Population Review.
+- C268 | The task specifically requires World Population Review data for both 2022 and 2023, which is not available.
+- C269 | The wealth of a nation contributes to lower murder rates.
+- C270 | Tokyo is the largest city in Japan.
+- C271 | Tokyo has a population of 36,953,600 people.
+- C272 | Nagoya has a population of 9,511,730.
+- C273 | Fukuoka has a population of 5,453,200.
+- C274 | Yokohama has a population of 3,777,491.
+- C275 | Hiroshima has a population of 2,053,290.
+- C276 | Kagoshima has a population of 576,499.
+- C277 | Matsuyama has a population of 500,662.
+- C278 | Nagasaki has a population of 393,167.
+- C279 | Maebashi has a population of 321,546.
+- C280 | Kochi has a population of 318,399.
+- C281 | Kurume has a population of 300,782.
+- C282 | Okinawa has a population of 142,840.
+- C283 | Japan's population structure shows a male to female ratio of 0.95 to 1.
+- C284 | Japan has a median male age of 49.70 years old.
+- C285 | The 2015 census showed Japan had a population of 127,094,745 people.
+- C286 | The population of Japan appears largely homogeneous with a 98.5% contribution from ethnic Japanese people.
+- C287 | In 2050, it is estimated by the government that 40% of Japan's population will be over 65.
+- C288 | By 1873, Tokyo Japan had a population of just over half a million residents.
+- C289 | Tokyo's population tripled in size in only 30 years from 1873 to over 1,500,000 individuals.
+- C290 | C232 contradicts C149 by stating that World Population Review does not provide complete 2022 and 2023 gun homicide rates for all nine countries.
+- C291 | There is a critical conflict between C149, which indicates the data exists, and C232 and C268, which state the data is not available or complete.
+- C292 | The current tool execution attempted to find World Population Review gun homicide data for both 2022 and 2023 but confirmed the data is not available in the required format.
+- C293 | Since the validated claims confirm the required data is not available (C232, C268), and tool execution attempts have been exhausted without finding World Population Review's own 2022 and 2023 gun homicide rates, the task cannot be completed as specified.
+- C294 | The only appropriate conclusion is to state that the task is not completable due to data unavailability from the specified source (World Population Review).
+- C295 | No explicit 2022 gun homicide data from World Population Review is available for any of the 9 countries.
+- C296 | C293 establishes that the task cannot be completed as specified due to data unavailability.
+- C297 | Gun homicides in the United States decreased from 2022 to 2023.
+- C298 | The UNODC Global Study on Homicide 2023 was published in 2023.
+- C299 | The global homicide rate reflects little progress in reducing lethal violence worldwide since the launch of the 2030 Agenda for Sustainable Development in 2015.
+- C300 | The European regional homicide rate has decreased over the last six years.
+- C301 | Africa is projected to be the most at-risk region for homicide over the coming decades.
+- C302 | Homicide deaths outnumber conflict-related and terrorist killings combined.
+- C303 | The United States has 4% of the world's population but 15% of the world's gun deaths.
+- C304 | Tool execution attempts were exhausted without finding World Population Review's own 2022 and 2023 gun homicide rates.
+- C305 | World Population Review 2023 data is missing for Ireland, Singapore, and Japan.
+- C306 | The partial 2023 data available is insufficient for task completion because 2022 data is missing and 2023 data is incomplete.

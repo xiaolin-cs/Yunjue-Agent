@@ -1,0 +1,427 @@
+You are given a task context consisting of an overall objective and previously validated claims.
+
+Use the validated claims below as already-established evidence. You must treat them as available facts for reasoning and planning. Do not ignore them. Build on them.
+
+# Task Objective
+Of the school districts in Maricopa County that had a 4-day a week schedule for the 2023-2024 school year (according to the Maricopa County School Superintendent), which ones had a minimum of 1200 students for the same school year, an inexperienced core teachers, principals, and school leaders percentage for their Title I schools of 25% or less, and teachers with emergency credentials of 5% or under for their Title I schools, according to AZ School Report Cards for 2024? Include only the final answer.
+
+# Constraints
+- Use the validated claims as prior evidence.
+- First determine whether the current claims are sufficient to directly complete the Task Objective.
+- If the Task Objective is already solvable from the claims, provide the answer in `## Final Conclusion`.
+- If the Task Objective is not yet solvable, do not force a conclusion. Instead, use `## Reasoning & Plan` to explain what missing information is needed, and provide the next best instruction(s) to execute.
+- Do not ask for user clarification.
+- Keep the reasoning concise but operational.
+- In `## Final Conclusion`, every factual statement must be supported by evidence already listed in `## Key Findings & Evidence`.
+
+## Key Findings & Evidence
+Use the following prior CLAIMS as established evidence. Preserve their identifiers and statuses.
+
+## Reasoning & Plan
+* **Analysis:** 
+  - Task Objective: [Restate the task objective briefly.]
+  - Sufficiency Check: Determine whether the validated claims already contain enough information to fully answer the Task Objective.
+  - Gap Check: If not sufficient, identify exactly what is missing.
+
+* **Plan:** 
+  - If sufficient: explain how you will synthesize the existing claims into the final answer.
+  - If insufficient: propose the next concrete instruction(s) that should be executed to obtain the missing evidence.
+  - Prefer instructions that are atomic, directly verifiable, and dependency-aware.
+  - If insufficient: propose the tool call(s) required to execute the instruction(s) when necessary.
+
+### Prior Claims
+- C1 | The URL https://www.maricopa.gov/1770/School-Superintendent does not match any existing web page on the Maricopa County website.
+- C2 | Maricopa County's main office is located at 301 West Jefferson Street, Phoenix, Arizona 85003.
+- C3 | Maricopa County's main line phone number is 602-506-3011.
+- C4 | Maricopa County has an ADA Compliance Program contactable at adahelp@maricopa.gov.
+- C5 | The ADA Compliance Program phone number is 602-506-0583.
+- C6 | Requests for reasonable accommodations related to public meetings should be made at least three business days in advance.
+- C7 | Maricopa County is committed to providing equal access to its programs, services, and activities.
+- C8 | The URL https://schoolssuperintendent.maricopa.gov/ returned a DNS resolution error (ERR_NAME_NOT_RESOLVED).
+- C9 | The domain schoolssuperintendent.maricopa.gov could not be resolved by the DNS system at the time of the request.
+- C10 | The page navigation operation failed during the 'domcontentloaded' waiting phase for https://schoolssuperintendent.maricopa.gov/.
+- C11 | The crawl4ai library's async_crawler_strategy module encountered an error at line 778 in the _crawl_web function.
+- C12 | The Arizona Department of Education has a page dedicated to Accountability & Research Resources.
+- C13 | The Arizona Department of Education provides School Report Cards accessible at azreportcards.azed.gov.
+- C14 | The Accountability & Research Resources page includes a Federal Accountability Technical Manual for 2024-2025.
+- C15 | The Accountability & Research Resources page was uploaded or updated on 04/01/2025.
+- C16 | The Accountability & Research Resources page includes a Historical Guide to AZ Learns.
+- C17 | Users can sign up to be a District Accountability Coordinator through a link provided on The Grader Newsletter page.
+- C18 | The Grader Newsletter includes messages from the Research and Statistical Analyst Sr. Director.
+- C19 | The Grader Newsletter page was last updated by user 'ngentry' on 12/04/2025 at 08:18.
+- C20 | The Arizona Department of Education offers a Public Educator Search tool at oacis.azed.gov/PublicOACIS/NormalPages/Educators.aspx.
+- C21 | The requested page does not exist, and a search was performed using the query 'accountability research az school report cards'.
+- C22 | The Arizona Department of Education is located at 1535 West Jefferson Street, Phoenix, AZ 85007.
+- C23 | The Arizona Department of Education phone number is 602-542-2222.
+- C24 | The AZ School Report Cards website offers multiple theme options including Sapphire, Ruby, Emerald, and High Contrast.
+- C25 | Kate Brophy McGee was elected Chair of the Maricopa County Board of Supervisors.
+- C26 | Maricopa County completed an affordable Habitat for Humanity community in South Phoenix at Alta Vista Ranch.
+- C27 | Maricopa County Public Health confirmed a local measles case with public exposures identified.
+- C28 | The Maricopa County Board of Supervisors unanimously approved a resolution to extend a moratorium on new county government regulations.
+- C29 | The Environmental Protection Agency sided with Maricopa County on an issue that could have impacted the region's ability to attract and support business growth.
+- C30 | The EPA finding means no additional air quality regulations will be imposed in Maricopa County.
+- C31 | Maricopa County will host a 2026 Reverse Vendor Expo at the end of March.
+- C32 | Mark Stewart is the Supervisor for District 1 of the Maricopa County Board of Supervisors.
+- C33 | Thomas Galvin is the Supervisor for District 2 of the Maricopa County Board of Supervisors.
+- C34 | Debbie Lesko is the Supervisor for District 4 of the Maricopa County Board of Supervisors.
+- C35 | Maricopa County has 12 regional parks.
+- C36 | A Peoria Subaru Adoption Event is scheduled for Tuesday, April 14.
+- C37 | A Mesa PetSmart Adoption Event is scheduled for Wednesday, April 15.
+- C38 | Free STI and HIV Testing is scheduled for Wednesday, April 15.
+- C39 | A Board of Adjustment Hearing is scheduled for Thursday, April 16.
+- C40 | Maricopa County provides services including Air Quality, Animal Care and Control, Assessor, Environmental Services, Human Services, Planning and Development, Recorder, Public Health, and Superior Courts.
+- C41 | The Internet Archive is asking publishers to restore access to 500,000+ books.
+- C42 | The Internet Archive operates the Wayback Machine.
+- C43 | The Internet Archive is a 501(c)(3) non-profit organization.
+- C44 | The Internet Archive is building a digital library of Internet sites and other cultural artifacts in digital form.
+- C45 | The Wayback Machine has not archived the URL http://*/maricopa.gov/.
+- C46 | Open Library is a project of the Internet Archive.
+- C47 | Archive-It.org is a project of the Internet Archive.
+- C48 | Use of the Wayback Machine is subject to the Internet Archive's Terms of Use.
+- C49 | KNXV is a television station located in Phoenix, Arizona.
+- C50 | ABC15 is associated with KNXV television station in Phoenix, Arizona.
+- C51 | KNXV offers a live streaming service accessible through 'Watch Now' feature.
+- C52 | ABC15 provides news coverage for Chandler, Arizona.
+- C53 | ABC15 offers weather forecasting services including 7-day forecasts.
+- C54 | ABC15 offers radar weather tracking services.
+- C55 | ABC15 has an investigative journalism section called 'ABC15 Investigators'.
+- C56 | ABC15 has a consumer advocacy program called 'Let ABC15 Know'.
+- C57 | ABC15 features a program called 'Arizona Crime Uncovered'.
+- C58 | ABC15 features a program called 'Impact Earth' related to environmental or weather topics.
+- C59 | ABC15 has a lifestyle program called 'Sonoran Living'.
+- C60 | ABC15 has a traffic reporting service.
+- C61 | ABC15 provides gas price information.
+- C62 | ABC15 has a youth sports segment called 'Small Stars'.
+- C63 | ABC15 has a safety initiative called 'Operation Safe Roads'.
+- C64 | ABC15 is available on YouTube.
+- C65 | ABC15 has a presence on Facebook under the handle 'abc15'.
+- C66 | ABC15 is associated with 'The Spot - Arizona 61' television channel.
+- C67 | ABC15 broadcasts Antenna TV programming.
+- C68 | ABC15 broadcasts LAFF network programming.
+- C69 | KASW is a television station with FCC public files.
+- C70 | KNXV has FCC public files available.
+- C71 | ABC15 is owned by Scripps Media, Inc.
+- C72 | Scripps Media, Inc. operates under the tagline 'Give Light and the People Will Find Their Own Way'.
+- C73 | ABC15 offers mobile apps for accessing content.
+- C74 | ABC15 provides TV listings for programming schedules.
+- C75 | ABC15 accepts news tips from the public.
+- C76 | The Arizona Seal of Personal Finance program recognizes high school students who achieve a high level of proficiency in Personal Finance.
+- C77 | The School Finance Unit is part of the Arizona Department of Education (ADE).
+- C78 | School districts and charter schools should use a template to notify ADE of instructional time models provided to students.
+- C79 | School Finance Guidance on HB 2862 provides information on types of flexibility authorized and associated school finance procedures.
+- C80 | School Finance provides mandatory closure guidance specific to COVID-19.
+- C81 | Questions related to School Finance COVID-19 guidance should be emailed to SFAnalystTeam@azed.gov.
+- C82 | School Finance completed the FY24 Statewide Recalculation (SRC) for Career and Technical Education Districts (CTEDs).
+- C83 | SRC BSA-55 and corresponding BSA-64 reports are available on the School Finance website for reviewing FY24 Statewide Recalculation adjustments.
+- C84 | School Finance presents to various organizations across the state.
+- C85 | School Finance Budget Team corrected formula errors in the FY24 K3 AFR and FY25 K3 Budget forms for school districts.
+- C86 | Column D from rows 1-22 in the FY25 K3 Budget had a formula error that was corrected.
+- C87 | School Finance provides training videos on reports related to funding for School Districts and Charter Districts.
+- C88 | School Finance recommends re-posting calendars to AzEDS and taking a screencap when districts report missing FY2020 calendars after posting them.
+- C89 | The FRPL statewide amount for FY2025 is $37,000,000.00.
+- C90 | Qualifying Tax Rate 41-1276 applies to Unified School Districts and Common School Districts not within a High School District.
+- C91 | The State Board of Education is accessible at azsbe.az.gov.
+- C92 | The State Board for Charter Schools is accessible at asbcs.az.gov.
+- C93 | Nine school districts in Maricopa County have adopted four-day school weeks as of the 2023-24 school year.
+- C94 | There are 58 school districts in Maricopa County.
+- C95 | Liberty Elementary School District's Governing Board approved a change to a four-day school week beginning in the 2023-2024 school year.
+- C96 | 24 states had at least one school district operating on a four-day school week according to a 2023 analysis by the National Conference of State Legislatures.
+- C97 | The number of school districts with four-day weeks reflected an increase of over 600% since 1999.
+- C98 | Four-day school weeks are implemented in 26 states.
+- C99 | Oregon, Missouri, and Colorado are among the states with four-day school weeks.
+- C100 | More than two-thirds of school districts in Colorado have four-day weeks.
+- C101 | An earlier school start means more time to prepare for standardized testing that takes place in the spring.
+- C102 | Some districts in hotter climates may be motivated to get students back into classrooms with air conditioning during the hottest months of the year.
+- C103 | A Phoenix school district that officially moved to a four-day week after COVID has decided to return to a more traditional schedule.
+- C104 | Laveen offers a full-day academic preschool program at four schools.
+- C105 | Laveen's preschool program serves children ages 3 to 5.
+- C106 | Liberty Elementary School District is located in the southwest Valley.
+- C107 | Cartwright Elementary School District is located in west Phoenix.
+- C108 | Cartwright Elementary School District implemented a four-day school week for students in 2020.
+- C109 | Several districts in rural areas of Maricopa County have had a four-day school week schedule for years.
+- C110 | Liberty and Cartwright are the biggest districts in the Phoenix area that have adopted a four-day school week.
+- C111 | The Arizona Republic article content about the complete list of nine districts was truncated or restricted by paywall.
+- C112 | The AZ School Report Cards website does not provide searchable 4-day week schedule information through its public interface.
+- C113 | An October 1, 2024 enrollment data file exists at https://www.azed.gov/sites/default/files/2024/12/Oct1Enrollment2024_publish_updated.xlsx.
+- C114 | The October 1, 2024 enrollment data file could not be downloaded via web scraping.
+- C115 | Title I school data resources are available on the Arizona Department of Education website.
+- C116 | The Arizona Department of Education Title I page shows Title I eligibility forms, allocation data, and school eligibility lists.
+- C117 | The Internet Archive offers a Live Music Archive.
+- C118 | The Internet Archive offers Librivox Free Audio.
+- C119 | The Internet Archive has a Metropolitan Museum image collection.
+- C120 | The Internet Archive offers an Internet Arcade software collection.
+- C121 | The Internet Archive offers TV News video content.
+- C122 | The Internet Archive has an Understanding 9/11 video collection.
+- C123 | The URL https://azreportcards.azed.gov/districts/cartwright-elementary-district returned an HTTP response code failure error when accessed.
+- C124 | The Cartwright Elementary District page on the Arizona Department of Education report cards website is currently inaccessible via web crawling.
+- C125 | The page fetch failure occurred during the domcontentloaded waiting phase of the navigation process.
+- C126 | The error originated from the async_crawler_strategy.py file at line 778 in the _crawl_web function.
+- C127 | The National Center for Education Statistics (NCES) provides a public school district search tool accessible at nces.ed.gov/ccd/districtsearch/.
+- C128 | The district search tool allows users to search by district name and NCES District ID.
+- C129 | The district search tool supports proximity searches within specified mile radii from a zip code (1, 5, 10, 15, 20, 30, 50, 100, or 500 miles).
+- C130 | The district search tool allows filtering by district type including Regular Local, Component, Supervisory Union, Regional (RESA), State, Federal, Charter, Other, and Specialized.
+- C131 | The district search tool allows filtering by number of students and number of schools.
+- C132 | The NCES district search tool includes all 50 U.S. states plus District of Columbia, American Samoa, Bureau of Indian Education, Department of Defense, Guam, Northern Mariana, Puerto Rico, and Virgin Islands.
+- C133 | The NCES district search interface provides browse functionality for city and county fields.
+- C134 | The district search tool recommends entering only city, state, and/or a keyword in the name if users have difficulty finding a school district.
+- C135 | The district search tool uses CCD public school district data for the 2024-2025 school year as its data source.
+- C136 | The search for public school districts in Maricopa County, Arizona returned 364 results.
+- C137 | Academy of Mathematics and Science Inc. (district ID 92768) is located at 3448 N 1ST AVE, TUCSON, AZ 85719.
+- C138 | Academy of Mathematics and Science Inc. has a phone number of (520)293-2676.
+- C139 | Academy of Mathematics and Science Inc. is in Maricopa County.
+- C140 | Academy with Community Partners-Arizona Inc (district ID 79213) is located at 433 N HALL, MESA, AZ 85203.
+- C141 | Academy with Community Partners-Arizona Inc has a phone number of (480)833-0068.
+- C142 | Academy with Community Partners-Arizona Inc is in Maricopa County.
+- C143 | Accelerated Learning Center Inc. (district ID 4297) is located at 4105 E SHEA BLVD, PHOENIX, AZ 85028.
+- C144 | Accelerated Learning Center Inc. has a phone number of (602)485-0309.
+- C145 | Accelerated Learning Center Inc. is in Maricopa County.
+- C146 | Accelerated Learning Center Inc. has 133 students.
+- C147 | Acclaim Charter School (district ID 4325) is located at 7624 W INDIAN SCHOOL RD, PHOENIX, AZ 85033.
+- C148 | Acclaim Charter School has a phone number of (623)256-5267.
+- C149 | Acclaim Charter School is in Maricopa County.
+- C150 | Acclaim Charter School has 249 students.
+- C151 | Agua Fria Union High School District (district ID 4289) is located at 1481 N ELISEO FELIX JR WAY STE, AVONDALE, AZ 85323.
+- C152 | Agua Fria Union High School District has a phone number of (623)932-7000.
+- C153 | Agua Fria Union High School District is in Maricopa County.
+- C154 | Agua Fria Union High School District has 10,089 students.
+- C155 | Aguila Elementary District (district ID 4249) is located at PO BOX 218, AGUILA, AZ 85320.
+- C156 | Aguila Elementary District has a phone number of (928)685-2222.
+- C157 | Aguila Elementary District is in Maricopa County.
+- C158 | Aguila Elementary District has 141 students.
+- C159 | AIBT Non-Profit Charter High School - Phoenix (district ID 79053) is located at 6201 N 35TH AVE STE B4, PHOENIX, AZ 85017.
+- C160 | AIBT Non-Profit Charter High School - Phoenix is in Maricopa County.
+- C161 | Albert Einstein Academy of Arizona (district ID 1002310) is located at 8250 E ROSE LN, SCOTTSDALE, AZ 85250.
+- C162 | Albert Einstein Academy of Arizona has a phone number of (602)721-6610.
+- C163 | Albert Einstein Academy of Arizona is in Maricopa County.
+- C164 | Alhambra Elementary District (district ID 4280) is located at 4510 N 37TH AVE, PHOENIX, AZ 85019.
+- C165 | Alhambra Elementary District has a phone number of (602)336-2920.
+- C166 | Alhambra Elementary District is in Maricopa County.
+- C167 | Alhambra Elementary District has 9,742 students.
+- C168 | Allen-Cochran Enterprises Inc. (district ID 4347) is located at 1691 W GRAND CANYON DR, CHANDLER, AZ 85248.
+- C169 | Allen-Cochran Enterprises Inc. has a phone number of (480)632-1940.
+- C170 | Allen-Cochran Enterprises Inc. is in Maricopa County.
+- C171 | Allen-Cochran Enterprises Inc. has 332 students.
+- C172 | American Basic Schools LLC (district ID 79215) is located at 827 E 6TH AVE, MESA, AZ 85204.
+- C173 | American Basic Schools LLC has a phone number of (480)964-4602.
+- C174 | American Basic Schools LLC is in Maricopa County.
+- C175 | American Basic Schools LLC has 634 students.
+- C176 | American Charter Schools Foundation d.b.a. Alta Vi (district ID 80995) is located at 6150 N 16TH ST STE A, PHOENIX, AZ 85016.
+- C177 | American Charter Schools Foundation d.b.a. Alta Vi is in Maricopa County.
+- C178 | American Charter Schools Foundation d.b.a. Apache (district ID 79883) is located at 6150 N 16TH ST STE A, PHOENIX, AZ 85016.
+- C179 | The search results show page 1 of 25 pages, displaying results 1 through 15.
+- C180 | The data source is CCD public school district data for the 2024-2025 school year.
+- C181 | Maricopa County contains 58 school districts total as of the 2023-24 school year.
+- C182 | Liberty Elementary School District and Cartwright Elementary School District are the biggest districts in the Phoenix area that have adopted a four-day school week.
+- C183 | The complete list of nine Maricopa County districts with 4-day weeks was not retrievable from the Arizona Republic article due to paywall or access restrictions.
+- C184 | The Maricopa County School Superintendent webpage URLs https://www.maricopa.gov/1770/School-Superintendent and https://www.maricopa.gov/5716/School-Superintendent returned 404 errors.
+- C185 | The Copper Courier article about West Valley district 4-day weeks is blocked by anti-bot protection (HTTP 403).
+- C186 | Arlington Elementary District was mentioned in Google search results as having a 4-day week.
+- C187 | NCES Common Core of Data district search shows 364 total results for Maricopa County.
+- C188 | Individual district report card pages on azreportcards.azed.gov for Liberty Elementary District and Cartwright Elementary District return ERR_HTTP_RESPONSE_CODE_FAILURE errors.
+- C189 | The teacher quality data file at https://www.azed.gov/sites/default/files/2023/04/Teacher_Quality_2022.xlsx could not be accessed via direct URL.
+- C190 | Students and families should contact the school or LEA where the student was tested to obtain assessment results.
+- C191 | Asterisks in the data indicate numbers under 11 that are not reported per the Family and Educational Rights and Privacy Act of 1974 (FERPA).
+- C192 | The 2025 Assessments data file was updated on 10/10/25.
+- C193 | The 2019 AzMERIT, MSAA, ACT, and SAT data file was updated on 01/23/2020.
+- C194 | The 2025 AzSCI and MSAA Science Test data file was updated on 10/10/25.
+- C195 | In Spring 2021, the AzSCI Field Test and MSAA Science Field Tests were administered to Arizona schools.
+- C196 | Assessment results for the 2021 AzSCI Field Test and MSAA Science Field Tests are not available.
+- C197 | Cohort year refers to the cohort a student is assigned when the student first enters an Arizona public high school.
+- C198 | If a student enters 9th grade in 2014, the student would be in cohort 2018.
+- C199 | A student in cohort 2018 would be included in the 'Cohort 2018 Four-Year Grad Rate Data'.
+- C200 | A caret (^) next to graduation rate or student counts indicates impending appeals.
+- C201 | Dropouts are defined as students who are enrolled in school at any time during the school year but are not enrolled at the end of the school year and did not transfer, graduate, or die.
+- C202 | Dropout rates are reported for grades seven through twelve.
+- C203 | Dropout rates are based on a calendar year that runs from the first day of summer recess through the last day of school.
+- C204 | Enrollment counts are available on the October 1 reporting date.
+- C205 | Enrollment counts are available at the Statewide, County, LEA (school district), and School levels.
+- C206 | Enrollment counts are broken down for Gender, Ethnicity, EL, Income Eligibility 1 & 2, and Students with Disabilities.
+- C207 | Due to missing data in some variables for student characteristics submitted by schools, the 'Total' columns may not match precisely from one tab to another in enrollment reports.
+- C208 | The 2023-2024 School Year enrollment data file was updated on 12/13/2024.
+- C209 | The Accountability Data Guide provides detailed information on public reporting, including scheduling, guidelines, and other resources.
+- C210 | The contact email for accountability questions is Achieve@azed.gov.
+- C211 | The contact phone number for accountability questions is (602) 542-5151.
+- C212 | The 2025 EL Assessments (AZELLA, Alt ELPA) data file is available.
+- C213 | The FY 2009 to FY 2024 Statewide Reclassification Rates Chart includes an SEI Model Status Column.
+- C214 | Cohort 2025 Four-Year Graduation Rate Data is available.
+- C215 | Dropout Rates 2025 data is available.
+- C216 | The 2025-2026 School Year enrollment data is available.
+- C217 | The calculation of dropout statistics is a cooperative effort of local school districts, the Arizona Department of Education, the Arizona State Legislature, and the United States Department of Education.
+- C218 | The dropout rate serves as a key indicator of a school's success in maintaining its student population.
+- C219 | Executive Order 2021-03 and HB 2402 Reports include 2020-2021 School Component Scoring data.
+- C220 | The 2020-2021 School Component Scoring data file was updated on 11/5/2021.
+- C221 | COVID Impact Reporting includes growth, proficiency, enrollment and mobility, and EL data.
+- C222 | ADE provides public datasets and reports that may be immediately downloaded and utilized.
+- C223 | Most downloadable documents on the Arizona Department of Education's Website require Adobe Acrobat Reader.
+- C224 | Arizona has 2,417 public schools.
+- C225 | There are 656 districts in the state of Arizona.
+- C226 | Arizona's 656 districts are comprised of 236 traditional districts and 420 charter districts.
+- C227 | Private schools will not have performance or other data displayed, just the address and contact information.
+- C228 | School districts are the strategic leadership of the schools and charter schools they oversee.
+- C229 | The selection of a school is an important decision for Arizona families.
+- C230 | State level reports provide an overview of Arizona's state make-up and performance through several metrics.
+- C231 | Arizona is a diverse state in its geographical beauty.
+- C232 | Title I, Part A of the Elementary and Secondary Education Act, as amended by the Every Student Succeeds Act (ESEA), provides financial assistance to local educational agencies (LEAs) and schools with high numbers or high percentages of children from low-income families.
+- C233 | The purpose of Title I, Part A is to help ensure that all children meet challenging state academic standards.
+- C234 | The Arizona Department of Education provides a 4-Week Letter Template resource for Title I-A.
+- C235 | The Arizona Department of Education provides Title I Homeless Set-Aside Guidance.
+- C236 | The Arizona Department of Education published October 1 Enrollment Data for Fiscal Year 2026.
+- C237 | The Arizona Department of Education provides ESEA Set Aside Guidance for Fiscal Year 2026.
+- C238 | The Arizona Department of Education published a Memorandum on Administration of the Alternative Form for Income Eligibility 1 and 2 as of July 2, 2025.
+- C239 | The Arizona Department of Education held Title I-A Office Hours on August 4, 2025.
+- C240 | Local educational agencies (LEAs) may translate the Income Eligibility Form into any language needed for the community they serve.
+- C241 | The Arizona Department of Education website is located at www.azed.gov.
+- C242 | The 2025 Every Student Succeeds Act (ESSA) Conference is hosted by the Arizona Department of Education.
+- C243 | Dr. Daniel Mulligan is a teacher who assists the Project Momentum Arizona initiative.
+- C244 | Diana started the first school when Diana struggled to find a quality school choice for Diana's son Sammy, who is on the autism spectrum.
+- C245 | The Arizona Assessments Conference features speakers who discuss how PK-12 educators can develop quality units of study that align standards, assessments, and instruction.
+- C246 | Larry worked as an upper elementary and middle school classroom teacher in demographically diverse schools in several U.S. states.
+- C247 | The Arizona Department of Education provides social studies resources including lessons with teacher editions, interactives, and content-related activities.
+- C248 | National Geographic Education provides quality video clips, articles, and lessons for K-12 history education.
+- C249 | ADE ESSER Set Aside Funds support providing high-quality books to establish home libraries for all enrolled preschool students in the Gila River Indian Reservation.
+- C250 | Arizona K-12 Center's New Teacher Mentoring program received $2.5 million in ESSER Set Aside funding.
+- C251 | The publication 'Thinking Reading: What Every Secondary Teacher Needs to Know About Reading' is recommended for effective instruction for middle school students.
+- C252 | NASN emphasizes the role of school nurses in providing quality health care to students, addressing both physical and mental health.
+- C253 | Nemours KidsHealth provides a Health Education Teacher's Guide for PreK-12 grades.
+- C254 | The Arizona School Nurse Access Program (ASAP) Mentor serves as a role model, teacher, coach, and advisor for newly hired ASAP school nurses.
+- C255 | The Arizona Department of Education offers programs in Academic Achievement, Adult Education, Career & Technical Education, Educator Leadership, Gifted/Advanced Learning, Health & Nutrition Services, Office of Indian Education, and Special Education.
+- C256 | A school associated with Dr. Daniel Mulligan was recognized as a National Title I Distinguished School.
+- C257 | ADE ESSER Set Aside Funds support educational outcomes of at-risk students attending Title I schools in Maricopa County.
+- C258 | Liberty Elementary District is one of the Maricopa County school districts with a 4-day school week in 2023-2024.
+- C259 | Cartwright Elementary District is one of the Maricopa County school districts with a 4-day school week in 2023-2024.
+- C260 | Arlington Elementary District is one of the Maricopa County school districts with a 4-day school week in 2023-2024.
+- C261 | Teacher quality data for 2024 from Arizona School Report Cards has not been located in validated claims.
+- C262 | The task requires identifying districts with at least 1200 students enrolled in 2023-2024.
+- C263 | The task requires identifying districts with 25% or less inexperienced core teachers, principals, and school leaders in Title I schools according to Arizona School Report Cards 2024.
+- C264 | No validated claims contain the percentage of inexperienced core teachers, principals, and school leaders in Title I schools for 2024 from Arizona School Report Cards.
+- C265 | The Wayback Machine archive of the Copper Courier article should be attempted to obtain the complete list of 4-day week districts.
+- C266 | The current Copper Courier website is blocked and cannot be accessed for the 4-day week district list.
+- C267 | The task cannot be completed based on current validated claims due to missing critical information.
+- C268 | Three essential data components are missing: complete 4-day week district list, enrollment analysis for the nine districts, and 2024 teacher quality metrics for Title I schools.
+- C269 | It is impossible to identify which districts meet all four task criteria without the complete 4-day week district list, parsed enrollment data, and 2024 teacher quality metrics for Title I schools.
+- C270 | Arizona Revised Statutes § 15-241 requires the Arizona Department of Education to develop an annual achievement profile for every public school in the state based on an A through F scale.
+- C271 | The Arizona A-F accountability system measures year to year student academic growth, proficiency on English language arts, math and science.
+- C272 | The federal Every Student Succeeds Act (ESSA) requires states to identify schools for Comprehensive Support and Improvement (CSI) for overall low student achievement or low graduation rate.
+- C273 | Schools are identified for federal accountability every three years.
+- C274 | Schools are identified for CSI-Low Achievement based on prior school year data every three years and were last identified in the Fall of 2025.
+- C275 | Schools are identified for ATSI based on prior school year data every six years and were last identified in the Fall of 2022.
+- C276 | Schools are identified annually for TSI based on data from the prior three school years.
+- C277 | Targeted Support and Improvement Schools are any school in the state in which any subgroup of students (minimum of 20), on its own, would lead to identification as a CSI school.
+- C278 | Comprehensive Support and Improvement Schools are the lowest-performing 5 percent (minimum) of all schools receiving Title 1 funds.
+- C279 | CSI schools are required to complete a comprehensive needs assessment, root cause analyses and Integrated Action Plan to improve student achievement and graduation rates.
+- C280 | Exit criteria for CSI (low achievement) includes a minimum of two consecutive years of increased student proficiency on the state assessment.
+- C281 | CSI schools that do not exit within four years will be subject to more rigorous State-determined action.
+- C282 | Exit criteria for additional targeted support schools includes a minimum of two years of consecutive increased subgroup achievement.
+- C283 | CSI identification for ATSI schools will occur after 4 years.
+- C284 | Both traditional school models require schools to have 10 FAY students in each indicator to be eligible to earn the points.
+- C285 | K-8 Acceleration/Readiness grades 5-8 EOC does not require FAY N-size of 10.
+- C286 | Special Education enrollment bonus points does not require FAY N-size of 10.
+- C287 | Graduation Rate requires 10 students (FAY and Non-FAY) in the 4-year cohort.
+- C288 | More than 1,111,000 students attend publicly funded K-12 schools in Arizona.
+- C289 | 47,719 teachers work in district K-12 schools in Arizona.
+- C290 | 9,924 teachers work in charter schools in Arizona.
+- C291 | There are an additional 51,644 certified teachers in Arizona that are serving in positions outside of a classroom or may not be working within education.
+- C292 | A Career & Technical Education District (CTED) is a school district that offers high school career and technical education programs to partner districts.
+- C293 | The State of Arizona identifies a student in grades 1 to 8 as chronically absent if the student misses more than 10% of the school's calendar days.
+- C294 | A typical school calendar is 180 days, therefore a student would need to miss in excess of 18 days to be considered chronically absent.
+- C295 | The Four-year graduation rate is the percentage of students who graduated within the first 4 years of enrolling in high school.
+- C296 | Arizona Revised Statutes §15-701.01 requires students (beginning with the graduating class of 2017) to pass The Arizona Civics Test in order to graduate from high school or obtain a high school equivalency certificate.
+- C297 | The Arizona Civics Test is made up of 100 multiple choice questions.
+- C298 | The Arizona Civics Test is based on the Civics portion of the Naturalization Test published by the United States Citizenship and Immigration Services (USCIS).
+- C299 | Arizona defines inexperienced educators as having less than 3 years of experience in their position as self-reported by the school or district.
+- C300 | A Title I school is a school receiving federal funds for Title I students.
+- C301 | The law allows, but does not require, teachers at public charter schools to maintain teaching certifications.
+- C302 | Emergency certification in Arizona is a process used by the state to grant temporary teaching certificates to individuals who do not meet the teacher certification requirements.
+- C303 | Out of Field teachers are not certified for the subject area they are teaching.
+- C304 | The National Assessment of Educational Progress (NAEP) is the only assessment that measures what U.S. students know and can do in various subjects across the nation, states, and in some urban districts.
+- C305 | The Arizona Department of Education has developed English Language Proficiency (ELP) Standards for English Learners attending either a public district school or public charter school in Arizona.
+- C306 | A student achieves English language proficiency by reaching certain benchmarks on the Arizona English Language Learner Assessment (AZELLA).
+- C307 | AZELLA is Arizona's assessment that measures student English language development.
+- C308 | Growth is determined using student growth percentiles, a ranking from 1 to 99 that measures a student's academic progress on the statewide assessment in Math or English Language Arts compared to the performance of his/her academic peers.
+- C309 | Academic peers are determined based on a student's previous scoring history.
+- C310 | Arizona's State Board of Education-approved tool for ongoing progress monitoring of preschool aged children is Teaching Strategies GOLD (TSG).
+- C311 | In March of the 2019-2020 school year, all Arizona school campuses were closed due to the COVID-19 pandemic.
+- C312 | The Arizona State Board of Education voted not to administer the statewide assessments for the 2019-2020 school year.
+- C313 | The Arizona State Board of Education voted to carry a school's 2018-2019 A-F letter grade forward for the 2019-2020 school year.
+- C314 | A.R.S. § 15-741 Section 2 prohibits ADE from assigning letter grades for the 2020-2021 school year.
+- C315 | The Civil Rights Data Collection (CRDC) is a survey of all public schools and school districts in the United States.
+- C316 | The CRDC is completed and managed by the United States Department of Education.
+- C317 | The CRDC measures student access to courses, programs, staff, and resources that impact education equity and opportunity for students.
+- C318 | Arizona's Alternate Assessment System consists of the Multi-State Alternate Assessment (MSAA) which is administered in Grades 3-8 and 11 in the content areas of ELA and Mathematics.
+- C319 | MSAA Science is administered in grades 4, 8 and 10.
+- C320 | MSAA assessments are designed for students with significant cognitive disabilities.
+- C321 | Funding for Arizona public schools is driven primarily by student enrollment, generally increasing and decreasing with the number of students served.
+- C322 | Students with certain special education needs generate more funding than students without special education needs.
+- C323 | English Learners receive add-on funding in Arizona.
+- C324 | Small school districts and charter organizations are provided greater funding per student than their larger counterparts.
+- C325 | School districts can raise funds through local property taxes and can seek voter-approval to increase funding.
+- C326 | Charters do not have the ability to levy local property taxes and instead receive a higher per-pupil allocation from the state.
+- C327 | School Improvement Funds are awarded through a competitive grant process to support low performing schools' work to improve student achievement.
+- C328 | All school improvement expenditures must align with schools' Integrated action plans and demonstrate significant impact on improving student outcomes in accordance with the requirements set by the federal Every Student Succeeds Act (ESSA).
+- C329 | The Arts Education Data Project is a report by the Arizona Department of Education, the Arizona Commission on the Arts, and Arizona Citizens for the Arts.
+- C330 | The Physical Education Data Project is a report by the Arizona Department of Education that offers new insights into K-12 physical education instruction in Arizona schools.
+- C331 | The Physical Education Data Project is the first of its kind in the nation.
+- C332 | Accountability & Research can be contacted at (602) 542-5151.
+- C333 | Accountability & Research can be contacted at Achieve@azed.gov.
+- C334 | Accountability aims to measure the growth in quality of Arizona schools and districts by producing timely and reliable accountability determinations as required by state and federal law.
+- C335 | Accountability Research conducts research and program evaluation on pertinent issues and programs related to education for the state of Arizona.
+- C336 | Data requests can be submitted to the Arizona Department of Education via the Data Request link.
+- C337 | Gila Bend Unified District (Gila Bend) adopted a 4-day school week as of the 2023-24 school year.
+- C338 | Morristown Elementary District (Morristown) adopted a 4-day school week as of the 2023-24 school year.
+- C339 | Nadaburg Unified District (Wittmann) adopted a 4-day school week as of the 2023-24 school year.
+- C340 | Palo Verde Elementary District (Palo Verde) adopted a 4-day school week as of the 2023-24 school year.
+- C341 | Saddle Mountain Unified District (Tonopah, Buckeye, Wintersburg) adopted a 4-day school week as of the 2023-24 school year.
+- C342 | Wickenburg Unified District (Wickenburg) adopted a 4-day school week as of the 2023-24 school year.
+- C343 | The October 1, 2024 enrollment data file contains enrollment data for the 2023-2024 school year (Fiscal Year 2024).
+- C344 | The October 1, 2024 enrollment data file contains a sheet named 'LEA by Gender' with district-level total enrollment data.
+- C345 | Cartwright Elementary District had 13,685 students enrolled in 2023-2024.
+- C346 | Cartwright Elementary District met the minimum 1,200 student enrollment threshold for 2023-2024.
+- C347 | Liberty Elementary District had 4,438 students enrolled in 2023-2024.
+- C348 | Liberty Elementary District met the minimum 1,200 student enrollment threshold for 2023-2024.
+- C349 | Wickenburg Unified District had 1,246 students enrolled in 2023-2024.
+- C350 | Wickenburg Unified District met the minimum 1,200 student enrollment threshold for 2023-2024.
+- C351 | Arlington Elementary District had 301 students enrolled in 2023-2024.
+- C352 | Arlington Elementary District did not meet the minimum 1,200 student enrollment threshold for 2023-2024.
+- C353 | Gila Bend Unified District had 516 students enrolled in 2023-2024.
+- C354 | Gila Bend Unified District did not meet the minimum 1,200 student enrollment threshold for 2023-2024.
+- C355 | Morristown Elementary District had 142 students enrolled in 2023-2024.
+- C356 | Morristown Elementary District did not meet the minimum 1,200 student enrollment threshold for 2023-2024.
+- C357 | Palo Verde Elementary District had 480 students enrolled in 2023-2024.
+- C358 | Palo Verde Elementary District did not meet the minimum 1,200 student enrollment threshold for 2023-2024.
+- C359 | Nadaburg Unified District was not found in the October 1, 2024 enrollment data file.
+- C360 | Saddle Mountain Unified District was not found in the October 1, 2024 enrollment data file.
+- C361 | AZ School Report Cards website does not provide district-level downloadable files for teacher quality metrics.
+- C362 | AZ School Report Cards state-level page shows a 'Teacher Qualification' section with 'Inexperienced Core Academic Teachers, Principals, and School Leaders'.
+- C363 | Title I program page on azed.gov does not contain teacher quality metrics data or reports.
+- C364 | Title I program page shows Title I eligibility forms, allocation data, and income eligibility forms.
+- C365 | Search for 'teacher quality 2024' on azed.gov returned 7 results.
+- C366 | The crawl4ai library encountered a navigation failure when attempting to access the Wickenburg Unified District page on the Arizona report cards website.
+- C367 | Publishers have restricted access to 500,000+ books on Internet Archive.
+- C368 | There is a Change.org petition asking publishers to restore access to 500,000+ books.
+- C369 | The Wayback Machine has saved more than 1 trillion web pages over time.
+- C370 | Internet Archive's Terms of Service were last updated on December 31, 2014.
+- C371 | Internet Archive offers an Archive-It subscription service for building collections.
+- C372 | Internet Archive provides a 'Save Page Now' feature to capture web pages as trusted citations.
+- C373 | Internet Archive hosts images from the Metropolitan Museum and Cleveland Museum of Art.
+- C374 | Internet Archive hosts text collections including American Libraries and Canadian Libraries.
+- C375 | The Wayback Machine has not archived the URL https://azreportcards.azed.gov/districts/.
+- C376 | District-level teacher quality metrics for Title I schools are not available in downloadable format from AZ School Report Cards.
+- C377 | The task cannot be completed due to missing teacher qualification data for the three enrollment-qualifying districts.
+- C378 | The critical missing data is the 2024 teacher qualification percentages for Title I schools in the three enrollment-qualifying districts.
+- C379 | Six districts with 4-day school weeks did not meet the 1,200 student enrollment threshold.
+- C380 | Nadaburg Unified District enrollment data was not found in the 2023-2024 enrollment records.
+- C381 | Saddle Mountain Unified District enrollment data was not found in the 2023-2024 enrollment records.
+- C382 | Browser automation capabilities are not available in the current toolset for accessing AZ School Report Cards data.
+- C383 | The task requires percentages for teachers with emergency credentials in Title I schools from AZ School Report Cards 2024.
+- C384 | The task criteria include a maximum threshold of 25% for inexperienced educators in Title I schools.
+- C385 | The Arizona Department of Education publishes state assessment results, graduation rates, dropout rates, and enrollment data.
+- C386 | Arizona enrollment reports include the number of students enrolled on the October 1 reporting date.
+- C387 | The task objective is to identify which Maricopa County school districts with 4-day school weeks in 2023-2024 had at least 1,200 students, at most 25% inexperienced core teachers/principals/leaders in Title I schools (AZ School Report Cards 2024), and at most 5% teachers with emergency credentials in Title I schools (AZ School Report Cards 2024).
+- C388 | Nine Maricopa County school districts had 4-day school weeks in 2023-2024: Arlington Elementary, Cartwright Elementary, Gila Bend Unified, Liberty Elementary, Morristown Elementary, Nadaburg Unified, Palo Verde Elementary, Saddle Mountain Unified, and Wickenburg Unified.
+- C389 | Browser automation capabilities needed to access JavaScript-rendered data are not available.
+- C390 | Direct web access to district report cards fails.
+- C391 | Without the specific teacher qualification metrics, it is impossible to determine which districts meet the criteria of at most 25% inexperienced educators and at most 5% emergency credentials in their Title I schools.
+- C392 | The enrollment qualification threshold is at least 1,200 students.
+- C393 | The inexperienced educator threshold for Title I schools is 25% or fewer.
+- C394 | The emergency credential threshold for Title I schools is 5% or fewer.
+- C395 | The teacher quality metrics must come from Arizona School Report Cards 2024.

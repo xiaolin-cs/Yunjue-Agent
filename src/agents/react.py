@@ -67,6 +67,7 @@ class ReActAgent:
         failure_report: str = None,
         context_summary: str = None,
         query_id: str = None,
+        exp_name: str = None,
     ):
         """
         ReAct-style agent built with LangGraph.
@@ -96,7 +97,7 @@ class ReActAgent:
         self.failure_report = failure_report
         self.context_summary = context_summary
         self.query_id = query_id
-        self.memory_analyzer = MemoryAnalyzer(self._llm_base, query_id)
+        self.memory_analyzer = MemoryAnalyzer(self._llm_base, query_id, exp_name=exp_name)
         workflow = StateGraph(AgentState)
 
         workflow.add_node("agent", self.call_model)
@@ -156,13 +157,13 @@ class ReActAgent:
 
     def _update_task_status(self, msg: HumanMessage) -> None:
         text = ReActAgent._human_message_text(msg)
-        logger.info(f"update_task_status: text: {text}")
+        # logger.info(f"update_task_status: text: {text}")
         if "# Current Instruction" in text:
             tid = self.memory_analyzer.parse_instruction_task_id_from_snapshot_text(text)
-            logger.info(f"update_task_status: tid: {tid}")
+            # logger.info(f"update_task_status: tid: {tid}")
             if tid:
                 self.memory_analyzer.mark_task_done_in_tasks_json(tid)
-                logger.info(f"update_task_status: mark_task_done_in_tasks_json: {tid}")
+                # logger.info(f"update_task_status: mark_task_done_in_tasks_json: {tid}")
 
     # def _strip_previsous_snapshot_and_following_ai(self, messages: List[BaseMessage]) -> List[BaseMessage]:
     #     """Drop prior messages with name 'Progress' and the AIMessage immediately after each; mark task done when applicable."""
@@ -330,6 +331,7 @@ class ReActAgent:
         if tool_calls:
             # Allow entering tools only if we haven't exhausted the tool-step budget.
             if self.max_steps is not None and tool_steps >= self.max_steps:
+                logger.warning(f"Tool step limit exceeded ({tool_steps} >= {self.max_steps}), routing to end node")
                 return END
             return "tools"
         
@@ -340,6 +342,7 @@ class ReActAgent:
             self.user_query,
             self.tools,
         ))
+        logger.warning("No tool calls detected, routing to end node")
         return END
 
     def invoke(self, inputs, config=None):
