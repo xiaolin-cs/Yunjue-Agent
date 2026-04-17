@@ -64,3 +64,4 @@ legacy/
 *.yaml
 *.yml
 *.zip
+*snapshot.md
