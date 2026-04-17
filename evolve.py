@@ -496,7 +496,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Train the model")
     parser.add_argument("--batch_size", type=int, default=5, help="Batch size")
     parser.add_argument(
-        "--dataset", type=str, default="GAIA-valid", help="Dataset name (e.g., 'GAIA-valid', 'GAIA-test')"
+        "--dataset",
+        type=str,
+        default="DEEPSEARCHQA",
+        help=(
+            "Dataset name "
+            "(supported: 'HLE', 'XBENCH-deepsearch', 'XBENCH-scienceqa', "
+            "'XBENCH-all', 'DEEPSEARCHQA', 'DEEPRESEARCH', 'FINSEARCHCOMP')"
+        ),
     )
     parser.add_argument(
         "--train_steps",

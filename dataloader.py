@@ -318,12 +318,42 @@ def load_finsearchcomp_dataset(batch_size: int) -> Iterator[dict]:
         yield {"data_items": data_items}
 
 
+def load_deepresearch_dataset(batch_size: int) -> Iterator[dict]:
+    dataset_path = DATASET_ROOT / "DEEPRESEARCH" / "data" / "prompt_data" / "query.jsonl"
+    if not dataset_path.exists():
+        raise FileNotFoundError(f"DEEPRESEARCH dataset file not found: {dataset_path}")
+
+    items = []
+    with open(dataset_path, "r", encoding="utf-8") as f:
+        for line_no, line in enumerate(f, start=1):
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                entry = json.loads(line)
+            except json.JSONDecodeError as exc:
+                raise ValueError(f"Invalid JSON in DEEPRESEARCH dataset at line {line_no}: {exc}") from exc
+
+            query = entry.get("prompt")
+            if not isinstance(query, str) or not query.strip():
+                continue
+            task_id = str(entry.get("id", line_no))
+            items.append((task_id, query))
+
+    for i in range(0, len(items), batch_size):
+        batch_items = items[i : i + batch_size]
+        data_items = [{"task_id": task_id, "query": query} for task_id, query in batch_items]
+        yield {"data_items": data_items}
+
+
 def load_dataset(dataset: str, batch_size: int) -> Iterator[dict]:
     """
     Load dataset based on the dataset name.
 
     Args:
-        dataset: Dataset name ('GAIA-valid', 'GAIA-test', 'HLE', etc.)
+        dataset: Dataset name
+            ('HLE', 'XBENCH-deepsearch', 'XBENCH-scienceqa', 
+             'DEEPSEARCHQA', 'DEEPRESEARCH', 'FINSEARCHCOMP', etc.)
         batch_size: Number of queries per batch
 
     Returns:
@@ -340,6 +370,8 @@ def load_dataset(dataset: str, batch_size: int) -> Iterator[dict]:
         return load_xbench_dataset(batch_size, type="all")
     elif dataset == "DEEPSEARCHQA":
         return load_deepsearchqa_dataset(batch_size)
+    elif dataset == "DEEPRESEARCH":
+        return load_deepresearch_dataset(batch_size)
     elif dataset == "FINSEARCHCOMP":
         return load_finsearchcomp_dataset(batch_size)
     else:

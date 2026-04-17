@@ -9,11 +9,12 @@ Usage:
 Supported Datasets:
   HLE
   XBENCH-deepsearch, XBENCH-scienceqa, XBENCH-all
-  DEEPSEARCHQA, FINSEARCHCOMP
+  DEEPSEARCHQA, DEEPRESEARCH, FINSEARCHCOMP
 
 Examples:
   ./evolve.sh --dataset HLE --run_name hle_run --batch_size 4 --start 10 --train_steps 20 --merge_policy naive
   ./evolve.sh --dataset DEEPSEARCHQA --run_name dsqa_run --batch_size 5 --timeout 600
+  ./evolve.sh --dataset DEEPRESEARCH --run_name dr_run --batch_size 5 --timeout 600
   ./evolve.sh --dataset FINSEARCHCOMP --run_name finsearchcomp_run --batch_size 5 --timeout 600
 EOF
 }
