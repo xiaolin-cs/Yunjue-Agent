@@ -50,6 +50,8 @@ async def run_task(
 ):
     if not user_input:
         raise ValueError("Input could not be empty")
+    # Some datasets provide numeric IDs; normalize to string to keep runnable tags homogeneous.
+    task_id = str(task_id)
 
     graph = builder.compile()
     # Set task_id in context for this coroutine

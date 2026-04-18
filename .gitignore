@@ -31,7 +31,6 @@ conf.yaml
 # coverage report
 coverage.xml
 coverage/
-dataset/
 downloads/
 
 checkpoints/
@@ -64,4 +63,16 @@ legacy/
 *.yaml
 *.yml
 *.zip
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.tiff
+*.ico
+*.webp
+*.svg
+*.eps
+*.pdf
+*.docx
 *snapshot.md

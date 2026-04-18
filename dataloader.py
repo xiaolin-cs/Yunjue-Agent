@@ -1,10 +1,13 @@
 import base64
+import csv
+import hashlib
 import imghdr
 import json
 import mimetypes
 import os
 import re
-from io import BytesIO
+import urllib.request
+from io import BytesIO, StringIO
 from pathlib import Path
 from typing import Any, Dict, Iterable, Iterator, List
 
@@ -205,6 +208,56 @@ def _prepare_deepsearchqa_dataset(dataset_path: Path) -> None:
     _write_json(dataset_path, items)
 
 
+def _browsecomp_derive_key(password: str, length: int) -> bytes:
+    hasher = hashlib.sha256()
+    hasher.update(password.encode())
+    key = hasher.digest()
+    return key * (length // len(key)) + key[: length % len(key)]
+
+
+def _browsecomp_decrypt(ciphertext_b64: str, password: str) -> str:
+    if not ciphertext_b64:
+        return ""
+    try:
+        encrypted = base64.b64decode(ciphertext_b64)
+    except Exception:
+        return ciphertext_b64
+    if not password:
+        return encrypted.decode("utf-8", errors="replace")
+    key = _browsecomp_derive_key(password, len(encrypted))
+    decrypted = bytes(a ^ b for a, b in zip(encrypted, key))
+    return decrypted.decode("utf-8", errors="replace")
+
+
+BROWSECOMP_CSV_URL = (
+    "https://openaipublic.blob.core.windows.net/simple-evals/browse_comp_test_set.csv"
+)
+
+
+def _prepare_browsecomp_dataset(dataset_path: Path) -> None:
+    _ensure_parent_dir(dataset_path)
+    with urllib.request.urlopen(BROWSECOMP_CSV_URL) as response:
+        csv_bytes = response.read()
+    csv_text = csv_bytes.decode("utf-8")
+    reader = csv.DictReader(StringIO(csv_text))
+    items: List[Dict[str, Any]] = []
+    for idx, row in enumerate(reader):
+        canary = row.get("canary") or ""
+        problem = _browsecomp_decrypt(row.get("problem", ""), canary)
+        answer = _browsecomp_decrypt(row.get("answer", ""), canary)
+        problem_topic = _browsecomp_decrypt(row.get("problem_topic", ""), canary) if row.get("problem_topic") else ""
+        item = {
+            "task_id": str(idx),
+            "task_question": problem,
+            "ground_truth": answer,
+            "metadata": {
+                "problem_topic": problem_topic,
+            },
+        }
+        items.append(item)
+    _write_json(dataset_path, items)
+
+
 def _prepare_finsearchcomp_dataset(dataset_path: Path) -> None:
     from datasets import load_dataset  # type: ignore[import-not-found]
 
@@ -318,6 +371,18 @@ def load_finsearchcomp_dataset(batch_size: int) -> Iterator[dict]:
         yield {"data_items": data_items}
 
 
+def load_browsecomp_dataset(batch_size: int) -> Iterator[dict]:
+    dataset_path = DATASET_ROOT / "BROWSECOMP" / "browsecomp.json"
+    if not dataset_path.exists():
+        _prepare_browsecomp_dataset(dataset_path)
+    with open(dataset_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    for i in range(0, len(data), batch_size):
+        batch_items = data[i : i + batch_size]
+        data_items = [{"task_id": item["task_id"], "query": item["task_question"]} for item in batch_items]
+        yield {"data_items": data_items}
+
+
 def load_deepresearch_dataset(batch_size: int) -> Iterator[dict]:
     dataset_path = DATASET_ROOT / "DEEPRESEARCH" / "data" / "prompt_data" / "query.jsonl"
     if not dataset_path.exists():
@@ -353,7 +418,7 @@ def load_dataset(dataset: str, batch_size: int) -> Iterator[dict]:
     Args:
         dataset: Dataset name
             ('HLE', 'XBENCH-deepsearch', 'XBENCH-scienceqa', 
-             'DEEPSEARCHQA', 'DEEPRESEARCH', 'FINSEARCHCOMP', etc.)
+             'DEEPSEARCHQA', 'DEEPRESEARCH', 'FINSEARCHCOMP', 'BROWSECOMP', etc.)
         batch_size: Number of queries per batch
 
     Returns:
@@ -374,5 +439,7 @@ def load_dataset(dataset: str, batch_size: int) -> Iterator[dict]:
         return load_deepresearch_dataset(batch_size)
     elif dataset == "FINSEARCHCOMP":
         return load_finsearchcomp_dataset(batch_size)
+    elif dataset == "BROWSECOMP":
+        return load_browsecomp_dataset(batch_size)
     else:
         raise ValueError(f"Unknown dataset: {dataset}")
