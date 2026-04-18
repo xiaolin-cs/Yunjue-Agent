@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Unified evaluation entrypoint for DeepSearchQA, XBench, HLE, and others."""
+"""Unified evaluation entrypoint for DeepSearchQA, XBench, HLE, BrowseComp, and others."""
 
 from __future__ import annotations
 
@@ -574,6 +574,8 @@ def _resolve_eval_model(benchmark: str, override: Optional[str]) -> Optional[str
         return "claude-haiku-4-5"
     if benchmark == "hle":
         return "claude-sonnet-4-5-20250929"
+    if benchmark == "browsecomp":
+        return "claude-sonnet-4-5-20250929"
     return None
 
 
@@ -959,7 +961,17 @@ def _load_dsqa_ground_truth(dataset_path: Path) -> pd.DataFrame:
     required_cols = {"example_id", "problem", "answer", "answer_type", "problem_category"}
     missing = required_cols - set(df.columns)
     if missing:
-        raise ValueError(f"Ground truth missing columns: {missing}")
+        cols = set(df.columns)
+        if {"task_id", "task_question", "ground_truth"}.issubset(cols):
+            raise ValueError(
+                f"Dataset at {dataset_path} looks like a BrowseComp/XBench-style file "
+                f"(has task_id/task_question/ground_truth). Re-run with "
+                f"--benchmark browsecomp (or --benchmark xbench) instead of --benchmark dsqa."
+            )
+        raise ValueError(
+            f"Ground truth missing columns: {missing}. Found columns: {sorted(cols)}. "
+            f"Check that --dataset points to a DSQA-formatted file."
+        )
     df["example_id"] = df["example_id"].astype(str)
     return df
 
@@ -1450,6 +1462,316 @@ def _run_xbench(
 
 
 ###################################################
+# BrowseComp evaluator
+###################################################
+
+BROWSECOMP_JUDGE_PROMPT = """Judge whether the following [response] to [question] is correct or not based on the precise and unambiguous [correct_answer] below.
+
+[question]: {question}
+
+[correct_answer]: {correct_answer}
+
+[response]: {response}
+
+Your judgement must be in the format and criteria specified below:
+
+extracted_final_answer: The final exact answer extracted from the [response]. Put the extracted answer as 'None' if there is no exact, final answer to extract from the response.
+
+reasoning: Explain why the extracted_final_answer is correct or incorrect based on [correct_answer], focusing only on if there are meaningful differences between [correct_answer] and the extracted_final_answer. Do not comment on any background to the problem, do not attempt to solve the problem, do not argue for any answer different than [correct_answer], focus only on whether the answers match.
+
+correct: Answer 'yes' if extracted_final_answer matches the [correct_answer] given above, or is within a small margin of error for numerical problems. Answer 'no' otherwise, i.e. if there is any inconsistency, ambiguity, non-equivalency, or if the extracted answer is incorrect.
+
+confidence: The extracted confidence score between 0% and 100% from [response]. Put 100 if there is no confidence score available.""".strip()
+
+
+@dataclass
+class BrowseCompResult:
+    question_id: str
+    question: str
+    topic: str
+    correct_answer: str
+    prediction: str
+    extracted_answer: str
+    score: int
+    confidence: int
+    reasoning: str
+    judge_response: str
+    api_error: bool
+
+    def to_dict(self) -> Dict[str, Any]:
+        return asdict(self)
+
+
+def _load_browsecomp_ground_truth(dataset_path: Path) -> Dict[str, Dict[str, Any]]:
+    with dataset_path.open("r", encoding="utf-8") as f:
+        data = json.load(f)
+    ground_truth: Dict[str, Dict[str, Any]] = {}
+    for idx, item in enumerate(data):
+        question_id = str(item.get("task_id") or item.get("id") or idx)
+        question_text = item.get("task_question") or item.get("question") or ""
+        answer = item.get("ground_truth") or item.get("answer") or ""
+        topic = "Unknown"
+        metadata = item.get("metadata")
+        if isinstance(metadata, dict):
+            topic = metadata.get("problem_topic") or metadata.get("topic") or topic
+        ground_truth[question_id] = {
+            "question": question_text,
+            "answer": answer,
+            "topic": topic,
+        }
+    return ground_truth
+
+
+def _load_browsecomp_predictions(predictions_path: Path) -> Dict[str, str]:
+    predictions: Dict[str, str] = {}
+    with predictions_path.open("r", encoding="utf-8") as f:
+        for line_num, line in enumerate(f, 1):
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                data = json.loads(line)
+            except json.JSONDecodeError as exc:
+                logger.warning("Failed to parse line %s: %s", line_num, exc)
+                continue
+
+            question_id = str(data.get("question_index") or data.get("task_id") or data.get("id") or "")
+            prediction = data.get("prediction", "")
+            if isinstance(prediction, dict):
+                prediction = prediction.get("final_answer", "")
+            elif isinstance(prediction, str):
+                try:
+                    pred_dict = json.loads(prediction)
+                    if isinstance(pred_dict, dict):
+                        prediction = pred_dict.get("final_answer", prediction)
+                except json.JSONDecodeError:
+                    pass
+            predictions[question_id] = str(prediction) if prediction is not None else ""
+    return predictions
+
+
+def _parse_browsecomp_judge_response(judge_response: str) -> Tuple[int, str, int, str]:
+    """Return (score, extracted_final_answer, confidence, reasoning)."""
+    if not judge_response:
+        return 0, "", 0, ""
+
+    extracted_match = re.search(
+        r"extracted_final_answer\s*:\s*(.*?)(?=\n\s*(?:reasoning|correct|confidence)\s*:|\Z)",
+        judge_response,
+        re.DOTALL | re.IGNORECASE,
+    )
+    extracted_answer = extracted_match.group(1).strip() if extracted_match else ""
+
+    reasoning_match = re.search(
+        r"reasoning\s*:\s*(.*?)(?=\n\s*(?:correct|confidence|extracted_final_answer)\s*:|\Z)",
+        judge_response,
+        re.DOTALL | re.IGNORECASE,
+    )
+    reasoning = reasoning_match.group(1).strip() if reasoning_match else ""
+
+    correct_match = re.search(r"correct\s*:\s*(yes|no)", judge_response, re.IGNORECASE)
+    score = 1 if (correct_match and correct_match.group(1).lower() == "yes") else 0
+
+    confidence_match = re.search(r"confidence\s*:\s*(\d+)", judge_response)
+    confidence = int(confidence_match.group(1)) if confidence_match else 100
+    confidence = max(0, min(confidence, 100))
+
+    return score, extracted_answer, confidence, reasoning
+
+
+def _grade_browsecomp_question(
+    llm: AnthropicChatModel,
+    question_text: str,
+    correct_answer: str,
+    prediction: str,
+) -> Tuple[int, str, int, str, str, bool]:
+    """Return (score, extracted_answer, confidence, reasoning, judge_response, api_error)."""
+    if prediction is None or not str(prediction).strip():
+        return 0, "", 0, "Response was empty", "", False
+
+    judge_prompt = BROWSECOMP_JUDGE_PROMPT.format(
+        question=question_text,
+        correct_answer=correct_answer,
+        response=prediction,
+    )
+
+    judge_response = ""
+    for i in range(3):
+        try:
+            judge_response = llm.invoke(
+                messages=[{"role": "user", "content": judge_prompt}]
+            ).content
+            break
+        except Exception as exc:
+            logger.error("BrowseComp judge LLM call failed (attempt %s/3): %s", i + 1, exc)
+            if i == 2:
+                return 0, "", 0, f"Judge response error: {exc}", "", True
+            time.sleep(1 + (2 ** (i + random.random())))
+
+    if not judge_response:
+        return 0, "", 0, "Judge response error: empty response", "", True
+
+    score, extracted_answer, confidence, reasoning = _parse_browsecomp_judge_response(judge_response)
+    return score, extracted_answer, confidence, reasoning, judge_response, False
+
+
+def _eval_single_browsecomp_worker(
+    args: Tuple[str, Dict[str, Any], str, Path, Optional[str]],
+) -> BrowseCompResult:
+    question_id, gt_item, prediction, config_path, model_override = args
+    llm, _ = build_eval_model(config_path, model_override=model_override)
+    try:
+        score, extracted, confidence, reasoning, judge_response, api_error = _grade_browsecomp_question(
+            llm, gt_item["question"], gt_item["answer"], prediction
+        )
+        return BrowseCompResult(
+            question_id=question_id,
+            question=gt_item["question"],
+            topic=gt_item.get("topic", "Unknown"),
+            correct_answer=gt_item["answer"],
+            prediction=prediction,
+            extracted_answer=extracted,
+            score=score,
+            confidence=confidence,
+            reasoning=reasoning,
+            judge_response=judge_response,
+            api_error=api_error,
+        )
+    except Exception as exc:
+        logger.error("Error evaluating BrowseComp question %s: %s", question_id, exc, exc_info=True)
+        return BrowseCompResult(
+            question_id=question_id,
+            question=gt_item["question"],
+            topic=gt_item.get("topic", "Unknown"),
+            correct_answer=gt_item["answer"],
+            prediction=prediction,
+            extracted_answer="",
+            score=0,
+            confidence=0,
+            reasoning=f"Error during evaluation: {exc}",
+            judge_response="",
+            api_error=True,
+        )
+
+
+def _run_browsecomp(
+    predictions_path: Path,
+    dataset_path: Path,
+    config_path: Path,
+    output_dir: Optional[Path],
+    max_workers: int,
+    model_override: Optional[str],
+) -> None:
+    if output_dir is None:
+        output_dir = predictions_path.parent
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    logger.info("Validating evaluation model config from %s", config_path)
+    _, eval_conf = build_eval_model(config_path, model_override=model_override)
+    logger.info("Using model: %s", eval_conf.get("model", "unknown"))
+    logger.info("Concurrent workers: %s", max_workers)
+
+    ground_truth = _load_browsecomp_ground_truth(dataset_path)
+    predictions = _load_browsecomp_predictions(predictions_path)
+    common_ids = set(ground_truth.keys()) & set(predictions.keys())
+    logger.info(
+        "Evaluating %d BrowseComp questions (Ground truth: %d, Predictions: %d)",
+        len(common_ids),
+        len(ground_truth),
+        len(predictions),
+    )
+    if not common_ids:
+        logger.warning("No common question IDs found between ground truth and predictions!")
+        return
+
+    tasks = [
+        (question_id, ground_truth[question_id], predictions[question_id], config_path, model_override)
+        for question_id in sorted(common_ids, key=lambda x: (len(x), x))
+    ]
+
+    results: List[BrowseCompResult] = []
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+        future_to_qid = {executor.submit(_eval_single_browsecomp_worker, task): task[0] for task in tasks}
+        with tqdm(total=len(tasks), desc="Evaluating BrowseComp") as pbar:
+            for future in concurrent.futures.as_completed(future_to_qid):
+                question_id = future_to_qid[future]
+                try:
+                    result = future.result()
+                    results.append(result)
+                    running_acc = np.mean([r.score for r in results]) if results else 0.0
+                    pbar.update(1)
+                    pbar.set_postfix({"accuracy": f"{running_acc:.2%}"})
+                except Exception as exc:
+                    logger.error("Error processing result for question %s: %s", question_id, exc)
+                    pbar.update(1)
+
+    results.sort(key=lambda r: (len(r.question_id), r.question_id))
+
+    total_questions = len(results)
+    total_gt = len(ground_truth)
+    num_correct = int(sum(r.score for r in results))
+    num_errors = int(sum(1 for r in results if r.api_error))
+    accuracy = (num_correct / total_questions) if total_questions else 0.0
+    confidence_half_width = (
+        1.96 * math.sqrt(accuracy * (1 - accuracy) / total_questions) if total_questions else 0.0
+    )
+
+    correct_arr = np.array([r.score for r in results], dtype=float) if results else np.array([])
+    confidence_arr = np.array([r.confidence for r in results], dtype=float) / 100.0 if results else np.array([])
+    calibration_error = (
+        float(_calib_err(confidence_arr, correct_arr, p="2", beta=100)) if len(correct_arr) else 0.0
+    )
+
+    topic_stats: Dict[str, Dict[str, Any]] = {}
+    for r in results:
+        topic = r.topic or "Unknown"
+        entry = topic_stats.setdefault(topic, {"total": 0, "correct": 0, "accuracy": 0.0})
+        entry["total"] += 1
+        entry["correct"] += int(r.score)
+    for topic, entry in topic_stats.items():
+        entry["accuracy"] = (entry["correct"] / entry["total"]) if entry["total"] else 0.0
+
+    summary = {
+        "benchmark_type": "browsecomp",
+        "model": eval_conf.get("model"),
+        "total_ground_truth": total_gt,
+        "total_predictions": len(predictions),
+        "evaluated": total_questions,
+        "correct": num_correct,
+        "accuracy": accuracy,
+        "accuracy_confidence_half_width_95": confidence_half_width,
+        "calibration_error": calibration_error,
+        "api_errors": num_errors,
+        "topic_stats": topic_stats,
+    }
+
+    timestamp = time.strftime("%Y%m%d_%H%M%S")
+    results_file = output_dir / f"browsecomp_results_{timestamp}.json"
+    summary_file = output_dir / f"browsecomp_summary_{timestamp}.json"
+    combined_output = output_dir / "browsecomp_evaluation.json"
+
+    results_file.write_text(
+        json.dumps([r.to_dict() for r in results], ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    summary_file.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
+    combined_output.write_text(
+        json.dumps(
+            {"summary": summary, "results": [r.to_dict() for r in results]},
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+
+    print("\n✓ BrowseComp evaluation complete!")
+    print(f"  Accuracy: {accuracy:.2%} ± {confidence_half_width:.2%} ({num_correct}/{total_questions})")
+    print(f"  Calibration Error: {calibration_error:.4f}")
+    print(f"  Results: {results_file}")
+    print(f"  Summary: {summary_file}")
+    print(f"  Combined: {combined_output}")
+
+
+###################################################
 # HLE evaluator
 ###################################################
 
@@ -1581,11 +1903,19 @@ def _hle_load_predictions(filepath: str) -> Dict[str, Any]:
 
 
 def _calib_err(confidence, correct, p="2", beta=100):
+    total_examples = len(confidence)
+    if total_examples == 0:
+        return 0.0
     idxs = np.argsort(confidence)
     confidence = confidence[idxs]
     correct = correct[idxs]
-    bins = [[i * beta, (i + 1) * beta] for i in range(len(confidence) // beta)]
-    bins[-1] = [bins[-1][0], len(confidence)]
+    # When we have fewer samples than `beta`, fall back to a single bin covering everything.
+    num_full_bins = total_examples // beta
+    if num_full_bins == 0:
+        bins = [[0, total_examples]]
+    else:
+        bins = [[i * beta, (i + 1) * beta] for i in range(num_full_bins)]
+        bins[-1] = [bins[-1][0], total_examples]
 
     cerr = 0
     total_examples = len(confidence)
@@ -1798,7 +2128,7 @@ def parse_args() -> argparse.Namespace:
         "--benchmark",
         type=str,
         required=True,
-        choices=["deepsearchqa", "dsqa", "xbench", "hle", "finsearchcomp"],
+        choices=["deepsearchqa", "dsqa", "xbench", "hle", "finsearchcomp", "browsecomp"],
         help="Benchmark type",
     )
     parser.add_argument("--predictions", type=str, required=True, help="Predictions path (JSONL/JSON)")
@@ -1841,6 +2171,18 @@ def main() -> None:
             config_path=args.config,
             output_dir=args.output_dir,
             n_repeats=args.n_repeats,
+            max_workers=args.max_workers,
+            model_override=model_override,
+        )
+        return
+
+    if benchmark == "browsecomp":
+        dataset_path = _require_path(args.dataset, "Dataset")
+        _run_browsecomp(
+            predictions_path=predictions_path,
+            dataset_path=dataset_path,
+            config_path=args.config,
+            output_dir=args.output_dir,
             max_workers=args.max_workers,
             model_override=model_override,
         )
