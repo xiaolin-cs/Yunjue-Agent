@@ -75,4 +75,5 @@ legacy/
 *.eps
 *.pdf
 *.docx
+*.embedding_models/
 *snapshot.md
