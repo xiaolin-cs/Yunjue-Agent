@@ -1,11 +1,16 @@
+import logging
 import re
+import subprocess
 import unicodedata
 import os
 import tqdm
 from math import sqrt
 from typing import Any, Dict, List, Optional, Tuple
 
+logger = logging.getLogger(__name__)
+
 _EMBEDDING_MODEL_CACHE: Dict[Tuple[str, str], Tuple[Any, Any]] = {}
+_DEFAULT_LOCAL_MODEL_DIR = os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, ".embedding_models")
 
 # =========================
 # Main entry
@@ -110,6 +115,11 @@ def normalize_english_contractions(text: str) -> str:
     return text
 
 
+def _get_local_model_dir(hf_model_id: str) -> str:
+    """Return the local save directory for a given model id (e.g. .embedding_models/Qwen3-Embedding-8B)."""
+    base = os.getenv("QWEN_EMBEDDING_CACHE_DIR") or os.path.realpath(_DEFAULT_LOCAL_MODEL_DIR)
+    return os.path.join(base, hf_model_id.replace("/", "--"))
+
 def get_qwen3_embeddings(
     texts: List[str],
     model: str = "Qwen3-Embedding-8B",
@@ -122,6 +132,7 @@ def get_qwen3_embeddings(
     try:
         import torch  # type: ignore[reportMissingImports]
         from transformers import AutoModel, AutoTokenizer  # type: ignore[reportMissingImports]
+        from huggingface_hub import snapshot_download
     except Exception as e:
         raise RuntimeError(
             "transformers and torch are required for local Qwen3 embeddings."
@@ -129,15 +140,24 @@ def get_qwen3_embeddings(
 
     normalized_texts = [normalize_text(text) for text in texts]
     hf_model_id = "Qwen/Qwen3-Embedding-8B" if model == "Qwen3-Embedding-8B" else model
-    cache_dir: Optional[str] = os.getenv("QWEN_EMBEDDING_CACHE_DIR")
+    model_dir = _get_local_model_dir(hf_model_id)
+    if not os.path.exists(model_dir) or not os.listdir(model_dir):
+        logger.info(f"Downloading Qwen3 embedding model to {model_dir}...")
+        snapshot_download(repo_id=hf_model_id, local_dir=model_dir, local_dir_use_symlinks=False)
+        
+    # cache_dir: Optional[str] = os.getenv("QWEN_EMBEDDING_CACHE_DIR")
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    cache_key = (hf_model_id, device)
+    cache_key = hf_model_id
 
     if cache_key not in _EMBEDDING_MODEL_CACHE:
-        tokenizer = AutoTokenizer.from_pretrained(hf_model_id, cache_dir=cache_dir)
-        embed_model = AutoModel.from_pretrained(hf_model_id, cache_dir=cache_dir)
+        tokenizer = AutoTokenizer.from_pretrained(model_dir, local_files_only=True)
+        embed_model = AutoModel.from_pretrained(
+            model_dir,
+            local_files_only=True,
+            device_map="auto" if device == "cuda" else "cpu",
+            torch_dtype=torch.float16,
+        )
         embed_model.eval()
-        embed_model.to(device)
         _EMBEDDING_MODEL_CACHE[cache_key] = (tokenizer, embed_model)
 
     tokenizer, embed_model = _EMBEDDING_MODEL_CACHE[cache_key]

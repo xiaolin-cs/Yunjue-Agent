@@ -191,15 +191,19 @@ class MemoryAnalyzer:
         """
         Dispatch snapshot: if any task is ``todo``, run ``snapshot_execute`` with the
         smallest-``task_id`` todo task; otherwise if no task is ``todo``, run ``snapshot_plan``.
+        Generates a snapshot as long as at least one of CLAIMS.json or TASKS.json exists.
         """
         _, tasks_path, claims_path = self._resolve_query_paths(query_id)
         if tasks_path is None or claims_path is None:
             return None
-        if not claims_path.exists():
+
+        claims_exists = claims_path.exists()
+        tasks_exists = tasks_path.exists()  
+        if not claims_exists and not tasks_exists:
             return None
 
-        claims = self._read_items_file(claims_path, "claims")
-        tasks = self._read_items_file(tasks_path, "tasks") if tasks_path.exists() else []
+        claims = self._read_items_file(claims_path, "claims") if claims_exists else []
+        tasks = self._read_items_file(tasks_path, "tasks") if tasks_exists else []
 
         current = self._pick_smallest_todo_task(tasks)
         if current is not None:
