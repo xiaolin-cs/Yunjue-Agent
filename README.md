@@ -23,7 +23,7 @@
 
 ---
 
-This repo is an official implementation of Yunjue Agent by Yunjue Technology. Our company is a cutting-edge technology company dedicated to building Self-Evolving AGI (Artificial General Intelligence) and wearable devices. We are a group of tireless explorers, with members from top AI laboratories and engineering teams. We are not satisfied with "static" large models—those with parameter matrices frozen after training completion. We believe that true intelligence lies not only in how much past knowledge is stored, but in the ability to adapt, learn, and create tools when facing an unknown future.
+This repo is an official implementation of Yunjue Agent + Harness Memory by Yunjue Technology. Our company is a cutting-edge technology company dedicated to building Self-Evolving AGI (Artificial General Intelligence) and wearable devices. We are a group of tireless explorers, with members from top AI laboratories and engineering teams. We are not satisfied with "static" large models—those with parameter matrices frozen after training completion. We believe that true intelligence lies not only in how much past knowledge is stored, but in the ability to adapt, learn, and create tools when facing an unknown future.
 
 We welcome connections of all kinds. For financing inquiries, technical exchanges, or to join our team, please contact qiweizhen@yunjuetech.com
 
