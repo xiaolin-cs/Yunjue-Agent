@@ -9,7 +9,7 @@ import subprocess
 from pathlib import Path
 from typing import Any, List, Optional
 
-from anthropic import AsyncAnthropic
+import boto3
 from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, ToolMessage
 
 from src.config.config import load_yaml_config
@@ -25,8 +25,8 @@ from src.utils.venv import ISOLATED_PYTHON_PATH
 
 logger = logging.getLogger(__name__)
 
-# Timeout for Anthropic code generation calls
-ANTHROPIC_CODEGEN_TIMEOUT_SECONDS = 20 * 60
+# Timeout for Bedrock code generation calls
+BEDROCK_CODEGEN_TIMEOUT_SECONDS = 20 * 60
 # Max retries when parsing LLM analysis outputs
 ANALYSIS_MAX_RETRIES = 3
 
@@ -38,10 +38,34 @@ def _get_codegen_config() -> dict:
     return conf.get("CODEX_MODEL") or conf.get("BASIC_MODEL") or {}
 
 
+def _call_bedrock_sync(model: str, region_name: str, max_tokens: int, temperature: float, prompt: str) -> str:
+    """Call AWS Bedrock converse API synchronously."""
+    client = boto3.client("bedrock-runtime", region_name=region_name)
+    response = client.converse(
+        modelId=model,
+        messages=[
+            {
+                "role": "user",
+                "content": [{"text": prompt}],
+            }
+        ],
+        inferenceConfig={
+            "maxTokens": max_tokens,
+            "temperature": temperature,
+        },
+    )
+    output_message = response.get("output", {}).get("message", {})
+    content_blocks = output_message.get("content", [])
+    text_parts = []
+    for block in content_blocks:
+        if "text" in block:
+            text_parts.append(block["text"])
+    return "".join(text_parts)
+
+
 async def call_codex_exec(prompt: str, output_file: str = None) -> tuple[str, bool]:
     """
-    Generate code using Anthropic API based on the prompt.
-    Replaces the OpenAI Codex CLI with native Anthropic code generation.
+    Generate code using AWS Bedrock API based on the prompt.
 
     Args:
         prompt: The prompt to send for code generation
@@ -56,49 +80,35 @@ async def call_codex_exec(prompt: str, output_file: str = None) -> tuple[str, bo
             logger.error("CODEX_MODEL or BASIC_MODEL not found in conf.yaml")
             return "", False
 
-        api_key = os.environ.get("ANTHROPIC_API_KEY")
-        if not api_key:
-            logger.error("api_key required in CODEX_MODEL/BASIC_MODEL or ANTHROPIC_API_KEY env")
-            return "", False
-
-        model = codegen_conf.get("model", "claude-sonnet-4-5-20250929")
-        max_tokens = codegen_conf.get("token_limit", codegen_conf.get("max_tokens", 16000))
+        model = codegen_conf.get("model", "us.anthropic.claude-sonnet-4-5-20250929-v1:0")
+        max_tokens = codegen_conf.get("max_tokens", min(codegen_conf.get("token_limit", 16000), 64000))
+        max_tokens = min(max_tokens, 64000)
         temperature = codegen_conf.get("temperature", 0.2)
-        base_url = codegen_conf.get("base_url")
+        region_name = codegen_conf.get("region_name", "us-west-2")
 
-        client_kwargs: dict = {"api_key": api_key}
-        if base_url:
-            client_kwargs["base_url"] = base_url
-
-        client = AsyncAnthropic(**client_kwargs)
-
-        logger.info(f"Calling Anthropic code generation with prompt length: {len(prompt)}")
+        logger.info(f"Calling Bedrock code generation with prompt length: {len(prompt)}")
         input_tokens = count_text_tokens(prompt)
 
-        response = await asyncio.wait_for(
-            client.messages.create(
-                model=model,
-                max_tokens=max_tokens,
-                temperature=temperature,
-                messages=[{"role": "user", "content": prompt}],
+        loop = asyncio.get_event_loop()
+        generated_code = await asyncio.wait_for(
+            loop.run_in_executor(
+                None,
+                _call_bedrock_sync,
+                model,
+                region_name,
+                max_tokens,
+                temperature,
+                prompt,
             ),
-            timeout=ANTHROPIC_CODEGEN_TIMEOUT_SECONDS,
+            timeout=BEDROCK_CODEGEN_TIMEOUT_SECONDS,
         )
-
-        generated_code = ""
-        if response.content:
-            for block in response.content:
-                if hasattr(block, "text"):
-                    generated_code += block.text
-                elif isinstance(block, dict) and block.get("type") == "text":
-                    generated_code += block.get("text", "")
 
         generated_code = generated_code.strip()
         output_tokens = count_text_tokens(generated_code)
-        logger.info(f"Anthropic codegen input tokens: {input_tokens}, output tokens: {output_tokens}")
+        logger.info(f"Bedrock codegen input tokens: {input_tokens}, output tokens: {output_tokens}")
 
         if not generated_code:
-            logger.warning("Anthropic codegen returned empty output")
+            logger.warning("Bedrock codegen returned empty output")
             return "", False
 
         # If output_file is specified, save the code to file
@@ -106,7 +116,7 @@ async def call_codex_exec(prompt: str, output_file: str = None) -> tuple[str, bo
             try:
                 code_blocks = re.findall(r"```python\s*(.*?)\s*```", generated_code, re.DOTALL)
                 if not code_blocks:
-                    logger.warning("No python code block found in Anthropic output")
+                    logger.warning("No python code block found in Bedrock output")
                     return "", False
 
                 generated_code = code_blocks[-1].strip()
@@ -142,10 +152,10 @@ async def call_codex_exec(prompt: str, output_file: str = None) -> tuple[str, bo
         return generated_code, True
 
     except asyncio.TimeoutError:
-        logger.error("Anthropic codegen timed out after %s seconds", ANTHROPIC_CODEGEN_TIMEOUT_SECONDS)
+        logger.error("Bedrock codegen timed out after %s seconds", BEDROCK_CODEGEN_TIMEOUT_SECONDS)
         return "", False
     except Exception as e:
-        logger.error(f"Error calling Anthropic codegen: {type(e).__name__}: {str(e)}")
+        logger.error(f"Error calling Bedrock codegen: {type(e).__name__}: {str(e)}")
         import traceback
 
         logger.error(traceback.format_exc())

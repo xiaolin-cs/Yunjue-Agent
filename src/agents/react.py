@@ -210,6 +210,7 @@ class ReActAgent:
         messages.insert(0, SystemMessage(content=system_prompt))
         snapshot_text = self.memory_analyzer.read_snapshot_md()
         if snapshot_text.strip():
+            logger.info(f"Adding snapshot message to context: {snapshot_text}")
             snapshot_message = HumanMessage(content=snapshot_text, name="Progress")
             self._update_task_status(snapshot_message)
             messages.append(snapshot_message)

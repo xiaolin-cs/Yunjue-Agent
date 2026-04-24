@@ -191,6 +191,7 @@ class MemoryAnalyzer:
         """
         Dispatch snapshot: if any task is ``todo``, run ``snapshot_execute`` with the
         smallest-``task_id`` todo task; otherwise if no task is ``todo``, run ``snapshot_plan``.
+
         Generates a snapshot as long as at least one of CLAIMS.json or TASKS.json exists.
         """
         _, tasks_path, claims_path = self._resolve_query_paths(query_id)
@@ -198,7 +199,7 @@ class MemoryAnalyzer:
             return None
 
         claims_exists = claims_path.exists()
-        tasks_exists = tasks_path.exists()  
+        tasks_exists = tasks_path.exists()
         if not claims_exists and not tasks_exists:
             return None
 
@@ -207,6 +208,7 @@ class MemoryAnalyzer:
 
         current = self._pick_smallest_todo_task(tasks)
         if current is not None:
+            # logger.info(f"(test) snapshot execute: current task: {current}")
             exec_template_path = self._shared_root_dir() / "memprompts" / "progress_execution.md"
             if not exec_template_path.exists():
                 logger.warning("progress_execution.md not found at %s", exec_template_path)
@@ -215,6 +217,7 @@ class MemoryAnalyzer:
             return self.snapshot_execute(task_objective, current, claims, template)
 
         else:
+            # logger.info("(test) snapshot plan: no todo tasks, claims: %s", claims)
             plan_template_path = self._shared_root_dir() / "memprompts" / "progress_planning.md"
             if not plan_template_path.exists():
                 logger.warning("progress_planning.md not found at %s", plan_template_path)
@@ -492,14 +495,18 @@ class MemoryAnalyzer:
         target_file = config.get("file")
         payload_key = config.get("payload_key", target)
         text_field = config.get("text_field")
+        # logger.info(f"(test) Starting deduplication for {target}: target_file={target_file}, payload_key={payload_key}, text_field={text_field}")
         if target_file is None or not text_field:
             return output
 
         current_items = self._extract_items_from_output(output, payload_key)
+        # logger.info(f"(test) Extracted {len(current_items)} items from output for {target}")
         if not current_items:
+            # logger.info(f"(test) return")
             return output
 
         existing_items = self._read_items_file(target_file, payload_key)
+        # logger.info(f"(test) Read {len(existing_items)} existing items from {target_file} for {target}")
         dedup_settings = {
             k: v
             for k, v in config.items()
@@ -511,12 +518,14 @@ class MemoryAnalyzer:
             text_field,
             dedup_settings,
         )
+        # logger.info(f"(test) Deduplicated to {len(deduped_all_items)} total unique items for {target} after merging existing and new")
         new_item_ids = {id(item) for item in deduped_new_items}
         if target == "tasks":
             self._renumber_tasks_in_place(deduped_all_items)
         else:
             self._renumber_claims_in_place(deduped_all_items)
         deduped_new_items = [item for item in deduped_all_items if id(item) in new_item_ids]
+        # logger.info(f"(test) Deduplicated {len(current_items)} {target} to {len(deduped_new_items)} new unique items (total {len(deduped_all_items)}), writing to {target_file}")
         self._write_items_file(target_file, payload_key, deduped_all_items)
         if (
             isinstance(output.get("data"), dict)

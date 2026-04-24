@@ -12,7 +12,6 @@ except ImportError:
 
 import argparse
 import asyncio
-import atexit
 import collections
 import concurrent.futures
 import copy
@@ -32,10 +31,8 @@ from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 import numpy as np
 import pandas as pd
-import httpx
+import boto3
 import yaml
-from anthropic import Anthropic
-from anthropic import AsyncAnthropic
 from datasets import load_dataset
 from pydantic import BaseModel
 from tqdm import tqdm
@@ -85,10 +82,10 @@ class GroundTruth:
     metadata: Optional[Dict[str, Any]] = None
 
 
-class AnthropicChatModel:
-    """Thin wrapper around the Anthropic client with a LangChain-like interface."""
+class BedrockChatModel:
+    """Thin wrapper around the boto3 Bedrock converse API with a LangChain-like interface."""
 
-    def __init__(self, client: Anthropic, model: str, **invoke_params: Any) -> None:
+    def __init__(self, client: Any, model: str, **invoke_params: Any) -> None:
         self._client = client
         self._model = model
         self._invoke_params = invoke_params
@@ -97,7 +94,7 @@ class AnthropicChatModel:
         self, messages: Iterable[Any], response_format: Optional[Dict[str, str]] = None
     ) -> SimpleNamespace:
         system_prompt: Optional[str] = None
-        formatted_messages: List[Dict[str, str]] = []
+        formatted_messages: List[Dict[str, Any]] = []
         for message in messages:
             if isinstance(message, Message):
                 role, content = message.role, message.content
@@ -110,29 +107,33 @@ class AnthropicChatModel:
             if role == "system":
                 system_prompt = content
             else:
-                formatted_messages.append({"role": role, "content": content})
+                formatted_messages.append({"role": role, "content": [{"text": content}]})
 
         if not formatted_messages:
-            formatted_messages = [{"role": "user", "content": ""}]
+            formatted_messages = [{"role": "user", "content": [{"text": ""}]}]
 
         call_params = dict(self._invoke_params)
         max_tokens = call_params.pop("max_tokens", call_params.pop("max_completion_tokens", 4096))
+        temperature = call_params.pop("temperature", None)
+
+        converse_kwargs: Dict[str, Any] = {
+            "modelId": self._model,
+            "messages": formatted_messages,
+            "inferenceConfig": {"maxTokens": max_tokens},
+        }
+        if temperature is not None:
+            converse_kwargs["inferenceConfig"]["temperature"] = temperature
         if system_prompt is not None:
-            call_params["system"] = system_prompt
+            converse_kwargs["system"] = [{"text": system_prompt}]
 
-        response = self._client.messages.create(
-            model=self._model,
-            max_tokens=max_tokens,
-            messages=formatted_messages,
-            **call_params,
-        )
+        response = self._client.converse(**converse_kwargs)
 
+        output_message = response.get("output", {}).get("message", {})
+        content_blocks = output_message.get("content", [])
         text_parts: List[str] = []
-        for block in (response.content or []):
-            if hasattr(block, "text"):
-                text_parts.append(block.text)
-            elif isinstance(block, dict) and block.get("type") == "text":
-                text_parts.append(block.get("text", ""))
+        for block in content_blocks:
+            if "text" in block:
+                text_parts.append(block["text"])
         message_content = "".join(text_parts)
         return SimpleNamespace(content=message_content)
 
@@ -249,7 +250,7 @@ def normalise_set_answer(value: Optional[str]) -> set:
 
 def build_eval_model(
     config_path: Path, model_override: Optional[str] = None
-) -> Tuple[AnthropicChatModel, Dict[str, Any]]:
+) -> Tuple[BedrockChatModel, Dict[str, Any]]:
     with open(config_path, "r", encoding="utf-8") as f:
         conf = yaml.safe_load(f)
 
@@ -259,43 +260,24 @@ def build_eval_model(
 
     llm_conf = dict(eval_conf)
     token_limit = llm_conf.pop("token_limit", 4096)
-    verify_ssl = llm_conf.pop("verify_ssl", True)
+    llm_conf.pop("verify_ssl", None)
+    llm_conf.pop("api_key", None)
+    llm_conf.pop("base_url", None)
+    llm_conf.pop("max_retries", None)
+    llm_conf.pop("timeout", None)
 
-    api_key = llm_conf.pop("api_key", None)
     model_name = llm_conf.pop("model", None)
     if model_override:
         model_name = model_override
-    base_url = llm_conf.pop("base_url", None)
-    max_retries = llm_conf.pop("max_retries", 3)
-    timeout = llm_conf.pop("timeout", 1200)  # 20 min; disables 10-min streaming requirement
+    region_name = llm_conf.pop("region_name", "us-west-2")
 
-    if not api_key:
-        raise ValueError("EVAL_MODEL.api_key is required for Anthropic client configuration")
     if not model_name:
-        raise ValueError("EVAL_MODEL.model is required for Anthropic client configuration")
+        raise ValueError("EVAL_MODEL.model is required for Bedrock client configuration")
 
-    http_client = None
-    if not verify_ssl:
-        http_client = httpx.Client(verify=False)
-
-    client_kwargs: Dict[str, Any] = {
-        "api_key": api_key,
-        "max_retries": max_retries,
-        "timeout": timeout,
-    }
-    if base_url:
-        client_kwargs["base_url"] = base_url
-    if http_client:
-        client_kwargs["http_client"] = http_client
-
-    client = Anthropic(**client_kwargs)
-    # Anthropic max_tokens is output limit (typically ≤8192); token_limit in conf is input context
+    client = boto3.client("bedrock-runtime", region_name=region_name)
     max_tokens = min(token_limit or 4096, 8192)
     llm_conf["max_tokens"] = max_tokens
-    model = AnthropicChatModel(client, model_name, **llm_conf)
-
-    if http_client:
-        atexit.register(http_client.close)
+    model = BedrockChatModel(client, model_name, **llm_conf)
 
     if model_override:
         eval_conf = dict(eval_conf)
@@ -304,7 +286,7 @@ def build_eval_model(
 
 
 def judge_answer_finsearchcomp(
-    llm: AnthropicChatModel,
+    llm: BedrockChatModel,
     question: str,
     ground_truth: str,
     prediction: str,
@@ -337,7 +319,7 @@ def judge_answer_finsearchcomp(
 
 
 def judge_answer(
-    llm: AnthropicChatModel,
+    llm: BedrockChatModel,
     question: str,
     ground_truth: str,
     prediction: str,
@@ -405,7 +387,7 @@ def judge_answer(
 
 
 def evaluate_predictions(
-    llm: AnthropicChatModel,
+    llm: BedrockChatModel,
     predictions: Iterable[Prediction],
     ground_truth_map: Dict[str, GroundTruth],
     benchmark_type: Optional[BenchmarkType] = None,
@@ -565,17 +547,17 @@ def _load_eval_conf(config_path: Path) -> Dict[str, Any]:
 
 
 def _resolve_eval_model(benchmark: str, override: Optional[str]) -> Optional[str]:
-    """Return Anthropic model name for evaluation. Use --eval-model to override."""
+    """Return Bedrock model ID for evaluation. Use --eval-model to override."""
     if override:
         return override
     if benchmark in {"deepsearchqa", "dsqa"}:
-        return "claude-haiku-4-5"
+        return "us.anthropic.claude-haiku-4-5-20251001-v1:0"
     if benchmark == "xbench":
-        return "claude-haiku-4-5"
+        return "us.anthropic.claude-haiku-4-5-20251001-v1:0"
     if benchmark == "hle":
-        return "claude-sonnet-4-5-20250929"
+        return "us.anthropic.claude-sonnet-4-5-20250929-v1:0"
     if benchmark == "browsecomp":
-        return "claude-sonnet-4-5-20250929"
+        return "us.anthropic.claude-sonnet-4-5-20250929-v1:0"
     return None
 
 
@@ -1580,7 +1562,7 @@ def _parse_browsecomp_judge_response(judge_response: str) -> Tuple[int, str, int
 
 
 def _grade_browsecomp_question(
-    llm: AnthropicChatModel,
+    llm: BedrockChatModel,
     question_text: str,
     correct_answer: str,
     prediction: str,
@@ -1805,24 +1787,43 @@ class ExtractedAnswer(BaseModel):
     strict: bool
 
 
-async def _extract_answer(
-    client: AsyncAnthropic,
+def _extract_answer_sync(
+    client: Any,
     model: str,
     question: str,
     correct_answer: str,
     response: str,
 ) -> Optional[Dict[str, Any]]:
     prompt = JUDGE_PROMPT.format(question=question, correct_answer=correct_answer, response=response)
+    system_prompt = (
+        "You must respond with valid JSON only matching this schema:\n"
+        '{"extracted_final_answer": "<string>", "reasoning": "<string>", '
+        '"correct": "<yes or no>", "confidence": <int 0-100>, "strict": <true or false>}\n'
+        "Do not include any text outside the JSON object."
+    )
     try:
-        parsed = await client.messages.parse(
-            model=model,
-            max_tokens=4096,
-            messages=[{"role": "user", "content": prompt}],
-            output_format=ExtractedAnswer,
+        resp = client.converse(
+            modelId=model,
+            messages=[{"role": "user", "content": [{"text": prompt}]}],
+            system=[{"text": system_prompt}],
+            inferenceConfig={"maxTokens": 4096},
         )
-        content = parsed.parsed_output
-        if content is None:
-            return None
+        output_message = resp.get("output", {}).get("message", {})
+        content_blocks = output_message.get("content", [])
+        text_parts = []
+        for block in content_blocks:
+            if "text" in block:
+                text_parts.append(block["text"])
+        text = "".join(text_parts).strip()
+        if text.startswith("```json"):
+            text = text[7:]
+        if text.startswith("```"):
+            text = text[3:]
+        if text.endswith("```"):
+            text = text[:-3]
+        text = text.strip()
+        parsed = json.loads(text)
+        content = ExtractedAnswer(**parsed)
         return {
             "correct_answer": correct_answer,
             "model_answer": content.extracted_final_answer,
@@ -1835,8 +1836,8 @@ async def _extract_answer(
         return None
 
 
-async def _add_judge_response(
-    client: AsyncAnthropic,
+def _add_judge_response_sync(
+    client: Any,
     model: str,
     question: Dict[str, Any],
     predictions: Dict[str, Any],
@@ -1850,28 +1851,32 @@ async def _add_judge_response(
         return unique_id, prediction
 
     response = prediction["response"]
-    content = await _extract_answer(client, model, question_text, correct_answer, response)
+    content = _extract_answer_sync(client, model, question_text, correct_answer, response)
     if content is not None:
         prediction["judge_response"] = content
         return unique_id, prediction
     return None, None
 
 
-async def _judge_all_responses(
-    client: AsyncAnthropic,
+def _judge_all_responses_sync(
+    client: Any,
     model: str,
     questions: List[Dict[str, Any]],
     predictions: Dict[str, Any],
     num_workers: int,
 ) -> List[Tuple[Optional[str], Optional[Dict[str, Any]]]]:
-    semaphore = asyncio.Semaphore(num_workers)
-
-    async def bound_func(question: Dict[str, Any]):
-        async with semaphore:
-            return await _add_judge_response(client, model, question, predictions)
-
-    tasks = [bound_func(q) for q in questions]
-    results = await tqdm_asyncio.gather(*tasks)
+    results = []
+    with concurrent.futures.ThreadPoolExecutor(max_workers=num_workers) as executor:
+        futures = {
+            executor.submit(_add_judge_response_sync, client, model, q, predictions): q
+            for q in questions
+        }
+        for future in tqdm(concurrent.futures.as_completed(futures), total=len(futures), desc="HLE Judging"):
+            try:
+                results.append(future.result())
+            except Exception as exc:
+                logger.error("HLE judge worker error: %s", exc)
+                results.append((None, None))
     return results
 
 
@@ -1998,14 +2003,9 @@ def _run_hle(
     model_name = model_override or eval_conf.get("model")
     if not model_name:
         raise ValueError("EVAL_MODEL.model is required for HLE evaluation")
-    api_key = eval_conf.get("api_key")
-    if not api_key:
-        raise ValueError("EVAL_MODEL.api_key is required for HLE evaluation")
-    base_url = eval_conf.get("base_url")
-    max_retries = eval_conf.get("max_retries", 3)
-    timeout = eval_conf.get("timeout", 180)
+    region_name = eval_conf.get("region_name", "us-west-2")
 
-    client = AsyncAnthropic(api_key=api_key, base_url=base_url, max_retries=max_retries, timeout=timeout)
+    client = boto3.client("bedrock-runtime", region_name=region_name)
 
     output_dir = output_dir or predictions_path.parent
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -2050,7 +2050,7 @@ def _run_hle(
 
     questions = [q for q in questions if q["id"] in predictions and q["id"] not in judged_predictions]
 
-    results = asyncio.run(_judge_all_responses(client, model_name, questions, predictions, num_workers))
+    results = _judge_all_responses_sync(client, model_name, questions, predictions, num_workers)
     for unique_id, prediction in results:
         if unique_id is not None:
             judged_predictions[unique_id] = prediction

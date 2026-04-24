@@ -120,6 +120,40 @@ def _get_local_model_dir(hf_model_id: str) -> str:
     base = os.getenv("QWEN_EMBEDDING_CACHE_DIR") or os.path.realpath(_DEFAULT_LOCAL_MODEL_DIR)
     return os.path.join(base, hf_model_id.replace("/", "--"))
 
+
+def _load_pretrained_prefer_local(cls, hf_model_id: str):
+    """Load a pretrained model/tokenizer: local save dir first, then HuggingFace Hub (and save locally)."""
+    local_dir = _get_local_model_dir(hf_model_id)
+    if os.path.isdir(local_dir) and os.listdir(local_dir):
+        return cls.from_pretrained(local_dir, local_files_only=True)
+    obj = cls.from_pretrained(hf_model_id)
+    os.makedirs(local_dir, exist_ok=True)
+    obj.save_pretrained(local_dir)
+    return obj
+
+
+def _select_best_gpu() -> str:
+    """Pick the CUDA device with the most free memory via nvidia-smi (no CUDA context init)."""
+    try:
+        result = subprocess.run(
+            ["nvidia-smi", "--query-gpu=memory.free", "--format=csv,noheader,nounits"],
+            capture_output=True, text=True, timeout=5,
+        )
+        if result.returncode != 0:
+            return "cpu"
+        lines = [l.strip() for l in result.stdout.strip().splitlines() if l.strip()]
+        if not lines:
+            return "cpu"
+        free_mbs = [int(l) for l in lines]
+        best_idx = max(range(len(free_mbs)), key=lambda i: free_mbs[i])
+        # logger.info(
+        #     f"(test) Selected GPU {best_idx} with {free_mbs[best_idx]} MB free memory for embeddings."
+        # )
+        return f"cuda:{best_idx}"
+    except (FileNotFoundError, subprocess.TimeoutExpired, ValueError):
+        return "cpu"
+
+
 def get_qwen3_embeddings(
     texts: List[str],
     model: str = "Qwen3-Embedding-8B",
@@ -132,7 +166,7 @@ def get_qwen3_embeddings(
     try:
         import torch  # type: ignore[reportMissingImports]
         from transformers import AutoModel, AutoTokenizer  # type: ignore[reportMissingImports]
-        from huggingface_hub import snapshot_download
+        from huggingface_hub import snapshot_download  # type: ignore[reportMissingImports]
     except Exception as e:
         raise RuntimeError(
             "transformers and torch are required for local Qwen3 embeddings."
@@ -141,22 +175,31 @@ def get_qwen3_embeddings(
     normalized_texts = [normalize_text(text) for text in texts]
     hf_model_id = "Qwen/Qwen3-Embedding-8B" if model == "Qwen3-Embedding-8B" else model
     model_dir = _get_local_model_dir(hf_model_id)
-    if not os.path.exists(model_dir) or not os.listdir(model_dir):
-        logger.info(f"Downloading Qwen3 embedding model to {model_dir}...")
+    if not os.path.isdir(model_dir) or not os.listdir(model_dir):
         snapshot_download(repo_id=hf_model_id, local_dir=model_dir, local_dir_use_symlinks=False)
-        
-    # cache_dir: Optional[str] = os.getenv("QWEN_EMBEDDING_CACHE_DIR")
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+
+    cache_dir: Optional[str] = os.getenv("QWEN_EMBEDDING_CACHE_DIR")
+    device = _select_best_gpu()
     cache_key = hf_model_id
 
     if cache_key not in _EMBEDDING_MODEL_CACHE:
+        import torch  # already imported above, but needed for dtype
         tokenizer = AutoTokenizer.from_pretrained(model_dir, local_files_only=True)
         embed_model = AutoModel.from_pretrained(
-            model_dir,
-            local_files_only=True,
-            device_map="auto" if device == "cuda" else "cpu",
-            torch_dtype=torch.float16,
+                model_dir,
+                local_files_only=True,
+                device_map="auto" if device.startswith("cuda") else "cpu",
+                torch_dtype=torch.float16,
         )
+        # if device == "cpu":
+        #     embed_model = AutoModel.from_pretrained(model_dir, local_files_only=True, device_map=device)
+        # else:
+        #     embed_model = AutoModel.from_pretrained(
+        #         model_dir,
+        #         local_files_only=True,
+        #         device_map=device,
+        #         torch_dtype=torch.float16,
+        #     )
         embed_model.eval()
         _EMBEDDING_MODEL_CACHE[cache_key] = (tokenizer, embed_model)
 

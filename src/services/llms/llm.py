@@ -4,8 +4,7 @@ import logging
 from pathlib import Path
 from typing import Any, Dict, Optional
 
-import httpx
-from langchain_anthropic import ChatAnthropic
+from langchain_aws import ChatBedrockConverse
 from functools import lru_cache
 from src.config.config import load_yaml_config
 from src.schema.types import LLMType
@@ -27,21 +26,20 @@ def get_full_config() -> Dict[str, Any]:
 
 def _prepare_llm_kwargs(conf: Dict[str, Any]) -> Dict[str, Any]:
     kwargs = conf.copy()
-    kwargs.setdefault("max_retries", 3)
 
-    # Map token_limit to max_tokens for ChatAnthropic.
-    # Anthropic models cap max_tokens at 64000 (output tokens), so we must not exceed that.
+    # Map token_limit to max_tokens for ChatBedrockConverse.
     token_limit = kwargs.pop("token_limit", None)
     if token_limit is not None:
         kwargs["max_tokens"] = min(token_limit, 64000)
 
-    if not kwargs.pop("verify_ssl", True):
-        kwargs["http_client"] = httpx.Client(verify=False)
-        kwargs["http_async_client"] = httpx.AsyncClient(verify=False)
+    # Remove fields not used by ChatBedrockConverse
+    kwargs.pop("api_key", None)
+    kwargs.pop("base_url", None)
+    kwargs.pop("verify_ssl", None)
 
     return kwargs
 
-def create_llm(llm_type: LLMType) -> ChatAnthropic:
+def create_llm(llm_type: LLMType) -> ChatBedrockConverse:
     config_key = LLM_CONFIG_MAP.get(llm_type)
     if not config_key:
         raise ValueError(f"Unsupported LLM type: {llm_type}")
@@ -53,10 +51,10 @@ def create_llm(llm_type: LLMType) -> ChatAnthropic:
         raise ValueError(f"Configuration for {llm_type} ({config_key}) must be a dictionary.")
 
     llm_kwargs = _prepare_llm_kwargs(llm_conf)
-    return ChatAnthropic(**llm_kwargs)
+    return ChatBedrockConverse(**llm_kwargs)
 
 def get_max_tokens(llm_type: LLMType) -> Optional[int]:
     config_key = LLM_CONFIG_MAP.get(llm_type)
     full_conf = get_full_config()
-    
+
     return full_conf.get(config_key, {}).get("token_limit")

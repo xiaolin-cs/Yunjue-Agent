@@ -29,14 +29,15 @@ logger = logging.getLogger(__name__)
 
 COSTS_FILENAME = "run_costs.json"
 
-# Anthropic pricing per 1M tokens (input, output) - USD, as of 2025
-# Source: https://docs.anthropic.com/en/docs/about-claude/pricing
+# Anthropic on Bedrock pricing per 1M tokens (input, output) - USD
+# Source: https://aws.amazon.com/bedrock/pricing/
 DEFAULT_PRICING: Dict[str, tuple[float, float]] = {
-    "claude-sonnet-4-5-20250929": (3.0, 15.0),
-    "claude-haiku-4-20250929": (1.0, 5.0),
-    "claude-3-5-sonnet-20241022": (3.0, 15.0),
-    "claude-3-haiku-20240307": (0.25, 1.25),
-    "claude-3-opus-20240229": (15.0, 75.0),
+    "us.anthropic.claude-sonnet-4-5-20250929-v1:0": (3.0, 15.0),
+    "us.anthropic.claude-haiku-4-5-20251001-v1:0": (1.0, 5.0),
+    "us.anthropic.claude-3-5-sonnet-20241022-v2:0": (3.0, 15.0),
+    "us.anthropic.claude-3-haiku-20240307-v1:0": (0.25, 1.25),
+    "us.anthropic.claude-3-opus-20240229-v1:0": (15.0, 75.0),
+    "us.anthropic.claude-opus-4-6-v1": (15.0, 75.0),
     "default": (3.0, 15.0),  # fallback for unknown models
 }
 
