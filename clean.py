@@ -23,8 +23,8 @@ PRESERVED_FILES = {
     "conf.yaml",
     "conf.yaml.example",
     "dataloader.py",
-    "evolve.py",
     "install.sh",
+    "run_dataset.py",
     "pyproject.toml",
     "uv.lock",
 }

@@ -14,7 +14,6 @@ class Configuration:
 
     dynamic_tools_dir: str  # Directory for private dynamic tools
     dynamic_tools_public_dir: str = "dynamic_tools_public"  # Directory for public dynamic tools
-    max_task_execution_cnt: int = 5
 
     @classmethod
     def resolve(cls, config: Optional[RunnableConfig] = None) -> "Configuration":
